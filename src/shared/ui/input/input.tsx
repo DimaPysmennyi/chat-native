@@ -17,10 +17,10 @@ export function Input(props: IInputProps) {
                     style={[
                         styles.input,
                         style,
-                        {backgroundColor: isFocused ? COLORS.greenSecondary : COLORS.greenPrimary}
+                        {backgroundColor: isFocused ? COLORS.greySecondary : COLORS.greyPrimary}
                     ]}
                     {...otherProps}
-                    placeholderTextColor={COLORS.textBisqueOpacity}
+                    placeholderTextColor={COLORS.whiteOpacity}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                 />
@@ -50,11 +50,11 @@ function Password(props: IInputProps) {
                     style={[
                         styles.input,
                         style,
-                        {backgroundColor: isFocused ? COLORS.greenSecondary : COLORS.greenPrimary}
+                        {backgroundColor: isFocused ? COLORS.greySecondary : COLORS.greyPrimary}
                     ]}
                     {...otherProps}
                     secureTextEntry={true}
-                    placeholderTextColor={COLORS.textBisqueOpacity}
+                    placeholderTextColor={COLORS.whiteOpacity}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                 /> 

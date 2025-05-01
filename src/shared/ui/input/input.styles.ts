@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     },
     label: {
         fontSize: 20,
-        color: COLORS.textBisque,
+        color: COLORS.white,
         marginBottom: 5,
     },
 
@@ -16,8 +16,8 @@ export const styles = StyleSheet.create({
         height: 50,
         borderRadius: 5,
         fontSize: 20,
-        backgroundColor: COLORS.greenPrimary,
-        color: COLORS.textBisque,
+        backgroundColor: COLORS.greyPrimary,
+        color: COLORS.white,
         paddingHorizontal: 20,
         paddingVertical: 10,
     

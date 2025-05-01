@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text } from "react-native";
 import { IButtonProps } from "./button.types"
-import { styles } from "./buttom.styles";
+import { styles } from "./button.styles";
 
 
 export function Button(props: IButtonProps) {
@@ -10,7 +10,7 @@ export function Button(props: IButtonProps) {
 			{...touchableOpacityProps}
 			disabled={disabled}
 			style={[disabled ? styles.disabled : null, styles.button]}>
-			<Text>{label}</Text>
+			<Text style={styles.text}>{label}</Text>
 		</TouchableOpacity>
 	);
 }

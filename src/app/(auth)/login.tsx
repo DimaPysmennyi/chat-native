@@ -17,7 +17,7 @@ export default function Login(){
             <StatusBar style="auto"/>
             <LoginForm/>
             <Text style={{color: COLORS.white, fontSize: 20}}>Already registered? <Link href="/register">Register</Link></Text>
-            {/* <Header/> */}
+            <Header/>
         </SafeAreaView>
     )
 }

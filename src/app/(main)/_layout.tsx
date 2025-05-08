@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
 
-export default function AuthLayout(){
+export default function MainLayout(){
     return(
         <Stack screenOptions={{
             headerShown: false
         }}
-        initialRouteName="registration/step-one">
+        initialRouteName="main">
         </Stack>
     )
 }

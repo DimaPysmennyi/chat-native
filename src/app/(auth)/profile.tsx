@@ -8,8 +8,6 @@ export default function Profile(){
         <SafeAreaView style={{backgroundColor: "#000000", flex: 1, alignItems: "center", justifyContent: "center", gap: 30}}> 
             <Text style={{color: "white"}}>{user?.username}</Text>
             <Text style={{color: "white"}}>{user?.email}</Text>
-            <Text style={{color: "white"}}>{user?.firstname}</Text>
-            <Text style={{color: "white"}}>{user?.lastname}</Text>
         </SafeAreaView>
     )
 }

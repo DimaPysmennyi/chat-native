@@ -5,7 +5,7 @@ export default function AuthLayout(){
         <Stack screenOptions={{
             headerShown: false
         }}
-        initialRouteName="register">
+        initialRouteName="registration/step-one">
         </Stack>
     )
 }

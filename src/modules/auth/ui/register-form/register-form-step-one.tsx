@@ -9,8 +9,8 @@ import { useRouter } from "expo-router";
 import { useSendCode } from "../../hooks";
 
 export function RegisterFormStepOne() {
-	const { handleSubmit, control } = useForm<IRegister>();
-	const { register, resultMessage } = useAuthContext();
+	const { handleSubmit, watch, control } = useForm<IRegister>();
+	const { resultMessage } = useAuthContext();
 	const router = useRouter();
 	function onSubmit(data: IRegister) {
         useSendCode(data.email);
@@ -90,6 +90,33 @@ export function RegisterFormStepOne() {
 							<Input.Password
 								placeholder="Password"
 								label="Password"
+								onChange={field.onChange}
+								onChangeText={field.onChange}
+								value={field.value}
+								error={fieldState.error?.message}
+							/>
+						);
+					}}
+				></Controller>
+				<Controller
+					control={control}
+					name="confirmPassword"
+					rules={{
+						required: {
+							value: true,
+							message: "Password is required",
+						},
+						minLength: {
+							value: 8,
+							message: "Password should be at least 8 symbols",
+						},
+						validate: (val: string) => {if (watch('password') != val){ return 'Passwords do not match!' }}
+					}}
+					render={({ field, fieldState }) => {
+						return (
+							<Input.Password
+								placeholder="Confirm Password"
+								label="Confirm Password"
 								onChange={field.onChange}
 								onChangeText={field.onChange}
 								value={field.value}

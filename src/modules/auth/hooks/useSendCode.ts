@@ -11,10 +11,8 @@ export async function useSendCode(email: string){
                 'Content-Type': 'application/json'
             }
         })
-        console.log(response)
+        
         const result: Response<string> = await response.json();
-        console.log(1123)
-        console.log(result);
         if (result.status == "error"){
             console.error("Result error:", result.message);
             return;

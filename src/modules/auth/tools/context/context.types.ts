@@ -9,7 +9,8 @@ export interface IUser {
 }
 
 export interface IAuthContext{
-    user: IUser | null
+    user: IUser | null,
+    resultMessage: string | null,
     login: (email: string, password: string) => void
     register: (firstname: string, lastname: string, username: string, email: string, password: string) => void
     isAuthenticated: () => boolean

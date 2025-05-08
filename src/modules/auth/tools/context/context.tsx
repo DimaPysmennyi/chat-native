@@ -2,9 +2,11 @@ import { createContext, useContext, useState, useEffect } from "react"
 import { IUser, IAuthContext, IAuthContextProviderProps } from "./context.types"
 import { Response } from "../../../../shared/types";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from "expo-router";
 
 const initialValue: IAuthContext = {
     user: null,
+    resultMessage: null,
     login: (email: string, password: string) => {},
     register: (firstname: string, lastname: string, username: string, email: string, password: string) => {},
     isAuthenticated: () => false,
@@ -19,10 +21,12 @@ export function useAuthContext(){
 
 export function AuthContextProvider(props: IAuthContextProviderProps){
     const [user, setUser] = useState<IUser | null>(null)
+    const [resultMessage, setResultMessage] = useState<string | null>(null)
+    const router = useRouter()
 
     async function getData(token: string){
         try{
-            const response = await fetch('http://192.168.1.1:8000/api/user/me', {
+            const response = await fetch('http://192.168.0.51:8000/api/user/me', {
                 headers: {'Authorization': `Bearer ${token}`}
             })
             const result: Response<IUser> = await response.json()
@@ -38,7 +42,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps){
 
     async function login(email: string, password: string){
         try{
-            const response = await fetch('http://localhost:8000/api/user/login', { 
+            const response = await fetch('http://192.168.0.51:8000/api/user/login', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({'email': email, 'password': password})
@@ -58,7 +62,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps){
 
     async function register(firstname: string, lastname: string, username: string, email: string, password: string){
         try {
-            const response = await fetch('http://192.168.0.1:8000/api/user/register', { 
+            const response = await fetch('http:/192.168.0.51:8000/api/user/register', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({'firstname': firstname, 'lastname': lastname, 'username': username, 'email': email, 'password': password})
@@ -67,14 +71,16 @@ export function AuthContextProvider(props: IAuthContextProviderProps){
             const result: Response<string> = await response.json();
             console.log(result)
             if (result.status === 'error'){
-                console.log(result.message);
+                setResultMessage(result.message)
                 return;
             }
             getData(result.data)
+            // setResultMessage("Successful Registration")
+            router.navigate('/profile')
             await AsyncStorage.setItem('token', result.data)
 
         } catch(error){
-            console.error(error)
+            console.log(error)
         }
     }
 
@@ -105,6 +111,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps){
     return <authContext.Provider 
     value={{
         user: user,
+        resultMessage: resultMessage,
         login: login,
         register: register,
         isAuthenticated: isAuthenticated,

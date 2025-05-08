@@ -8,7 +8,7 @@ import { useAuthContext } from "../../tools/context";
 
 export function RegisterForm(){
     const { handleSubmit, control } = useForm<IRegister>();
-    const { register } = useAuthContext();
+    const { register, resultMessage } = useAuthContext();
     function onSubmit(data: IRegister){
         register(data.firstname, data.lastname, data.username, data.email, data.password)
     }
@@ -131,9 +131,10 @@ export function RegisterForm(){
                 >
 
                 </Controller>
+                <Text style={{color: "#22C55E", textAlign: "center", fontSize: 16}}>{resultMessage}</Text>
             </View>
             <View style={styles.buttonBox}>
-                <Button label="Submit" onPress={handleSubmit(onSubmit)}></Button>
+                <Button label="Submit" onPress={handleSubmit(onSubmit)}/>
             </View>
         </View>
     )

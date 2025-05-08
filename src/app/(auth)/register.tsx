@@ -10,7 +10,7 @@ export default function Register(){
         <SafeAreaView style={{backgroundColor: "#000000", flex: 1, alignItems: "center", justifyContent: "center", gap: 30}}> 
             <StatusBar style="auto"/>
             <RegisterForm/>
-            <Text style={{color: COLORS.white, fontSize: 20}}>Already registered? <Link href="/login">Login</Link></Text>
+            <Text style={{color: COLORS.white, fontSize: 20}}>Already registered? <Link href="/login" style={{color: COLORS.blue}}>Login</Link></Text>
         </SafeAreaView>
     )
 }

@@ -1,3 +1,3 @@
 
 export { Button } from "./button";
-export { ImageButton } from "./imageButton"
+export { ImageButton } from "../image-button/image-button"

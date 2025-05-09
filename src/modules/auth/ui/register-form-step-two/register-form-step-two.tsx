@@ -19,6 +19,7 @@ export function RegisterFormStepTwo() {
 
 	function onSubmit(data: { code: string }) {
 		register(params.username, params.email, params.password, data.code);
+		router.navigate('/login')
 	}
 
 	return (

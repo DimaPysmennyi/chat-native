@@ -5,6 +5,7 @@ import { ILogin } from "../../types/login";
 import { styles } from "./login.styles";
 import { Button } from "../../../../shared/ui/button";
 import { useAuthContext } from "../../tools/context";
+import { useRouter } from "expo-router";
 
 export function LoginForm() {
 	const { handleSubmit, control } = useForm<ILogin>({
@@ -12,9 +13,11 @@ export function LoginForm() {
 	});
 
     const {login} = useAuthContext()
+	const router = useRouter();
 
 	function onSubmit(data: ILogin) {
-		login(data.email, data.password)
+		login(data.email, data.password);
+		router.navigate('/main')
 	}
 	return (
 		<View style={styles.container}>

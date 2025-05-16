@@ -4,3 +4,6 @@ export { LikeIcon } from "./like-icon";
 export { LogoIcon } from "./logo-icon";
 export { PlusIcon } from "./plus-icon";
 export { SettingsIcon } from "./settings-icon";
+export { ImageIcon } from "./image-icon";
+export { SmileIcon } from "./smile-icon";
+export { CrossIcon } from "./cross-icon";

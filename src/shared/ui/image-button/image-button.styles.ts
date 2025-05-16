@@ -8,6 +8,6 @@ export const styles = StyleSheet.create({
       backgroundColor: 'transparent',
       alignItems: 'center',
       justifyContent: 'center',
-      borderWidth: 2, 
+      borderWidth: 1.5, 
       borderColor: '#543C52', 
 }})

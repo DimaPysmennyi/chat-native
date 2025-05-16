@@ -5,7 +5,9 @@ import { ILogin } from "../../types/login";
 import { styles } from "./login.styles";
 import { Button } from "../../../../shared/ui/button";
 import { useAuthContext } from "../../tools/context";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
+import { COLORS } from "../../../../shared/ui/colors";
+import { LogoIcon } from "../../../../shared/ui/icons";
 
 export function LoginForm() {
 	const { handleSubmit, control } = useForm<ILogin>({
@@ -21,7 +23,15 @@ export function LoginForm() {
 	}
 	return (
 		<View style={styles.container}>
-            <Text style={styles.text}>Authorization</Text>
+
+			<View style = {styles.infoblock}>
+				<View style = {styles.textblock}>
+					<Text style={{color: "#81818D", fontSize: 24}}><Link href="/registration/step-one" style={{color: "#81818D", fontSize: 24}}>Реєстрація</Link></Text>
+					<Text style={{color: "#070A1C", fontSize: 24, fontWeight: 700, borderBottomWidth: 2,}}><Link href="/login" style={{color: "#070A1C", fontSize: 24, fontWeight: 700, borderBottomWidth: 2,}}>Авторизація</Link></Text> 
+				</View>
+				<View style = {styles.welcometextblock}>
+					<Text style = {styles.welcometext}> Раді тебе знову бачити! </Text>
+				</View>
 			<View style={styles.form}>
 				<Controller
 					control={control}
@@ -36,11 +46,11 @@ export function LoginForm() {
 					render={({ field, fieldState }) => {
 						return (
 							<Input
-								placeholder="Email"
+								placeholder="you@example.com"
 								onChange={field.onChange}
 								onChangeText={field.onChange}
 								value={field.value}
-								label="Email"
+								label="Електронна пошта"
 								autoCorrect={false}
                                 
 							/>
@@ -64,11 +74,11 @@ export function LoginForm() {
 					render={({ field, fieldState }) => {
 						return (
 							<Input.Password
-								placeholder="Password"
+								placeholder="Пароль"
 								onChange={field.onChange}
 								onChangeText={field.onChange}
 								value={field.value}
-								label="Password"
+								label="Введи пароль"
 								autoCorrect={false}
 							/>
 						);
@@ -76,7 +86,8 @@ export function LoginForm() {
 				/>
 			</View>
 			<View style={styles.buttonBlock}>
-				<Button label="Submit" onPress={handleSubmit(onSubmit)} />
+				<Button label="Увійти" onPress={handleSubmit(onSubmit)} />
+			</View>
 			</View>
 		</View>
 	);

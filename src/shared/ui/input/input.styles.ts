@@ -3,23 +3,25 @@ import { COLORS } from '../colors'
 
 export const styles = StyleSheet.create({
     inputContainer: {
-        padding: 10,
+        padding: 5,
     },
     label: {
-        fontSize: 20,
-        color: COLORS.white,
+        fontSize: 16,
+        color: "#070A1C",
         marginBottom: 5,
     },
 
     input: {
-        width: 300,
-        height: 50,
-        borderRadius: 5,
-        fontSize: 20,
-        backgroundColor: COLORS.greyPrimary,
-        color: COLORS.white,
+        width: 311,
+        height: 42,
+        borderRadius: 10,
+        fontSize: 16,
+        backgroundColor:"#FFFFFF",
+        color:"#81818D",
         paddingHorizontal: 20,
         paddingVertical: 10,
+        borderWidth:1,
+        borderColor:"#CDCED2",
     
     },
     errorText: {

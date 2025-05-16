@@ -5,7 +5,7 @@ import { Input } from "../../../../shared/ui/input";
 import { Button } from "../../../../shared/ui/button";
 import { styles } from "./register-form-step-one.styles";
 import { useAuthContext } from "../../tools/context";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useSendCode } from "../../hooks";
 
 export function RegisterFormStepOne() {
@@ -26,30 +26,15 @@ export function RegisterFormStepOne() {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.text}>Registration</Text>
+			<View style = {styles.inforegblock}>
+				<View style = {styles.textblock}>
+									<Text style={{color: "#81818D", fontSize: 24,fontWeight: 700, borderBottomWidth: 2}}><Link href="/registration/step-one" style={{color: "#81818D", fontSize: 24}}>Реєстрація</Link></Text>
+									<Text style={{color: "#070A1C", fontSize: 24}}><Link href="/login" style={{color: "#070A1C", fontSize: 24, fontWeight: 700, borderBottomWidth: 2,}}>Авторизація</Link></Text> 
+				</View>
+			<View style = {styles.welcometextblock}>
+					<Text style = {styles.welcometext}> Приєднуйся до World IT </Text>
+			</View>
 			<View style={styles.inputs}>
-				<Controller
-					control={control}
-					name="username"
-					rules={{
-						required: {
-							value: true,
-							message: "Username is required",
-						},
-					}}
-					render={({ field, fieldState }) => {
-						return (
-							<Input
-								placeholder="Username"
-								label="Username"
-								onChange={field.onChange}
-								onChangeText={field.onChange}
-								value={field.value}
-								error={fieldState.error?.message}
-							/>
-						);
-					}}
-				></Controller>
 				<Controller
 					control={control}
 					name="email"
@@ -62,8 +47,8 @@ export function RegisterFormStepOne() {
 					render={({ field, fieldState }) => {
 						return (
 							<Input
-								placeholder="E-mail"
-								label="E-mail"
+								placeholder="you@example.com"
+								label="Електронна пошта"
 								onChange={field.onChange}
 								onChangeText={field.onChange}
 								value={field.value}
@@ -88,8 +73,8 @@ export function RegisterFormStepOne() {
 					render={({ field, fieldState }) => {
 						return (
 							<Input.Password
-								placeholder="Password"
-								label="Password"
+								placeholder="Введи пароль"
+								label="Пароль"
 								onChange={field.onChange}
 								onChangeText={field.onChange}
 								value={field.value}
@@ -115,8 +100,8 @@ export function RegisterFormStepOne() {
 					render={({ field, fieldState }) => {
 						return (
 							<Input.Password
-								placeholder="Confirm Password"
-								label="Confirm Password"
+								placeholder="Повтори пароль"
+								label="Підтверди пароль"
 								onChange={field.onChange}
 								onChangeText={field.onChange}
 								value={field.value}
@@ -136,7 +121,8 @@ export function RegisterFormStepOne() {
 				</Text>
 			</View>
 			<View style={styles.buttonBox}>
-				<Button label="Submit" onPress={handleSubmit(onSubmit)} />
+				<Button label="Створити акаунт" onPress={handleSubmit(onSubmit)} />
+			</View>
 			</View>
 		</View>
 	);

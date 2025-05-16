@@ -15,12 +15,9 @@ export function Input(props: IInputProps) {
 
                 <TextInput
                     style={[
-                        styles.input,
-                        style,
-                        {backgroundColor: isFocused ? COLORS.greySecondary : COLORS.greyPrimary}
+                        styles.input,                       
                     ]}
                     {...otherProps}
-                    placeholderTextColor={COLORS.whiteOpacity}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                 />
@@ -49,12 +46,9 @@ function Password(props: IInputProps) {
                 <TextInput
                     style={[
                         styles.input,
-                        style,
-                        {backgroundColor: isFocused ? COLORS.greySecondary : COLORS.greyPrimary}
                     ]}
                     {...otherProps}
                     secureTextEntry={true}
-                    placeholderTextColor={COLORS.whiteOpacity}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                 /> 

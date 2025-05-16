@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     },
     label: {
         fontSize: 20,
-        color: COLORS.white,
+        color: '#070A1C',
         marginBottom: 5,
     },
 

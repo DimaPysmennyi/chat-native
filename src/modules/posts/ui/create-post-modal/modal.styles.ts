@@ -7,14 +7,15 @@ export const styles = StyleSheet.create({
 		paddingTop: 24,
         paddingHorizontal: 16,
         paddingBottom: 44,
-		minHeight: 600,
-        width: '100%'
+		minHeight: 589,
+        
 	},
 	modalTitle: {
-		fontSize: 18,
-		fontWeight: "600",
-		marginBottom: 16,
+		fontSize: 24,
+		// fontWeight: "600",
+		// marginBottom: 16,
 		color: "#000",
+		fontFamily: "GTWalsheimPro-Medium"
 	},
 	actions: {
 		flexDirection: "row",
@@ -29,17 +30,25 @@ export const styles = StyleSheet.create({
 		borderRadius: 20,
 		paddingVertical: 8,
 		paddingHorizontal: 16,
+		fontFamily: "GTWalsheimPro-Regular"
 	},
 	publishText: {
+		fontFamily: "GTWalsheimPro-Regular",
 		color: "#fff",
 		marginRight: 6,
 		fontWeight: "600",
 	},
     closeButton: {
         position: 'absolute',
+		width: 20,
+		height: 20,
         top: 20,
         right: 15,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+	inputs: {
+		gap: 16,
+		paddingVertical: 24
+	}
 });

@@ -11,15 +11,15 @@ export const styles = StyleSheet.create({
 		padding: 12,
 		flexDirection: "row",
 		alignItems: "center",
-    justifyContent: "space-between",
+		justifyContent: "space-between",
 		borderBottomWidth: 1,
 		borderBottomColor: "#CDCED2",
 		minHeight: 78,
 	},
-  userInfo: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
+	userInfo: {
+		flexDirection: "row",
+		alignItems: "center",
+	},
 	avatar: {
 		width: 46,
 		height: 46,
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
 		marginRight: 10,
 	},
 	username: {
-		fontFamily: "GT Walsheim Pro",
+		fontFamily: "GTWalsheimPro-Regular",
 		fontWeight: "bold",
 		fontSize: 14,
 		color: "#070A1C",
@@ -35,15 +35,15 @@ export const styles = StyleSheet.create({
 	postBody: {
 		marginTop: 16,
 		paddingHorizontal: 16,
-    gap: 16
+		gap: 16,
 	},
 	text: {
-		fontFamily: "GT Walsheim Pro",
+		fontFamily: "GTWalsheimPro-Regular",
 		fontSize: 14,
 		color: "#070A1C",
 	},
 	hashtags: {
-		fontFamily: "GT Walsheim Pro",
+		fontFamily: "GTWalsheimPro-Regular",
 		color: "#543C52",
 		fontSize: 14,
 	},
@@ -56,12 +56,12 @@ export const styles = StyleSheet.create({
 	footerText: {
 		fontSize: 14,
 		color: "#070A1C",
+		fontFamily: "GTWalsheimPro-Regular"
 	},
 	dotsIcon: {
 		// position: "relative",
 		// left: 240,
 		// bottom: 12,
-
 	},
 	imageGrid: {
 		gap: 10,

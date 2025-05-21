@@ -18,5 +18,35 @@ export const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
         justifyContent: "center",
+    },
+    verifinfoblock:{
+        backgroundColor:COLORS.white,
+        width: 343,
+        height:421,
+        flexDirection:"column"
+
+    },
+    articleText:{
+        fontSize: 24,
+        fontWeight:500,
+    },
+    articleTextblock:{
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    emailTextblock:{
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    emailText:{
+        fontSize:14,
+        fontWeight:500
+    },
+    additionText:{
+        fontSize:16,
+        fontWeight:400
     }
+
+
+
 })

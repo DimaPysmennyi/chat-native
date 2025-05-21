@@ -2,7 +2,7 @@ import { Response } from "../../../shared/types"
 
 export async function useSendCode(email: string){
     try{
-        const response = await fetch('http://192.168.0.51:8000/api/user/send-code', {
+        const response = await fetch('http://192.168.0.51:8000/api/users/send-code', {
             method: 'POST',
             body: JSON.stringify({
                 email: email

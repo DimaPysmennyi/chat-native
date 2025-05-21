@@ -12,11 +12,12 @@ export const styles = StyleSheet.create({
 	},
 	disabled: {
 		borderWidth: 2,
-		borderColor: COLORS.pinkSecondary,
+		borderColor: COLORS.blueOpacity,
 		opacity: 0.5,
 	},
 	text: {
 		color: COLORS.white,
-		fontSize: 20
+		fontSize: 20,
+		fontFamily: "GTWalsheimPro-Regular"
 	}
 });

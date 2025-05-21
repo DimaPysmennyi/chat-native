@@ -10,4 +10,5 @@ export const styles = StyleSheet.create({
       justifyContent: 'center',
       borderWidth: 1.5, 
       borderColor: '#543C52', 
+      fontFamily: "GTWalsheimPro-Regular"
 }})

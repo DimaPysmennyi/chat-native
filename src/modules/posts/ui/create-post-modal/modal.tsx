@@ -1,17 +1,22 @@
 import { Controller, useForm } from "react-hook-form";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import Modal from "react-native-modal";
-import { ICreatePost, ICreatePostModalProps } from "../../types/modal.types";
-
+import { ICreatePostModalProps } from "../../types/modal.types";
 import { Input } from "../../../../shared/ui/input";
 import { styles } from "./modal.styles";
 import { ImageButton } from "../../../../shared/ui/button";
 import { CrossIcon, ImageIcon, SmileIcon } from "../../../../shared/ui/icons";
 import { useState } from "react";
 import { pickImage } from "../../../../shared/tools/pick-image";
+import { ICreatePost } from "../../types/post.types";
+import { useCreatePost } from "../../hooks/useCreatePost";
+import { useRouter } from "expo-router";
+import { usePostContext } from "../../context/context";
+
 export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 	const { control, handleSubmit, reset } = useForm<ICreatePost>();
 	const [images, setImages] = useState<string[]>([]);
+	const { getPosts } = usePostContext();
 
 	async function handlePickImage() {
 		const assets = await pickImage({
@@ -41,103 +46,109 @@ export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 			tags: hashtags.map((tag) => tag.slice(1).toLowerCase()),
 			images,
 		};
-		console.log(allData);
+
 		reset();
 		setImages([]);
 		onClose();
+		useCreatePost(allData);
+		getPosts();
 	};
 
 	return (
 		<Modal isVisible={isVisible}>
 			<View style={styles.modalContainer}>
-				<TouchableOpacity
-					style={[styles.closeButton, { borderWidth: 0 }]}
-					onPress={onClose}
-				>
+				<TouchableOpacity style={styles.closeButton} onPress={onClose}>
 					<CrossIcon width={20} height={20} fill={"#000000"} />
 				</TouchableOpacity>
 
 				<Text style={styles.modalTitle}>Створення публікації</Text>
-				<Controller
-					control={control}
-					name="title"
-					rules={{
-						required: {
-							value: true,
-							message: "Назва публікації обов'язкова",
-						},
-					}}
-					render={({ field, fieldState }) => {
-						return (
-							<Input
-								placeholder="Напишіть назву публікації"
-								label="Назва публікації"
-								onChange={field.onChange}
-								onChangeText={field.onChange}
-								value={field.value}
-								error={fieldState.error?.message}
-							/>
-						);
-					}}
-				/>
+				<View style={styles.inputs}>
+					<Controller
+						control={control}
+						name="title"
+						rules={{
+							required: {
+								value: true,
+								message: "Назва публікації обов'язкова",
+							},
+						}}
+						render={({ field, fieldState }) => {
+							return (
+								<Input
+									placeholder="Напишіть назву публікації"
+									label="Назва публікації"
+									onChange={field.onChange}
+									onChangeText={field.onChange}
+									value={field.value}
+									error={fieldState.error?.message}
+								/>
+							);
+						}}
+					/>
 
-				<Controller
-					control={control}
-					name="topic"
-					render={({ field, fieldState }) => {
-						return (
-							<Input
-								placeholder="Напишіть тему публікаціїї"
-								label="Тема публікації"
-								onChange={field.onChange}
-								onChangeText={field.onChange}
-								value={field.value}
-								error={fieldState.error?.message}
-							/>
-						);
-					}}
-				/>
+					<Controller
+						control={control}
+						name="topic"
+						render={({ field, fieldState }) => {
+							return (
+								<Input
+									placeholder="Напишіть тему публікаціїї"
+									label="Тема публікації"
+									onChange={field.onChange}
+									onChangeText={field.onChange}
+									style={{
+										minHeight: 42,
+										height: 0,
+										maxHeight: 140,
+										backgroundColor: "red",
+									}}
+									value={field.value}
+									error={fieldState.error?.message}
+								/>
+							);
+						}}
+					/>
 
-				<Controller
-					control={control}
-					name="content"
-					rules={{
-						required: {
-							value: true,
-							message: "Опис публікації обов'язковий",
-						},
-					}}
-					render={({ field, fieldState }) => {
-						return (
-							<Input
-								placeholder="Напишіть опис публікації"
-								style={{ height: 140 }}
-								onChange={field.onChange}
-								onChangeText={field.onChange}
-								multiline
-								value={field.value}
-								error={fieldState.error?.message}
-							/>
-						);
-					}}
-				/>
+					<Controller
+						control={control}
+						name="content"
+						rules={{
+							required: {
+								value: true,
+								message: "Опис публікації обов'язковий",
+							},
+						}}
+						render={({ field, fieldState }) => {
+							return (
+								<Input
+									placeholder="Напишіть опис публікації"
+									onChange={field.onChange}
+									onChangeText={field.onChange}
+									multiline={true}
+									value={field.value}
+									error={fieldState.error?.message}
+								/>
+							);
+						}}
+					/>
 
-				<Controller
-					control={control}
-					name="links"
-					render={({ field, fieldState }) => {
-						return (
-							<Input
-								placeholder="Посилання"
-								label="Посилання"
-								onChange={field.onChange}
-								onChangeText={field.onChange}
-								value={field.value}
-								error={fieldState.error?.message}
-							/>
-						);
-					}}
-				/>
+					<Controller
+						control={control}
+						name="links"
+						render={({ field, fieldState }) => {
+							return (
+								<Input
+									placeholder="Посилання"
+									label="Посилання"
+									onChange={field.onChange}
+									onChangeText={field.onChange}
+									value={field.value}
+									error={fieldState.error?.message}
+								/>
+							);
+						}}
+					/>
+				</View>
 
 				<View style={styles.actions}>
 					<ImageButton onPress={handlePickImage}>

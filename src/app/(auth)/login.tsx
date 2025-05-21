@@ -1,10 +1,6 @@
-import { ImageBackground, Text, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LoginForm } from "../../modules/auth/ui/login-form";
 import { StatusBar } from "expo-status-bar";
-import { Link } from 'expo-router';
-import { COLORS } from '../../shared/ui/colors';
-import { LogoIcon } from '../../shared/ui/icons';
 
 
 

@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
 import { styles } from "./post.styles";
 import { IPostProps } from "../../types/post.types";
 import { avatars } from "../../../../../assets/avatars/avatars";
@@ -6,17 +6,52 @@ import { DotsIcon, EyeIcon, LikeIcon } from "../../../../shared/ui/icons";
 
 // Надо файлик PostCard с отображением одного поста, есть PostList с отображением масива постов
 
+const PostImage = (imageObject: { image: string }) => {
+	const { image } = imageObject;
+	return (
+		<Image
+			source={{
+				uri: image,
+			}}
+			style={styles.imageHalf}
+		/>
+	);
+};
+
+const PostTag = (tagObject: { tag: string }) => {
+	const { tag } = tagObject;
+	return <Text style={styles.hashtags}>#{tag}</Text>;
+};
+
 export function PostCard(props: IPostProps) {
 	const {
 		avatar,
 		username,
 		headerImage,
+		title,
 		text,
 		hashtags,
 		images,
 		likes,
 		views,
 	} = props;
+
+	const splitedImageList = [];
+	const splitedTagsList = [];
+
+	if (images) {
+		const splitedImage = images.split(" ");
+		for (let image of splitedImage) {
+			splitedImageList.push({ image });
+		}
+	}
+
+	if (hashtags) {
+		const splitedTags = hashtags.split(" ");
+		for (let tag of splitedTags) {
+			splitedTagsList.push({ tag });
+		}
+	}
 
 	return (
 		<View style={styles.postContainer}>
@@ -34,44 +69,26 @@ export function PostCard(props: IPostProps) {
 			</View>
 
 			<View style={styles.postBody}>
+				<Text style={styles.text}>{title}</Text>
 				<Text style={styles.text}>{text}</Text>
-				{hashtags && <Text style={styles.hashtags}>{hashtags}</Text>}
+				
+				{hashtags && (
+					<FlatList
+						data={splitedTagsList}
+						renderItem={({ item }) => (
+							<PostTag tag={item.tag} />
+						)}
+					/>
+				)}
 
 				{images && (
 					<View style={styles.imageGrid}>
 						<View style={styles.row}>
-							<Image
-								source={{
-									uri: "https://miro.medium.com/v2/resize:fit:720/format:webp/0*j5Ad6U0uv_rau7Nd",
-								}}
-								style={styles.imageHalf}
-							/>
-							<Image
-								source={{
-									uri: "https://godandman.com/wp-content/uploads/sites/10/2025/05/martin-baron-ZL4t9yucR_o-unsplash.jpg?resize=1280,853",
-								}}
-								style={styles.imageHalf}
-							/>
-						</View>
-
-						<View style={styles.row}>
-							<Image
-								source={{
-									uri: "https://gretchenrubin.com/wp-content/uploads/2025/05/2ddkmmnzjcu.jpg",
-								}}
-								style={styles.imageThird}
-							/>
-							<Image
-								source={{
-									uri: "https://miro.medium.com/v2/resize:fit:1400/1*znckX_KHeU_kkHSiRrFgOg.jpeg",
-								}}
-								style={styles.imageThird}
-							/>
-							<Image
-								source={{
-									uri: "https://miro.medium.com/v2/resize:fit:720/format:webp/0*iO5VTR-zkr-G1a82",
-								}}
-								style={styles.imageThird}
+							<FlatList
+								data={splitedImageList}
+								renderItem={({ item }) => (
+									<PostImage image={item.image} />
+								)}
 							/>
 						</View>
 					</View>

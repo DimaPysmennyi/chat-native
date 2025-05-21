@@ -6,7 +6,6 @@ import {
 } from "./context.types";
 import { Response } from "../../../../shared/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
 
 const initialValue: IAuthContext = {
 	user: null,
@@ -31,12 +30,11 @@ export function useAuthContext() {
 export function AuthContextProvider(props: IAuthContextProviderProps) {
 	const [user, setUser] = useState<IUser | null>(null);
 	const [resultMessage, setResultMessage] = useState<string | null>(null);
-	const router = useRouter();
 
 	async function getData(token: string) {
 		try {
 			const response = await fetch(
-				"http://192.168.0.51:8000/api/user/me",
+				"http://192.168.0.51:8000/api/users/me",
 				{
 					headers: { Authorization: `Bearer ${token}` },
 				}
@@ -55,7 +53,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 	async function login(email: string, password: string) {
 		try {
 			const response = await fetch(
-				"http://192.168.0.51:8000/api/user/login",
+				"http://192.168.0.51:8000/api/users/login",
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -83,7 +81,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 	) {
 		try {
 			const response = await fetch(
-				"http:/192.168.0.51:8000/api/user/register",
+				"http:/192.168.0.51:8000/api/users/register",
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -103,7 +101,6 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 				return;
 			}
 			getData(result.data);
-			// router.navigate('/profile')
 			await AsyncStorage.setItem("token", result.data);
 		} catch (error) {
 			console.log(error);

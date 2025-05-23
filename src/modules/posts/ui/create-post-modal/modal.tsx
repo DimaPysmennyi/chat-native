@@ -1,22 +1,60 @@
 import { Controller, useForm } from "react-hook-form";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import Modal from "react-native-modal";
-import { ICreatePostModalProps } from "../../types/modal.types";
+import { ICreatePostModalProps, ITagItemProps } from "../../types/modal.types";
 import { Input } from "../../../../shared/ui/input";
 import { styles } from "./modal.styles";
 import { ImageButton } from "../../../../shared/ui/button";
-import { CrossIcon, ImageIcon, SmileIcon } from "../../../../shared/ui/icons";
-import { useState } from "react";
+import {
+	CrossIcon,
+	ImageIcon,
+	PlusIcon,
+	SmileIcon,
+} from "../../../../shared/ui/icons";
+import { useEffect, useState } from "react";
 import { pickImage } from "../../../../shared/tools/pick-image";
 import { ICreatePost } from "../../types/post.types";
 import { useCreatePost } from "../../hooks/useCreatePost";
-import { useRouter } from "expo-router";
 import { usePostContext } from "../../context/context";
+import { COLORS } from "../../../../shared/ui/colors";
+
+const defaultTags = [
+	"#відпочинок",
+	"#натхнення",
+	"#життя",
+	"#природа",
+	"#читання",
+	"#спокій",
+	"#гармонія",
+	"#музика",
+	"#фільми",
+	"#подорожі",
+];
+
+function TagItem({ text, textColor, ...touchableProps }: ITagItemProps) {
+	return (
+		<TouchableOpacity {...touchableProps}>
+			<Text style={[styles.tagText, { color: textColor }]}>{text}</Text>
+		</TouchableOpacity>
+	);
+}
 
 export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 	const { control, handleSubmit, reset } = useForm<ICreatePost>();
 	const [images, setImages] = useState<string[]>([]);
+	const [allTags, setAllTags] = useState<string[]>([]);
+	const [selectedTags, setSelectedTags] = useState<string[]>([]);
+	const [isTagAdding, setIsTagAdding] = useState<boolean>(false);
+	const [newTag, setNewTag] = useState<string>("");
 	const { getPosts } = usePostContext();
+
+	useEffect(() => {
+		setAllTags(defaultTags);
+	}, []);
+
+	// useEffect(() => {
+	// 	console.log(selectedTags);
+	// }, [selectedTags]);
 
 	async function handlePickImage() {
 		const assets = await pickImage({
@@ -32,18 +70,10 @@ export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 		}
 	}
 
-	const onSubmit = (data: ICreatePost) => {
-		const hashtags = data.content.match(/#\w+/g) || [];
-
-		const cleanedContent = data.content
-			.replace(/#\w+/g, "")
-			.replace(/\s+/g, " ")
-			.trim();
-
+	function onSubmit(data: ICreatePost) {
 		const allData = {
 			...data,
-			content: cleanedContent,
-			tags: hashtags.map((tag) => tag.slice(1).toLowerCase()),
+			tags: selectedTags,
 			images,
 		};
 
@@ -52,13 +82,28 @@ export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 		onClose();
 		useCreatePost(allData);
 		getPosts();
-	};
+	}
+
+	function onPress(tag: string) {
+		setSelectedTags((prev) =>
+			prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+		);
+	}
+
+	function addTag() {
+		const formattedTag = newTag.startsWith("#") ? newTag : `#${newTag}`;
+		if (formattedTag && !allTags.includes(formattedTag)) {
+			setAllTags((prev) => [...prev, formattedTag]);
+		}
+		setNewTag("");
+		setIsTagAdding(false);
+	}
 
 	return (
 		<Modal isVisible={isVisible}>
 			<View style={styles.modalContainer}>
 				<TouchableOpacity style={styles.closeButton} onPress={onClose}>
-					<CrossIcon width={20} height={20} fill={"#000000"} />
+					<CrossIcon width={20} height={20}/>
 				</TouchableOpacity>
 
 				<Text style={styles.modalTitle}>Створення публікації</Text>
@@ -108,7 +153,68 @@ export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 							);
 						}}
 					/>
-
+					<View style={styles.tagsContainer}>
+						{allTags.map((tag, index) => (
+							<TagItem
+								key={index}
+								text={tag}
+								onPress={() => onPress(tag)}
+								textColor={
+									!selectedTags.includes(tag)
+										? COLORS.purple
+										: COLORS.purpleOpacity
+								}
+								style={
+									!selectedTags.includes(tag)
+										? styles.tagButton
+										: styles.selectedTagButton
+								}
+							/>
+						))}
+						<View
+							style={{
+								width: 20,
+								height: 30,
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
+							<TouchableOpacity
+								style={styles.addButton}
+								onPress={() => {
+									setIsTagAdding(true);
+								}}
+							>
+								<PlusIcon
+									height={14}
+									width={14}
+									fill={"#543C52"}
+								/>
+							</TouchableOpacity>
+						</View>
+					</View>
+					{isTagAdding && (
+						<View
+							style={{
+								flexDirection: "row",
+								alignItems: "center",
+								gap: 8,
+							}}
+						>
+							<Input
+								placeholder="Введіть новий тег"
+								value={newTag}
+								onChangeText={setNewTag}
+								onSubmitEditing={addTag}
+							/>
+							<TouchableOpacity
+								style={styles.closeTagButton}
+								onPress={() => setIsTagAdding(false)}
+							>
+								<CrossIcon width={20} height={20} />
+							</TouchableOpacity>
+						</View>
+					)}
 					<Controller
 						control={control}
 						name="content"

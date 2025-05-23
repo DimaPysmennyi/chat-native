@@ -20,7 +20,7 @@ const PostImage = (imageObject: { image: string }) => {
 
 const PostTag = (tagObject: { tag: string }) => {
 	const { tag } = tagObject;
-	return <Text style={styles.hashtags}>#{tag}</Text>;
+	return <Text style={styles.hashtags}>{tag}</Text>;
 };
 
 export function PostCard(props: IPostProps) {

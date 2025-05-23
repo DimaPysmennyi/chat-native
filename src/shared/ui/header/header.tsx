@@ -5,12 +5,13 @@ import { LogoIcon } from "../icons/logo-icon";
 import { PlusIcon } from "../icons/plus-icon";
 import { SettingsIcon } from "../icons/settings-icon";
 import { ExitIcon } from "../icons/exit-icon";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import { CreatePostModal } from "../../../modules/posts/ui/create-post-modal";
 
 export function Header() {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
+	const router = useRouter();
 	return (
 		<View style={styles.header}>
 			<CreatePostModal isVisible={isVisible} onClose={() => {console.log(111); setIsVisible(false)}}></CreatePostModal>
@@ -21,7 +22,7 @@ export function Header() {
 				<ImageButton onPress={() => setIsVisible(true)}>
 					<PlusIcon height={20} width={20} fill={"#543C52"} />
 				</ImageButton>
-				<ImageButton>
+				<ImageButton onPress={() => router.replace('/settings')}>
 					<SettingsIcon height={20} width={20} fill={"#543C52"} />
 				</ImageButton>
 				<ImageButton>

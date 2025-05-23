@@ -17,6 +17,7 @@ import { ICreatePost } from "../../types/post.types";
 import { useCreatePost } from "../../hooks/useCreatePost";
 import { usePostContext } from "../../context/context";
 import { COLORS } from "../../../../shared/ui/colors";
+import { useRouter } from "expo-router";
 
 const defaultTags = [
 	"#відпочинок",
@@ -46,6 +47,7 @@ export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 	const [selectedTags, setSelectedTags] = useState<string[]>([]);
 	const [isTagAdding, setIsTagAdding] = useState<boolean>(false);
 	const [newTag, setNewTag] = useState<string>("");
+	const router = useRouter();
 	const { getPosts } = usePostContext();
 
 	useEffect(() => {
@@ -82,6 +84,7 @@ export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 		onClose();
 		useCreatePost(allData);
 		getPosts();
+		router.navigate('/main')
 	}
 
 	function onPress(tag: string) {

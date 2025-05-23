@@ -7,4 +7,5 @@ export { SettingsIcon } from "./settings-icon";
 export { ImageIcon } from "./image-icon";
 export { SmileIcon } from "./smile-icon";
 export { CrossIcon } from "./cross-icon";
-export { EyeSlashIcon } from "./eye-slash-icon"
+export { EyeSlashIcon } from "./eye-slash-icon";
+export { PencilIcon } from "./pencil-icon";

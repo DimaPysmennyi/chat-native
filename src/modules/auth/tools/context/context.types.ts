@@ -1,9 +1,15 @@
 import { ReactNode } from "react"
+import { IPost } from "../../../posts/types"
 
 export interface IUser {
-    username: string
-    email: string
-    password: string
+    id: number,
+    email: string,
+    username?: string,
+    firstname?: string,
+    lastname?: string,
+    posts: IPost[],
+    image?: string,
+    birthdate?: string
 }
 
 export interface IAuthContext{

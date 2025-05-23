@@ -15,12 +15,14 @@ export function LoginForm() {
 		defaultValues: { email: "", password: "" },
 	});
 
-	const { login } = useAuthContext();
+	const { user, login } = useAuthContext();
 	const router = useRouter();
 
 	function onSubmit(data: ILogin) {
 		login(data.email, data.password);
-		router.navigate("/main");
+		if (user){
+			router.navigate("/main");
+		}
 	}
 
 	return (

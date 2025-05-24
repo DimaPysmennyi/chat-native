@@ -7,8 +7,6 @@ import { Button } from "../../../../shared/ui/button";
 import { useAuthContext } from "../../tools/context";
 import { Link, useRouter } from "expo-router";
 import { COLORS } from "../../../../shared/ui/colors";
-import { LogoIcon } from "../../../../shared/ui/icons";
-import { useEffect } from "react";
 
 export function LoginForm() {
 	const { handleSubmit, control } = useForm<ILogin>({
@@ -112,11 +110,11 @@ export function LoginForm() {
 						render={({ field, fieldState }) => {
 							return (
 								<Input.Password
-									placeholder="Пароль"
+									placeholder="Введи пароль"
 									onChange={field.onChange}
 									onChangeText={field.onChange}
 									value={field.value}
-									label="Введи пароль"
+									label="Пароль"
 									autoCorrect={false}
 								/>
 							);

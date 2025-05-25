@@ -17,6 +17,12 @@ export const styles = StyleSheet.create({
         padding: 16,
         gap: 16
     },
+
+    editProfileCard: {
+        height: 393,
+        borderColor: COLORS.purple
+    },
+
     topTextBlock:{
         flexDirection: 'row',
         height: 40,
@@ -63,18 +69,29 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 14,
         gap: 24
     },
+
+    editUserInfo: {
+        borderColor: COLORS.purple
+    },
+
     updateForm:{
         gap: 16,
     },
 
+    editButton: {
+        width: 108,
+        backgroundColor: COLORS.purpleOpacity,
+        flexDirection: "row",
+        padding: 10,
+        gap: 10,
+        alignItems: "center",
+        
+    },
 
-
-
-
-
-
-
-
+    editButtonText: {
+        fontFamily: "GTWalsheimPro-Regular",
+        fontSize: 14
+    },
 
     signatureBlock:{
 

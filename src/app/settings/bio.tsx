@@ -2,6 +2,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { UserSettings } from "../../modules/settings/ui/user-settings/";
 import { ScrollView } from "react-native-virtualized-view";
+import { Header } from "../../shared/ui/header";
 
 export default function Bio() {
 	return (
@@ -16,6 +17,7 @@ export default function Bio() {
 		>
 			<ScrollView overScrollMode="never">
 				<StatusBar style="auto" />
+				<Header/>
 				<UserSettings />
 			</ScrollView>
 		</SafeAreaView>

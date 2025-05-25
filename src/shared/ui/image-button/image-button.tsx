@@ -5,7 +5,7 @@ interface Props extends TouchableOpacityProps{}
   
 export function ImageButton(props: Props) {
     return (
-        <TouchableOpacity {...props} style={styles.buttonIMG}>
+        <TouchableOpacity {...props} style={[styles.buttonIMG, props.style]}>
             {props.children}
         </TouchableOpacity>
     )

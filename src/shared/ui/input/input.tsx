@@ -16,7 +16,8 @@ export function Input(props: IInputProps) {
                 
                 <TextInput
                     style={[
-                        styles.input,                       
+                        styles.input,   
+                        style                    
                     ]}
                     {...otherProps}
                     onFocus={() => setIsFocused(true)}

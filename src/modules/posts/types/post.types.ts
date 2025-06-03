@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { AvatarName } from "../../../../assets/avatars/avatars";
 
 export interface IPostProps {

@@ -19,6 +19,7 @@ const initialValue: IAuthContext = {
 	) => {},
 	isAuthenticated: () => false,
 	logout: () => {},
+	getToken: () => {}
 };
 
 const authContext = createContext<IAuthContext>(initialValue);
@@ -129,7 +130,6 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 
 	useEffect(() => {
 		getToken();
-		
 	}, []);
 
 	// useEffect(() => {
@@ -145,6 +145,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 				register: register,
 				isAuthenticated: isAuthenticated,
 				logout: logout,
+				getToken: getToken
 			}}
 		>
 			{props.children}

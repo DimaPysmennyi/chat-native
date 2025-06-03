@@ -18,7 +18,8 @@ export interface IAuthContext{
     login: (email: string, password: string) => void
     register: (username: string, email: string, password: string, code: string) => void
     isAuthenticated: () => boolean
-    logout: () => void
+    logout: () => void,
+    getToken: () => void
 }
 
 export interface IAuthContextProviderProps{

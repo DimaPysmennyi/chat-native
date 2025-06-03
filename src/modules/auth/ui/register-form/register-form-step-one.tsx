@@ -9,6 +9,7 @@ import { Link, useRouter } from "expo-router";
 import { useSendCode } from "../../hooks";
 import { useEffect } from "react";
 import { COLORS } from "../../../../shared/ui/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function RegisterFormStepOne() {
 	const { handleSubmit, watch, control } = useForm<IRegister>();
@@ -25,6 +26,10 @@ export function RegisterFormStepOne() {
 			},
 		});
 	}
+
+	useEffect(() => {
+		AsyncStorage.clear()
+	}, [])
 
 	return (
 		<View style={styles.container}>

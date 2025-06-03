@@ -7,27 +7,88 @@ import { avatars } from "../../../../../assets/avatars/avatars";
 import { useAuthContext } from "../../../auth/tools/context";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "../../../../shared/ui/input";
-import { IUpdateUserForm, IUpdateUserFormPicture } from "../../types/settings.types";
-import { useState } from "react";
+import {
+	IUpdateUserForm,
+	IUpdateUserFormPicture,
+} from "../../types/settings.types";
+import { useEffect, useState } from "react";
 import { useUpdateUser } from "../../hooks";
+import { GalleryIcon } from "../../../../shared/ui/icons/tab-icons";
+import {
+	ImagePickerAsset,
+	launchCameraAsync,
+	launchImageLibraryAsync,
+} from "expo-image-picker";
+import { ImageManipulator } from "expo-image-manipulator";
+import { IUser } from "../../../auth/tools/context/context.types";
 
 export function UserSettings() {
-	const { user } = useAuthContext();
+	let { user } = useAuthContext();
 	const { handleSubmit, control } = useForm<IUpdateUserForm>();
-    const {  control: controlPicture } = useForm<IUpdateUserFormPicture>();
+	const { control: controlPicture } = useForm<IUpdateUserFormPicture>();
 	const [allowedToEdit, setAllowedToEdit] = useState<boolean>(false);
 	const [allowedToEditProfileCard, setAllowedToEditProfileCard] =
 		useState<boolean>(false);
 	const [result, setResult] = useState<string>();
+	let [newUser, setNewUser] = useState<IUser | null>(null);
+	const [avatarImage, setAvatarImage] = useState<string>();
 
-	function onSubmit(data: IUpdateUserForm) {
+	useEffect(() => (user ? setNewUser(user) : undefined), [user]);
+
+	function onSubmit() {
 		if (user) {
-			console.log("entered");
-			useUpdateUser({ id: user.id, ...data });
-			console.log("sent");
-			return;
+			// console.log("entered");
+			useUpdateUser({
+				id: user.id,
+				email: control._formValues.email,
+				firstname: control._formValues.firstname,
+				lastname: control._formValues.lastname,
+				birthdate: control._formValues.birthdate,
+				password: control._formValues.password,
+			});
+			if (newUser) {
+				setNewUser({
+					...newUser,
+					email: control._formValues.email,
+					firstname: control._formValues.firstname,
+					lastname: control._formValues.lastname,
+					birthdate: control._formValues.birthdate,
+				});
+			}
+			// console.log("sent");
 		}
-		console.log(111);
+		// console.log(111);
+	}
+
+	function submitProfileInfo() {
+		if (user) {
+			useUpdateUser({
+				id: user.id,
+				image: avatarImage,
+				username: controlPicture._formValues.username,
+			});
+			setNewUser({
+				image: avatarImage,
+				username: controlPicture._formValues.username,
+				...user,
+			});
+			// console.log("sent");
+		}
+		// console.log(123123123123123);
+	}
+
+	async function addImage() {
+		let image = await launchCameraAsync({
+			mediaTypes: "images",
+		});
+		setAvatarImage(image.assets?.at(0)?.uri);
+	}
+
+	async function chooseImage() {
+		let image = await launchImageLibraryAsync({
+			mediaTypes: "images",
+		});
+		setAvatarImage(image.assets?.at(0)?.uri);
 	}
 
 	return (
@@ -48,9 +109,14 @@ export function UserSettings() {
 								: undefined
 						}
 						onPress={() => {
-							setAllowedToEditProfileCard(
-								(prevState) => !prevState
-							);
+							console.log(allowedToEditProfileCard);
+							if (allowedToEditProfileCard === true) {
+								setAllowedToEditProfileCard(false);
+								submitProfileInfo();
+								return;
+							}
+							setAllowedToEditProfileCard(true);
+							console.log(allowedToEditProfileCard);
 						}}
 					>
 						<PencilIcon
@@ -75,9 +141,14 @@ export function UserSettings() {
 							Оберіть або завантажте фото профілю
 						</Text>
 					) : undefined}
-					{user?.image ? (
+					{avatarImage ? (
 						<Image
-							source={{ uri: user.image }}
+							source={{ uri: avatarImage }}
+							style={styles.avatar}
+						/>
+					) : newUser?.image ? (
+						<Image
+							source={{ uri: newUser.image }}
 							style={styles.avatar}
 						/>
 					) : (
@@ -87,6 +158,9 @@ export function UserSettings() {
 					{allowedToEditProfileCard ? (
 						<View style={{ flexDirection: "row", gap: 24 }}>
 							<TouchableOpacity
+								onPress={() => {
+									addImage();
+								}}
 								style={{
 									width: 129,
 									height: 20,
@@ -110,6 +184,9 @@ export function UserSettings() {
 								</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
+								onPress={() => {
+									chooseImage();
+								}}
 								style={{
 									width: 126,
 									height: 20,
@@ -117,9 +194,10 @@ export function UserSettings() {
 									flexDirection: "row",
 								}}
 							>
-								<PlusIcon
+								<GalleryIcon
 									width={20}
 									fill={COLORS.purple}
+									stroke={COLORS.purple}
 									height={20}
 								/>
 								<Text
@@ -142,29 +220,30 @@ export function UserSettings() {
 						}}
 					>
 						<Text style={styles.nameText}>
-							{user?.firstname} {user?.lastname}
+							{user?.firstname ? newUser?.firstname : "Ім'я"} {user?.lastname ? newUser?.lastname : "Прізвище"}
 						</Text>
-						{ allowedToEditProfileCard ? (
-					        <Controller
-					        	control={controlPicture}
-					        	name="username"
-					        	render={({ field, fieldState }) => {
-					        		return (
-					        			<Input
-					        				placeholder="Ім'я користувача"
-					        				defaultValue={user?.username}
-					        				onChange={field.onChange}
-					        				onChangeText={field.onChange}
-					        				// value={`@${field.value}`}
-					        				label="Ім'я"
-					        			/>
-					        		);
-					        	}}></Controller>
-                                ) : (
-					        		<Text style={styles.usernameText}>
-					        			{user?.username}
-					        		</Text>
-					        	)}
+						{allowedToEditProfileCard ? (
+							<Controller
+								control={controlPicture}
+								name="username"
+								render={({ field, fieldState }) => {
+									return (
+										<Input
+											placeholder="Ім'я користувача"
+											defaultValue={newUser?.username}
+											onChange={field.onChange}
+											onChangeText={field.onChange}
+											// value={`@${field.value}`}
+											label="Ім'я"
+										/>
+									);
+								}}
+							></Controller>
+						) : (
+							<Text style={styles.usernameText}>
+								{newUser?.username}
+							</Text>
+						)}
 					</View>
 				</View>
 			</View>
@@ -181,10 +260,12 @@ export function UserSettings() {
 					<ImageButton
 						style={allowedToEdit ? styles.editButton : undefined}
 						onPress={() => {
-							setAllowedToEdit((prevState) => !prevState);
-							if (!allowedToEdit) {
-								handleSubmit(onSubmit);
+							if (allowedToEdit === true) {
+								setAllowedToEdit(false);
+								onSubmit();
+								return;
 							}
+							setAllowedToEdit(true);
 						}}
 					>
 						<PencilIcon
@@ -211,7 +292,7 @@ export function UserSettings() {
 							return (
 								<Input
 									placeholder="Введіть нове ім'я"
-									defaultValue={user?.firstname}
+									defaultValue={newUser?.firstname}
 									onChange={field.onChange}
 									onChangeText={field.onChange}
 									editable={allowedToEdit}
@@ -229,7 +310,7 @@ export function UserSettings() {
 							return (
 								<Input
 									placeholder="Введіть нове прізвище"
-									defaultValue={user?.lastname}
+									defaultValue={newUser?.lastname}
 									onChange={field.onChange}
 									onChangeText={field.onChange}
 									editable={allowedToEdit}
@@ -247,7 +328,7 @@ export function UserSettings() {
 							return (
 								<Input
 									placeholder="Введіть нову дату народження"
-									defaultValue={user?.birthdate}
+									defaultValue={newUser?.birthdate}
 									onChange={field.onChange}
 									onChangeText={field.onChange}
 									editable={allowedToEdit}
@@ -265,7 +346,7 @@ export function UserSettings() {
 							return (
 								<Input
 									placeholder="Введіть нову електронну адресу"
-									defaultValue={user?.email}
+									defaultValue={newUser?.email}
 									onChange={field.onChange}
 									onChangeText={field.onChange}
 									editable={allowedToEdit}
@@ -297,7 +378,31 @@ export function UserSettings() {
 				</View>
 			</View>
 
-			<View style={styles.signatureBlock}></View>
+			<View style={styles.signatureBlock}>
+				<View style={styles.topTextBlock}>
+					<Text>Варіанти підпису</Text>
+					<ImageButton
+						style={allowedToEdit ? styles.editButton : undefined}
+						onPress={() => {
+							if (allowedToEdit === true) {
+								setAllowedToEdit(false);
+								onSubmit();
+								return;
+							}
+							setAllowedToEdit(true);
+						}}
+					>
+						<PencilIcon
+							width={20}
+							height={20}
+							fill={COLORS.purple}
+						/>
+						{allowedToEdit ? (
+							<Text style={styles.editButtonText}>Зберегти</Text>
+						) : undefined}
+					</ImageButton>
+				</View>
+			</View>
 		</View>
 	);
 }

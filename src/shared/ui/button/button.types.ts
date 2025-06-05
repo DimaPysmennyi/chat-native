@@ -4,4 +4,5 @@ export interface IButtonProps extends TouchableOpacityProps {
 	disabled?: boolean;
 	image?: string;
 	fontSize?: number;
+	textColor?: string;
 }

@@ -18,6 +18,6 @@ export const styles = StyleSheet.create({
 	text: {
 		color: COLORS.white,
 		fontSize: 16,
-		fontFamily: "GTWalsheimPro-Regular"
+		fontFamily: "GTWalsheimPro-Medium"
 	}
 });

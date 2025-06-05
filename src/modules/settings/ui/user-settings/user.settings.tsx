@@ -21,6 +21,7 @@ import {
 } from "expo-image-picker";
 import { ImageManipulator } from "expo-image-manipulator";
 import { IUser } from "../../../auth/tools/context/context.types";
+import { Link } from "expo-router";
 
 export function UserSettings() {
 	let { user } = useAuthContext();
@@ -93,6 +94,7 @@ export function UserSettings() {
 
 	return (
 		<View style={styles.formContainer}>
+			<View><Link href="albums">aaa</Link></View>
 			<View
 				style={
 					allowedToEditProfileCard

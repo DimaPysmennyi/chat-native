@@ -1,7 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import Modal from "react-native-modal";
-import { ICreatePostModalProps, ITagItemProps } from "../../types/modal.types";
+import { IModalProps, ITagItemProps } from "../../types/modal.types";
 import { Input } from "../../../../shared/ui/input";
 import { styles } from "./modal.styles";
 import { ImageButton } from "../../../../shared/ui/button";
@@ -40,7 +40,7 @@ function TagItem({ text, textColor, ...touchableProps }: ITagItemProps) {
 	);
 }
 
-export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
+export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 	const { control, handleSubmit, reset } = useForm<ICreatePost>();
 	const [images, setImages] = useState<string[]>([]);
 	const [allTags, setAllTags] = useState<string[]>([]);
@@ -148,7 +148,6 @@ export function CreatePostModal({ isVisible, onClose }: ICreatePostModalProps) {
 										minHeight: 42,
 										height: 0,
 										maxHeight: 140,
-										backgroundColor: "red",
 									}}
 									value={field.value}
 									error={fieldState.error?.message}

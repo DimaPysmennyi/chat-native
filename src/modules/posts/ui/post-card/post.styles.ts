@@ -58,11 +58,6 @@ export const styles = StyleSheet.create({
 		color: "#070A1C",
 		fontFamily: "GTWalsheimPro-Regular"
 	},
-	dotsIcon: {
-		// position: "relative",
-		// left: 240,
-		// bottom: 12,
-	},
 	imageGrid: {
 		gap: 10,
 	},

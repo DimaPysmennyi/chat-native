@@ -13,7 +13,7 @@ export default function MainPage() {
 	const { user } = useAuthContext();
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-	useEffect(() => !user?.username ? setIsModalVisible(true) : undefined, [user])
+	useEffect(() => { user ? !user?.username ? setIsModalVisible(true) : undefined : undefined}, [user])
 	useEffect(() => allPosts ? setPosts(allPosts) : undefined, [allPosts])
 	
 	let [posts, setPosts] = useState<IPost[]>();

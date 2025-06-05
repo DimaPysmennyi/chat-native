@@ -8,9 +8,11 @@ import { ExitIcon } from "../icons/exit-icon";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import { CreatePostModal } from "../../../modules/posts/ui/create-post-modal";
+import { useAuthContext } from "../../../modules/auth/tools/context";
 
 export function Header() {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
+	const {logout} = useAuthContext();
 	const router = useRouter();
 	return (
 		<View style={styles.header}>
@@ -22,7 +24,7 @@ export function Header() {
 				<ImageButton onPress={() => setIsVisible(true)}>
 					<PlusIcon height={20} width={20} fill={"#543C52"} />
 				</ImageButton>
-				<ImageButton onPress={() => router.replace('/settings')}>
+				<ImageButton onPress={() => {logout(); router.replace('/settings')}}>
 					<SettingsIcon height={20} width={20} fill={"#543C52"} />
 				</ImageButton>
 				<ImageButton>

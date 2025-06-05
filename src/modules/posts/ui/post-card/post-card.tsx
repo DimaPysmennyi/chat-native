@@ -1,8 +1,12 @@
 import { View, Text, Image, FlatList } from "react-native";
 import { styles } from "./post.styles";
-import { IPostProps } from "../../types/post.types";
+import { IPost, IPostProps } from "../../types/post.types";
 import { avatars } from "../../../../../assets/avatars/avatars";
 import { DotsIcon, EyeIcon, LikeIcon } from "../../../../shared/ui/icons";
+import { useAuthContext } from "../../../auth/tools/context";
+import { useEffect, useState } from "react";
+import { PostSettingsModal } from "../post-settings-modal/post-settings-modal";
+import { useUserById } from "../../../../shared/hooks";
 
 // Надо файлик PostCard с отображением одного поста, есть PostList с отображением масива постов
 
@@ -10,10 +14,10 @@ const PostImage = (imageObject: { image: string }) => {
 	const { image } = imageObject;
 	return (
 		<Image
-			source={{
-				uri: image,
-			}}
-			style={styles.imageHalf}
+		source={{
+			uri: image,
+		}}
+		style={styles.imageHalf}
 		/>
 	);
 };
@@ -23,18 +27,30 @@ const PostTag = (tagObject: { tag: string }) => {
 	return <Text style={styles.hashtags}>{tag}</Text>;
 };
 
-export function PostCard(props: IPostProps) {
+export function PostCard(props: IPost) {
 	const {
-		avatar,
-		username,
-		headerImage,
+		id,
 		title,
-		text,
-		hashtags,
+		content,
+		tags,
 		images,
 		likes,
 		views,
+		userId,
 	} = props;
+
+	const { user } = useAuthContext();
+	const { user: postOwner, error } = useUserById(userId);
+	let avatarImage, username;
+
+	useEffect(() => {
+		if (postOwner){
+			avatarImage = postOwner.image;
+			username = postOwner.username;
+		}
+	}, [postOwner])
+
+	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
 	const splitedImageList = [];
 	const splitedTagsList = [];
@@ -46,8 +62,8 @@ export function PostCard(props: IPostProps) {
 		}
 	}
 
-	if (hashtags) {
-		const splitedTags = hashtags.split(" ");
+	if (tags) {
+		const splitedTags = tags.split(" ");
 		for (let tag of splitedTags) {
 			splitedTagsList.push({ tag });
 		}
@@ -57,27 +73,28 @@ export function PostCard(props: IPostProps) {
 		<View style={styles.postContainer}>
 			<View style={styles.postHeader}>
 				<View style={styles.userInfo}>
-					<Image source={avatars[avatar]} style={styles.avatar} />
+					<Image source={avatarImage} style={styles.avatar} />
 					<Text style={styles.username}>{username}</Text>
 				</View>
-				<DotsIcon
-					width={20}
-					height={20}
-					fill={"#81818D"}
-					style={styles.dotsIcon}
-				/>
+				<PostSettingsModal post={props} isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
+				{user?.id === userId ? (
+					<DotsIcon
+						width={20}
+						height={20}
+						fill={"#81818D"}
+						onPress={() => setIsModalVisible(true)}
+					/>
+				) : undefined}
 			</View>
 
 			<View style={styles.postBody}>
 				<Text style={styles.text}>{title}</Text>
-				<Text style={styles.text}>{text}</Text>
-				
-				{hashtags && (
+				<Text style={styles.text}>{content}</Text>
+
+				{tags && (
 					<FlatList
 						data={splitedTagsList}
-						renderItem={({ item }) => (
-							<PostTag tag={item.tag} />
-						)}
+						renderItem={({ item }) => <PostTag tag={item.tag} />}
 					/>
 				)}
 

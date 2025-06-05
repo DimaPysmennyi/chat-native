@@ -4,13 +4,14 @@ import { AvatarName } from "../../../../assets/avatars/avatars";
 export interface IPostProps {
 	avatar: AvatarName;
 	username: string;
-	headerImage?: string;
+	id: number;
     title: string;
 	text: string;
 	hashtags?: string;
 	images?: string;
 	likes: number;
 	views: number;
+	userId: number;
 }
 
 export interface ICreatePost {
@@ -30,7 +31,7 @@ export interface IPost {
 	content: string;
 	links?: string;
 	images?: string;
-	userId: string;
+	userId: number;
 	likes: number;
 	views: number;
 }

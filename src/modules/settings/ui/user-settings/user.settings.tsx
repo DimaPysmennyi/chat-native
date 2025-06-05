@@ -29,7 +29,6 @@ export function UserSettings() {
 	const [allowedToEdit, setAllowedToEdit] = useState<boolean>(false);
 	const [allowedToEditProfileCard, setAllowedToEditProfileCard] =
 		useState<boolean>(false);
-	const [result, setResult] = useState<string>();
 	let [newUser, setNewUser] = useState<IUser | null>(null);
 	const [avatarImage, setAvatarImage] = useState<string>();
 
@@ -37,7 +36,6 @@ export function UserSettings() {
 
 	function onSubmit() {
 		if (user) {
-			// console.log("entered");
 			useUpdateUser({
 				id: user.id,
 				email: control._formValues.email,
@@ -55,9 +53,7 @@ export function UserSettings() {
 					birthdate: control._formValues.birthdate,
 				});
 			}
-			// console.log("sent");
 		}
-		// console.log(111);
 	}
 
 	function submitProfileInfo() {
@@ -141,14 +137,14 @@ export function UserSettings() {
 							Оберіть або завантажте фото профілю
 						</Text>
 					) : undefined}
-					{avatarImage ? (
-						<Image
-							source={{ uri: avatarImage }}
-							style={styles.avatar}
-						/>
-					) : newUser?.image ? (
+					{newUser?.image ? (
 						<Image
 							source={{ uri: newUser.image }}
+							style={styles.avatar}
+						/>
+					) : avatarImage ? (
+						<Image
+							source={{ uri: avatarImage }}
 							style={styles.avatar}
 						/>
 					) : (
@@ -220,7 +216,7 @@ export function UserSettings() {
 						}}
 					>
 						<Text style={styles.nameText}>
-							{user?.firstname ? newUser?.firstname : "Ім'я"} {user?.lastname ? newUser?.lastname : "Прізвище"}
+							{newUser?.firstname ? newUser?.firstname : "Ім'я"} {newUser?.lastname ? newUser?.lastname : "Прізвище"}
 						</Text>
 						{allowedToEditProfileCard ? (
 							<Controller

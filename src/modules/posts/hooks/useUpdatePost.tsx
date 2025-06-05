@@ -1,26 +1,17 @@
-import { useEffect } from "react";
-import { Response } from "../../../shared/types";
 import { useAuthContext } from "../../auth/tools/context";
-import { ICreatePost } from "../types/";
+import { IPost } from "../types";
+import { Response } from "../../../shared/types";
+import { useEffect } from "react";
 
-export function useCreatePost(data: ICreatePost) {
-	const { title, topic, content, links, images, tags } = data;
+export function useUpdatePost(data: IPost) {
+	const { id, title, topic, content, links, images, tags } = data;
 	const { user } = useAuthContext();
-	let imageString = "";
-	if (images) {
-		imageString = images.join(" ");
-	}
 
-	let tagString = "";
-	if (tags) {
-		tagString = tags.join(" ");
-	}
-    
 	useEffect(() => {
-		async function createUser(){
+		async function updateUser() {
 			try {
 				const response = await fetch(
-					"http://192.168.0.51:8000/api/posts/create",
+					`http://192.168.0.51:8000/api/posts/update/${id}`,
 					{
 						method: "POST",
 						body: JSON.stringify({
@@ -28,8 +19,8 @@ export function useCreatePost(data: ICreatePost) {
 							topic: topic,
 							content: content,
 							links: links,
-							images: imageString,
-							tags: tagString,
+							images: images,
+							tags: tags,
 							userId: user?.id,
 						}),
 						headers: {
@@ -37,7 +28,7 @@ export function useCreatePost(data: ICreatePost) {
 						},
 					}
 				);
-		
+
 				const result: Response<string> = await response.json();
 				if (result.status == "error") {
 					console.error("Result error:", result.message);
@@ -48,6 +39,6 @@ export function useCreatePost(data: ICreatePost) {
 				console.error("Caught error", error);
 			}
 		}
-		createUser()
-	}, [user])
+        updateUser();
+	}, [user]);
 }

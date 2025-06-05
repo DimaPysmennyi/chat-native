@@ -33,6 +33,7 @@ export function UserSettings() {
 	let [newUser, setNewUser] = useState<IUser | null>(null);
 	const [avatarImage, setAvatarImage] = useState<string>();
 
+	// useEffect(() => (user ? setNewUser(user) : undefined), []);
 	useEffect(() => (user ? setNewUser(user) : undefined), [user]);
 
 	function onSubmit() {
@@ -90,7 +91,7 @@ export function UserSettings() {
 
 	return (
 		<View style={styles.formContainer}>
-			<View><Link href="albums">aaa</Link></View>
+			<Link href="/settings/albums"><Text>Albums</Text></Link>
 			<View
 				style={
 					allowedToEditProfileCard

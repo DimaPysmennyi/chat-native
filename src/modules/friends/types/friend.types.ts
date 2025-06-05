@@ -6,6 +6,12 @@ export interface IFriendCardProps {
     buttonLabel?: string
 }
 
+export interface IFriend{
+    id: number,
+    friendUserId: number,
+    friendOfId: number
+}
+
 export interface IFriendListProps {
     variant: "requests" | "recommendations" | "friends",
     array: IFriendCardProps[]

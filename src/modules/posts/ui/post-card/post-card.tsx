@@ -41,14 +41,7 @@ export function PostCard(props: IPost) {
 
 	const { user } = useAuthContext();
 	const { user: postOwner, error } = useUserById(userId);
-	let avatarImage, username;
 
-	useEffect(() => {
-		if (postOwner){
-			avatarImage = postOwner.image;
-			username = postOwner.username;
-		}
-	}, [postOwner])
 
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -73,8 +66,8 @@ export function PostCard(props: IPost) {
 		<View style={styles.postContainer}>
 			<View style={styles.postHeader}>
 				<View style={styles.userInfo}>
-					<Image source={avatarImage} style={styles.avatar} />
-					<Text style={styles.username}>{username}</Text>
+					<Image source={{uri: postOwner?.image}} style={styles.avatar} />
+					<Text style={styles.username}>{postOwner?.username}</Text>
 				</View>
 				<PostSettingsModal post={props} isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
 				{user?.id === userId ? (

@@ -18,7 +18,7 @@ export default function Albums() {
 			<ScrollView overScrollMode="never">
 				<StatusBar style="auto" />
 				<Header/>
-
+				<Albums/>
 			</ScrollView>
 		</SafeAreaView>
 	);

@@ -7,5 +7,6 @@ export default function SettingsLayout(){
         }}
         initialRouteName="bio">
         </Stack>
+        
     )
 }

@@ -23,6 +23,6 @@ export function useUserById(id: number){
         }
         
         getUser()
-    }, [id])
+    },[id])
     return {user, error};
 }

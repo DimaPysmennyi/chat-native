@@ -69,8 +69,8 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 			getData(result.data);
 
 			await AsyncStorage.setItem("token", result.data);
-		} catch (error) {
-			console.error(error);
+		} catch(error){
+			console.error(error)
 		}
 	}
 
@@ -103,6 +103,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 			}
 			getData(result.data);
 			await AsyncStorage.setItem("token", result.data);
+			console.log("Токен сохранен?", await AsyncStorage.getItem("token"))
 		} catch (error) {
 			console.log(error);
 		}
@@ -122,9 +123,11 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 
 	async function getToken() {
 		const token = await AsyncStorage.getItem("token");
+
 		if (!token) {
 			return;
 		}
+		console.log(token)
 		getData(token);
 	}
 

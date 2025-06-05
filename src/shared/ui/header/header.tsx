@@ -16,7 +16,7 @@ export function Header() {
 	const router = useRouter();
 	return (
 		<View style={styles.header}>
-			<CreatePostModal isVisible={isVisible} onClose={() => {setIsVisible(false)}}></CreatePostModal>
+			<CreatePostModal isVisible={isVisible} onClose={() => {setIsVisible(false)}}/>
 			<View>
 				<LogoIcon height={18} width={145} fill={"#543C52"} onPress={() => router.push('/main')} />
 			</View>

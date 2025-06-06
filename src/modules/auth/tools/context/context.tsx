@@ -135,10 +135,6 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 		getToken();
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log(user);
-	// }, [user])
-
 	return (
 		<authContext.Provider
 			value={{

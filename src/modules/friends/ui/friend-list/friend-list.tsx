@@ -2,19 +2,9 @@ import { FlatList, View, Text, TouchableOpacity } from "react-native";
 import { FriendCard } from "../friend-card";
 import { IFriendListProps } from "../../types/friend.types";
 import { styles } from "./friend-list.styles";
-import { useAllFriends } from "../../hooks/useAllFriends";
-import { useAuthContext } from "../../../auth/tools/context";
-import { useEffect } from "react";
-
 export function FriendList(props: IFriendListProps) {
 	const { variant, array } = props;
-	const { user } = useAuthContext();
-	let friends;
-	useEffect(() => {
-		if (user){
-			friends = useAllFriends(user.id).friends;
-		}
-	}, [user])
+
 	
 
 	function getLabel() {
@@ -65,7 +55,7 @@ export function FriendList(props: IFriendListProps) {
 			<View style={styles.friendList}>
 				<FlatList
 					style={{ gap: 8 }}
-					data={array}
+					data={array ? [array[0], array[1]] : array}
 					renderItem={({ item }) => {
 						return (
 							<FriendCard

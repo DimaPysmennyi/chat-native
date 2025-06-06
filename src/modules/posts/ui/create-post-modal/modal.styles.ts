@@ -23,6 +23,11 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 		gap: 10,
 	},
+	crossIconView: {
+		flex: 1,
+		flexDirection: "row",
+		justifyContent: "flex-end",
+	},
 	publishButton: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -70,11 +75,10 @@ export const styles = StyleSheet.create({
 		borderColor: COLORS.purple,
 		height: 25,
 		width: 25,
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 		borderWidth: 2,
 		borderRadius: 25,
-		
 	},
 	selectedTagButton: {
 		backgroundColor: COLORS.purple,
@@ -82,10 +86,10 @@ export const styles = StyleSheet.create({
 		width: "auto",
 		padding: 6,
 		borderRadius: 6,
-		color: COLORS.purpleOpacity
+		color: COLORS.purpleOpacity,
 	},
 	closeTagButton: {
-		position: 'absolute',
-		right: -10
-	}
+		position: "absolute",
+		right: -10,
+	},
 });

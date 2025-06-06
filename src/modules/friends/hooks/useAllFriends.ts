@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { IFriend } from "../types/friend.types";
 import { Response } from "../../../shared/types";
+import { IUser } from "../../auth/tools/context/context.types";
 
 export function useAllFriends(id: number) {
-	const [friends, setFriends] = useState<IFriend[]>();
+	const [friends, setFriends] = useState<IUser[]>();
 	const [error, setError] = useState<string>();
 	useEffect(() => {
 		async function getFriends() {
@@ -11,7 +12,7 @@ export function useAllFriends(id: number) {
 				const response = await fetch(
 					`http://192.168.0.51:8000/api/users/friends/${id}`
 				);
-				const friends: Response<IFriend[]> = await response.json();
+				const friends: Response<IUser[]> = await response.json();
 				if (friends.status == "error") {
 					setError(friends.message);
 					return;

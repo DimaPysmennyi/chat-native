@@ -84,7 +84,7 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 		onClose();
 		useCreatePost(allData);
 		getPosts();
-		router.navigate('/main')
+		// router.navigate('/main')
 	}
 
 	function onPress(tag: string) {
@@ -105,9 +105,11 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 	return (
 		<Modal isVisible={isVisible}>
 			<View style={styles.modalContainer}>
-				<TouchableOpacity style={styles.closeButton} onPress={onClose}>
-					<CrossIcon width={20} height={20}/>
-				</TouchableOpacity>
+				<View style={styles.crossIconView}>
+					<TouchableOpacity onPress={onClose}>
+						<CrossIcon width={20} height={20} fill={"#81818D"} />
+					</TouchableOpacity>
+				</View>
 
 				<Text style={styles.modalTitle}>Створення публікації</Text>
 				<View style={styles.inputs}>

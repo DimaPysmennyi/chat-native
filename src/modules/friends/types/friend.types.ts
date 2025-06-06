@@ -1,8 +1,10 @@
+import { IUser } from "../../auth/tools/context/context.types"
+
 export interface IFriendCardProps {
-    image: string
-    firstname: string
-    lastname: string
-    username: string
+    image?: string
+    firstname?: string
+    lastname?: string
+    username?: string
     buttonLabel?: string
 }
 
@@ -14,7 +16,7 @@ export interface IFriend{
 
 export interface IFriendListProps {
     variant: "requests" | "recommendations" | "friends",
-    array: IFriendCardProps[]
+    array: IUser[] | undefined
 }
 
 export interface IDeleteFriendModalProps{

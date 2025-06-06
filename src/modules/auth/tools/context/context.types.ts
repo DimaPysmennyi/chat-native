@@ -1,5 +1,7 @@
 import { ReactNode } from "react"
 import { IPost } from "../../../posts/types"
+import { IFriend } from "../../../friends/types/friend.types"
+import { Album } from "../../../settings/ui/album-settings/album.settings.types"
 
 export interface IUser {
     id: number,
@@ -8,6 +10,8 @@ export interface IUser {
     firstname?: string,
     lastname?: string,
     posts: IPost[],
+    friends: IFriend[],
+    albums: Album[]
     image?: string,
     birthdate?: string
 }

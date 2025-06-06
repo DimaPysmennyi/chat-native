@@ -8,24 +8,32 @@ import {
 	ScrollView,
 	SafeAreaView,
 } from "react-native";
-import { Album } from "./album.settings.types";
+// import { Album } from "./album.settings.types";
 import { useAuthContext } from "../../../auth/tools/context";
 import { useForm } from "react-hook-form";
+import { AlbumData } from "../../types/modal.types";
+import { AlbumsModal } from "../albums-modal-settings/album-modal-settings";
 
-type Albumdata = {
-	name: "";
-	theme: "";
-	year: "";
-};
-
-export default function AlbumScreen(data: Albumdata) {
-	const { control, handleSubmit } = useForm<Albumdata>();
-	function onSubmit(data: Albumdata) {
+export function AlbumsScreen() {
+	const { control, handleSubmit } = useForm<AlbumData>();
+	const [isModalVisible, setIsModalVisible] = useState<boolean>(true);
+	function onSubmit(data: AlbumData) {
 		fetch("http://192.168.0.51:8000/api/users/albums", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
 		});
 	}
-	return <View></View>;
+	return (
+		<View>
+			<AlbumsModal
+				isVisible={isModalVisible}
+				onClose={() => {
+					setIsModalVisible(false);
+				}}
+				title="Створити альбом"
+				onSubmit={() => {console.log(11)}}
+			/>
+		</View>
+	);
 }

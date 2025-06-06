@@ -4,8 +4,10 @@ import { useAuthContext } from "../../auth/tools/context";
 import { ICreatePost } from "../types/";
 
 export function useCreatePost(data: ICreatePost) {
+	console.log(data);
 	const { title, topic, content, links, images, tags } = data;
 	const { user } = useAuthContext();
+	console.log(user?.id);
 	let imageString = "";
 	if (images) {
 		imageString = images.join(" ");

@@ -3,7 +3,7 @@ import { COLORS } from "../../../../shared/ui/colors";
 
 export const styles = StyleSheet.create({
     modalContainer: {
-        width: 343,
+        // width: 343,
         maxHeight: 140,
         borderRadius: 10,
         padding: 16,

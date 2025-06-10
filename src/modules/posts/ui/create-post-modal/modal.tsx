@@ -84,7 +84,6 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 		onClose();
 		useCreatePost(allData);
 		getPosts();
-		// router.navigate('/main')
 	}
 
 	function onPress(tag: string) {

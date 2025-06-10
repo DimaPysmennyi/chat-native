@@ -66,7 +66,7 @@ export function PostCard(props: IPost) {
 		<View style={styles.postContainer}>
 			<View style={styles.postHeader}>
 				<View style={styles.userInfo}>
-					<Image source={{uri: postOwner?.image}} style={styles.avatar} />
+					<Image source={avatars.avatar} style={styles.avatar} />
 					<Text style={styles.username}>{postOwner?.username}</Text>
 				</View>
 				<PostSettingsModal post={props} isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>

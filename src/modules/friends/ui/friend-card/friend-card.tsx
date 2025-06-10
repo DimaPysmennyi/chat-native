@@ -5,6 +5,7 @@ import { COLORS } from "../../../../shared/ui/colors";
 import { DeleteFriendModal } from "../delete-friend-modal";
 import { useState } from "react";
 import { Button } from "../../../../shared/ui/button";
+import { avatars } from "../../../../../assets/avatars/avatars";
 
 
 export function FriendCard(props: IFriendCardProps){
@@ -14,7 +15,7 @@ export function FriendCard(props: IFriendCardProps){
         <View style={styles.card}>
             <DeleteFriendModal isVisible={isModalVisible} onClose={() => {setIsModalVisible(false)}}/>
             <View style={styles.userInfo}>
-                <Image source={{uri: image}} style={styles.avatar}/>
+                <Image source={avatars.avatar} style={styles.avatar}/>
                 <View style={{gap: 8, alignItems: 'center'}}>
                     <Text style={styles.name}>{firstname} {lastname}</Text>
                     <Text style={styles.username}>@{username}</Text>

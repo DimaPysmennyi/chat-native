@@ -10,7 +10,7 @@ export interface IUser {
     firstname?: string,
     lastname?: string,
     posts: IPost[],
-    friends: IFriend[],
+    friends: IUser[],
     albums: Album[]
     image?: string,
     birthdate?: string

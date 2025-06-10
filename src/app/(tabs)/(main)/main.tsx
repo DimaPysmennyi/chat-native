@@ -7,7 +7,9 @@ import { usePostContext } from "../../../modules/posts/context/context";
 import { useAuthContext } from "../../../modules/auth/tools/context";
 import { DetailsModal } from "../../../modules/settings/ui/details-modal/details-modal";
 import { useEffect, useState } from "react";
+import { Text } from "react-native";
 import { IPost } from "../../../modules/posts/types";
+import { useRouter } from "expo-router";
 export default function MainPage() {
 	const { allPosts } = usePostContext();
 	const { user } = useAuthContext();
@@ -17,6 +19,8 @@ export default function MainPage() {
 	useEffect(() => allPosts ? setPosts(allPosts) : undefined, [allPosts])
 	
 	let [posts, setPosts] = useState<IPost[]>();
+	const router = useRouter();
+
 
 	return (
 		<SafeAreaView>
@@ -29,6 +33,7 @@ export default function MainPage() {
 				<Header />
 				{/* {!user?.username ? setIsModalVisible(true) : undefined} */}
 				<DetailsModal isVisible={isModalVisible} onClose={() => {setIsModalVisible(false)}}/>
+				<Text onPress={() => router.replace("/profile/11")}>Profile</Text>
 				{allPosts
 					? allPosts.map((item) => (
 							<PostListItem

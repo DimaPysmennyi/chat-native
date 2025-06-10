@@ -6,6 +6,7 @@ import { FriendList } from "../../../modules/friends/ui/friend-list";
 import { useAuthContext } from "../../../modules/auth/tools/context";
 import { useAllFriends } from "../../../modules/friends/hooks/useAllFriends";
 import { useAllUsers } from "../../../shared/hooks";
+import { FriendHeader } from "../../../modules/friends/ui/friend-header";
 
 export default function Friends(){
 	const { user } = useAuthContext();
@@ -22,8 +23,10 @@ export default function Friends(){
 				overScrollMode="never"
 			>
 			<Header/>
-			
-            <FriendList variant="requests" array={friends}/>
+
+			<FriendHeader page={"Головна"}/>
+            
+			<FriendList variant="requests" array={friends}/>
             <FriendList variant="recommendations" array={allUsers}/>
             <FriendList variant="friends" array={friends}/>
         </ScrollView>

@@ -18,17 +18,17 @@ export function Header() {
 		<View style={styles.header}>
 			<CreatePostModal isVisible={isVisible} onClose={() => {setIsVisible(false)}}/>
 			<View>
-				<LogoIcon height={18} width={145} fill={"#543C52"} onPress={() => router.push('/main')} />
+				<LogoIcon height={18} width={145} fill={"#543C52"} onPress={() => router.replace('/main')} />
 			</View>
 			<View style={styles.buttons}>
 				<ImageButton onPress={() => setIsVisible(true)}>
 					<PlusIcon height={20} width={20} fill={"#543C52"} />
 				</ImageButton>
-				<ImageButton onPress={() => {logout(); router.replace('/settings')}}>
+				<ImageButton onPress={(event) => {event.preventDefault(); logout(); router.replace('/settings')}}>
 					<SettingsIcon height={20} width={20} fill={"#543C52"} />
 				</ImageButton>
 				<ImageButton>
-					<Link href="/login">
+					<Link href="/login" onPress={(event) => {event?.preventDefault(); router.replace('/login')}}>
 						<ExitIcon height={20} width={20} fill={"#543C52"} />
 					</Link>
 				</ImageButton>

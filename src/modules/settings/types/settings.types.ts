@@ -21,3 +21,11 @@ export interface IUpdateUserForm{
     email?: string,
     password?: string
 }
+
+export type IAlbum = {
+	id: number;
+	name: string;
+	theme: string;
+	year: string;
+    images: string
+};

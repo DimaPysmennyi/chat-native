@@ -7,7 +7,7 @@ import {
 	SafeAreaView,
     TouchableOpacity,
 } from "react-native";
-import { AlbumData, IAlbumModalProps } from "../../types/modal.types";
+import { InitialAlbumData, IAlbumModalProps } from "../../types/modal.types";
 import Modal from "react-native-modal";
 import { useAuthContext } from "../../../auth/tools/context";
 import { Controller, useForm } from "react-hook-form";
@@ -18,9 +18,9 @@ import { Button } from "../../../../shared/ui/button";
 import { COLORS } from "../../../../shared/ui/colors";
 
 export function AlbumsModal(props: IAlbumModalProps) {
-	const { control, handleSubmit } = useForm<AlbumData>();
+	const { control, handleSubmit } = useForm<InitialAlbumData>();
 	const { isVisible, title, onClose, onSubmit } = props;
-	function formSubmit(data: AlbumData) {
+	function formSubmit(data: InitialAlbumData) {
 		onSubmit(data);
 		onClose();
 	}

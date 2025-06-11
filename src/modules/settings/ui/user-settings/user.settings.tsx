@@ -15,26 +15,27 @@ import { useEffect, useState } from "react";
 import { useUpdateUser } from "../../hooks";
 import { GalleryIcon } from "../../../../shared/ui/icons/tab-icons";
 import {
-	ImagePickerAsset,
 	launchCameraAsync,
 	launchImageLibraryAsync,
 } from "expo-image-picker";
-import { ImageManipulator } from "expo-image-manipulator";
 import { IUser } from "../../../auth/tools/context/context.types";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 export function UserSettings() {
 	let { user } = useAuthContext();
+	const router = useRouter()
 	const { handleSubmit, control } = useForm<IUpdateUserForm>();
 	const { control: controlPicture } = useForm<IUpdateUserFormPicture>();
 	const [allowedToEdit, setAllowedToEdit] = useState<boolean>(false);
 	const [allowedToEditProfileCard, setAllowedToEditProfileCard] =
 		useState<boolean>(false);
 	let [newUser, setNewUser] = useState<IUser | null>(null);
-	const [avatarImage, setAvatarImage] = useState<string>();
+	const [avatarImage, setAvatarImage] = useState<string | null>();
 
 	// useEffect(() => (user ? setNewUser(user) : undefined), []);
 	useEffect(() => (user ? setNewUser(user) : undefined), [user]);
+	console.log(user)
+	console.log(newUser)
 
 	function onSubmit() {
 		if (user) {
@@ -59,7 +60,7 @@ export function UserSettings() {
 	}
 
 	function submitProfileInfo() {
-		if (user) {
+		if (user && avatarImage) {
 			useUpdateUser({
 				id: user.id,
 				image: avatarImage,
@@ -79,7 +80,7 @@ export function UserSettings() {
 		let image = await launchCameraAsync({
 			mediaTypes: "images",
 		});
-		setAvatarImage(image.assets?.at(0)?.uri);
+		setAvatarImage(image.assets?.at(0)?.base64);
 	}
 
 	async function chooseImage() {
@@ -91,7 +92,9 @@ export function UserSettings() {
 
 	return (
 		<View style={styles.formContainer}>
-			<Link href="/settings/albums"><Text>Albums</Text></Link>
+			<Link href="/settings/albums" onPress={(event) => {event.preventDefault(); router.replace("/settings/albums")}}>
+				Albums
+			</Link>
 			<View
 				style={
 					allowedToEditProfileCard
@@ -108,14 +111,13 @@ export function UserSettings() {
 								: undefined
 						}
 						onPress={() => {
-							console.log(allowedToEditProfileCard);
+							
 							if (allowedToEditProfileCard === true) {
 								setAllowedToEditProfileCard(false);
 								submitProfileInfo();
 								return;
 							}
 							setAllowedToEditProfileCard(true);
-							console.log(allowedToEditProfileCard);
 						}}
 					>
 						<PencilIcon
@@ -219,7 +221,8 @@ export function UserSettings() {
 						}}
 					>
 						<Text style={styles.nameText}>
-							{newUser?.firstname ? newUser?.firstname : "Ім'я"} {newUser?.lastname ? newUser?.lastname : "Прізвище"}
+							{newUser?.firstname ? newUser?.firstname : "Ім'я"}{" "}
+							{newUser?.lastname ? newUser?.lastname : "Прізвище"}
 						</Text>
 						{allowedToEditProfileCard ? (
 							<Controller

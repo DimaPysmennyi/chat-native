@@ -17,7 +17,7 @@ export function RegisterFormStepOne() {
 	const router = useRouter();
 	function onSubmit(data: IRegister) {
 		useSendCode(data.email);
-		router.navigate({
+		router.replace({
 			pathname: "/registration/step-two",
 			params: {
 				username: data.username,

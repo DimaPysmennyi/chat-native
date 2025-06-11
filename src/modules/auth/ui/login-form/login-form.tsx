@@ -19,7 +19,7 @@ export function LoginForm() {
 	function onSubmit(data: ILogin) {
 		login(data.email, data.password);
 		if (user){
-			router.navigate("/main");
+			router.replace("/main");
 		}
 	}
 

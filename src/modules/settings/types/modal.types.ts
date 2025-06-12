@@ -9,7 +9,7 @@ export interface IDetailsForm {
 	username?: string;
 }
 
-export interface AlbumData {
+export interface InitialAlbumData {
 	name: string;
 	theme: string;
 	year: string;
@@ -19,5 +19,5 @@ export interface IAlbumModalProps {
 	isVisible: boolean;
 	title: string;
 	onClose: () => void;
-	onSubmit: (data: AlbumData) => void;
+	onSubmit: (data: InitialAlbumData) => void;
 }

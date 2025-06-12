@@ -1,9 +1,8 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { UserSettings } from "../../modules/settings/ui/user-settings/";
 import { ScrollView } from "react-native-virtualized-view";
 import { Header } from "../../shared/ui/header";
-import { AlbumsScreen } from "../../modules/settings/ui/album-settings";
+import { AlbumsSettings } from "../../modules/settings/ui/album-settings";
 
 export default function Albums() {
 	return (
@@ -19,7 +18,7 @@ export default function Albums() {
 			<ScrollView overScrollMode="never">
 				<StatusBar style="auto" />
 				<Header/>
-				<AlbumsScreen/>
+				<AlbumsSettings/>
 			</ScrollView>
 		</SafeAreaView>
 	);

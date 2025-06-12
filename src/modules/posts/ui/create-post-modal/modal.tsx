@@ -54,10 +54,6 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 		setAllTags(defaultTags);
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log(selectedTags);
-	// }, [selectedTags]);
-
 	async function handlePickImage() {
 		const assets = await pickImage({
 			allowsMultipleSelection: true,

@@ -1,18 +1,19 @@
 import { useState } from "react";
-import {View,Button} from "react-native";
+import {View} from "react-native";
 import { useAuthContext } from "../../../auth/tools/context";
 import { InitialAlbumData } from "../../types/modal.types";
 import { AlbumsModal } from "../albums-modal-settings/album-modal-settings";
 import { MyPhotos } from "../my-photos";
+import { MyAlbums } from "../my-albums";
 
-export function AlbumsScreen() {
+export function AlbumsSettings() {
 	const [isModalVisible, setIsModalVisible] = useState(false)
 	const { user } = useAuthContext()
 	const userId = user?.id
 
 	function onSubmit(data: InitialAlbumData) {
 		console.log("send data", data)
-		fetch(`http://192.168.1.108:8000/api/users/create-album/${userId}`, {
+		fetch(`http://192.168.1.100:8000/api/users/create-album/${userId}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
@@ -33,8 +34,7 @@ export function AlbumsScreen() {
 	}
 
 	return (
-		<View>
-			<Button title="Додати альбом" onPress={() => setIsModalVisible(true)} />
+		<View style={{gap: 8}}>
 			<AlbumsModal
 				isVisible={isModalVisible}
 				onClose={() => setIsModalVisible(false)}
@@ -42,6 +42,7 @@ export function AlbumsScreen() {
 				onSubmit={onSubmit}
 			/>
 			<MyPhotos/>
+			<MyAlbums onCreateAlbum={() => setIsModalVisible(true)}/>
 		</View>
 	)
 }

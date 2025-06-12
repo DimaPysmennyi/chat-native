@@ -3,8 +3,8 @@ import { COLORS } from "../../../../shared/ui/colors";
 
 export const styles = StyleSheet.create({
 	modalContainer: {
-        flex: 1,
-		maxHeight: 433,
+        // flex: 1,
+		// maxHeight: 433,
 		justifyContent: "center",
 		// alignItems: "center",
 		paddingTop: 24,

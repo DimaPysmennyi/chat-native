@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from "react";
-import {
-	View,
-	Text,
-	TextInput,
-	ScrollView,
-	SafeAreaView,
-    TouchableOpacity,
-} from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 import { InitialAlbumData, IAlbumModalProps } from "../../types/modal.types";
 import Modal from "react-native-modal";
-import { useAuthContext } from "../../../auth/tools/context";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "../../../../shared/ui/input";
 import { styles } from "./album-modal-settings.styles";
@@ -101,8 +93,17 @@ export function AlbumsModal(props: IAlbumModalProps) {
 				/>
 			</View>
 			<View style={styles.buttons}>
-				<Button style = {styles.cancelButton} textColor={COLORS.purple} label="Скасувати" onPress={onClose} />
-				<Button style = {styles.confirmButton} label="Зберегти" onPress={handleSubmit(formSubmit)} />
+				<Button
+					style={styles.cancelButton}
+					textColor={COLORS.purple}
+					label="Скасувати"
+					onPress={onClose}
+				/>
+				<Button
+					style={styles.confirmButton}
+					label="Зберегти"
+					onPress={handleSubmit(formSubmit)}
+				/>
 			</View>
 		</Modal>
 	);

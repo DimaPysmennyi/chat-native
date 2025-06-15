@@ -5,8 +5,6 @@ import { styles } from "./friend-list.styles";
 export function FriendList(props: IFriendListProps) {
 	const { variant, array } = props;
 
-	
-
 	function getLabel() {
 		let buttonLabel = "";
 		let listLabel = "";
@@ -53,9 +51,10 @@ export function FriendList(props: IFriendListProps) {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.friendList}>
+				
 				<FlatList
 					style={{ gap: 8 }}
-					data={array ? [array[0], array[1]] : array}
+					data={array ? [array[0], array[1]] : undefined}
 					renderItem={({ item }) => {
 						return (
 							<FriendCard

@@ -21,6 +21,7 @@ export interface ICreatePost {
 	content: string;
 	links?: string;
 	images?: string[];
+	userId: number;
 }
 
 export interface IPost {

@@ -41,11 +41,14 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 				}
 			);
 			const result: Response<IUser> = await response.json();
+			console.log(result)
 			if (result.status === "error") {
 				console.log(result.message);
 				return;
 			}
+			// console.log(result.data);
 			setUser(result.data);
+			// console.log(user);
 		} catch (error) {
 			console.error(error);
 		}
@@ -102,8 +105,8 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 				return;
 			}
 			getData(result.data);
-			await AsyncStorage.setItem("token", result.data);
 			console.log("Токен сохранен?", await AsyncStorage.getItem("token"))
+			await AsyncStorage.setItem("token", result.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -123,11 +126,11 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 
 	async function getToken() {
 		const token = await AsyncStorage.getItem("token");
+		console.log(token)
 
 		if (!token) {
 			return;
 		}
-		console.log(token)
 		getData(token);
 	}
 

@@ -33,9 +33,9 @@ export function UserSettings() {
 	const [avatarImage, setAvatarImage] = useState<string | null>();
 
 	// useEffect(() => (user ? setNewUser(user) : undefined), []);
-	useEffect(() => (user ? setNewUser(user) : undefined), [user]);
-	console.log(user)
-	console.log(newUser)
+	useEffect(() => (user ? setNewUser(user) : undefined), []);
+	// console.log(user)
+	// console.log(newUser)
 
 	function onSubmit() {
 		if (user) {
@@ -60,33 +60,34 @@ export function UserSettings() {
 	}
 
 	function submitProfileInfo() {
-		if (user && avatarImage) {
+		console.log(newUser, avatarImage);
+		if (newUser && avatarImage) {
+			console.log(222)
 			useUpdateUser({
-				id: user.id,
+				id: newUser.id,
 				image: avatarImage,
 				username: controlPicture._formValues.username,
 			});
 			setNewUser({
 				image: avatarImage,
 				username: controlPicture._formValues.username,
-				...user,
+				...newUser,
 			});
-			// console.log("sent");
 		}
-		// console.log(123123123123123);
 	}
 
 	async function addImage() {
 		let image = await launchCameraAsync({
 			mediaTypes: "images",
 		});
-		setAvatarImage(image.assets?.at(0)?.base64);
+		setAvatarImage(image.assets?.at(0)?.uri);
 	}
 
 	async function chooseImage() {
 		let image = await launchImageLibraryAsync({
 			mediaTypes: "images",
 		});
+		console.log(image.assets?.at(0)?.base64)
 		setAvatarImage(image.assets?.at(0)?.uri);
 	}
 
@@ -111,10 +112,9 @@ export function UserSettings() {
 								: undefined
 						}
 						onPress={() => {
-							
 							if (allowedToEditProfileCard === true) {
-								setAllowedToEditProfileCard(false);
 								submitProfileInfo();
+								setAllowedToEditProfileCard(false);
 								return;
 							}
 							setAllowedToEditProfileCard(true);

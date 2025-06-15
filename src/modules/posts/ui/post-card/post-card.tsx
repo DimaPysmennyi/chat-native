@@ -12,12 +12,13 @@ import { useUserById } from "../../../../shared/hooks";
 
 const PostImage = (imageObject: { image: string }) => {
 	const { image } = imageObject;
+	console.log(image);
 	return (
 		<Image
-		source={{
-			uri: image,
-		}}
-		style={styles.imageHalf}
+			source={{
+				uri: image,
+			}}
+			style={styles.imageHalf}
 		/>
 	);
 };
@@ -28,20 +29,10 @@ const PostTag = (tagObject: { tag: string }) => {
 };
 
 export function PostCard(props: IPost) {
-	const {
-		id,
-		title,
-		content,
-		tags,
-		images,
-		likes,
-		views,
-		userId,
-	} = props;
+	const { id, title, content, tags, images, likes, views, userId } = props;
 
 	const { user } = useAuthContext();
 	const { user: postOwner, error } = useUserById(userId);
-
 
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -51,14 +42,14 @@ export function PostCard(props: IPost) {
 	if (images) {
 		const splitedImage = images.split(" ");
 		for (let image of splitedImage) {
-			splitedImageList.push({ image });
+			splitedImageList.push(image);
 		}
 	}
 
 	if (tags) {
 		const splitedTags = tags.split(" ");
 		for (let tag of splitedTags) {
-			splitedTagsList.push({ tag });
+			splitedTagsList.push(tag);
 		}
 	}
 
@@ -69,7 +60,11 @@ export function PostCard(props: IPost) {
 					<Image source={avatars.avatar} style={styles.avatar} />
 					<Text style={styles.username}>{postOwner?.username}</Text>
 				</View>
-				<PostSettingsModal post={props} isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
+				<PostSettingsModal
+					post={props}
+					isVisible={isModalVisible}
+					onClose={() => setIsModalVisible(false)}
+				/>
 				{user?.id === userId ? (
 					<DotsIcon
 						width={20}
@@ -87,7 +82,7 @@ export function PostCard(props: IPost) {
 				{tags && (
 					<FlatList
 						data={splitedTagsList}
-						renderItem={({ item }) => <PostTag tag={item.tag} />}
+						renderItem={({ item }) => <PostTag tag={item} />}
 					/>
 				)}
 
@@ -97,7 +92,7 @@ export function PostCard(props: IPost) {
 							<FlatList
 								data={splitedImageList}
 								renderItem={({ item }) => (
-									<PostImage image={item.image} />
+									<PostImage image={item} />
 								)}
 							/>
 						</View>

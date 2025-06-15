@@ -18,6 +18,7 @@ import { useCreatePost } from "../../hooks/useCreatePost";
 import { usePostContext } from "../../context/context";
 import { COLORS } from "../../../../shared/ui/colors";
 import { useRouter } from "expo-router";
+import { useAuthContext } from "../../../auth/tools/context";
 
 const defaultTags = [
 	"#відпочинок",
@@ -47,7 +48,7 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 	const [selectedTags, setSelectedTags] = useState<string[]>([]);
 	const [isTagAdding, setIsTagAdding] = useState<boolean>(false);
 	const [newTag, setNewTag] = useState<string>("");
-	const router = useRouter();
+	const { user } = useAuthContext();
 	const { getPosts } = usePostContext();
 
 	useEffect(() => {
@@ -62,6 +63,7 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 		const assets = await pickImage({
 			allowsMultipleSelection: true,
 			base64: true,
+			quality: 0
 		});
 
 		if (assets) {
@@ -73,17 +75,23 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 	}
 
 	function onSubmit(data: ICreatePost) {
-		const allData = {
-			...data,
-			tags: selectedTags,
-			images,
-		};
-
-		reset();
-		setImages([]);
-		onClose();
-		useCreatePost(allData);
-		getPosts();
+		if (user){
+			const allData = {
+				...data,
+				tags: selectedTags,
+				images: images,
+				userId: user?.id
+			};
+	
+			reset();
+			setImages([]);
+			setSelectedTags([]);
+			useCreatePost(allData);
+			onClose();
+			getPosts();
+			return;
+		}
+		console.log("no user")
 	}
 
 	function onPress(tag: string) {

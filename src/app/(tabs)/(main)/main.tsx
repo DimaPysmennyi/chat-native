@@ -10,16 +10,20 @@ import { useEffect, useState } from "react";
 import { Text } from "react-native";
 import { IPost } from "../../../modules/posts/types";
 import { useRouter } from "expo-router";
+
 export default function MainPage() {
 	const { allPosts } = usePostContext();
+	let [posts, setPosts] = useState<IPost[]>([]);
 	const { user } = useAuthContext();
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
 	useEffect(() => { user ? !user?.username ? setIsModalVisible(true) : undefined : undefined}, [user])
 	useEffect(() => allPosts ? setPosts(allPosts) : undefined, [allPosts])
 	
-	let [posts, setPosts] = useState<IPost[]>();
 	const router = useRouter();
+
+	console.log(posts);
+	useEffect(() => console.log(posts), [posts]);
 
 
 	return (
@@ -30,12 +34,12 @@ export default function MainPage() {
 				alwaysBounceVertical={false}
 				overScrollMode="never"
 			>
-				<Header />
+				<Header posts={posts} setPosts={setPosts}/>
 				{/* {!user?.username ? setIsModalVisible(true) : undefined} */}
 				<DetailsModal isVisible={isModalVisible} onClose={() => {setIsModalVisible(false)}}/>
 				<Text onPress={() => router.replace("/profile/11")}>Profile</Text>
-				{allPosts
-					? allPosts.map((item) => (
+				{posts
+					? posts.map((item) => (
 							<PostListItem
 								key={item.id}
 								id={item.id}

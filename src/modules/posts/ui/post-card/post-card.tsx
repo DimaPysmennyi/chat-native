@@ -106,7 +106,7 @@ export function PostCard(props: IPost) {
 					<Text style={styles.footerText}> {likes} Вподобань</Text>
 				</View>
 				<View style={{ flexDirection: "row", gap: 4 }}>
-					<EyeIcon width={20} height={20} fill={"#81818D"} />
+					<EyeIcon width={20} height={20} fill={"#81818D"} stroke={"#81818D"}/>
 					<Text style={styles.footerText}>{views} Переглядів</Text>
 				</View>
 			</View>

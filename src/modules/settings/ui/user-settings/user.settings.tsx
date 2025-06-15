@@ -14,16 +14,13 @@ import {
 import { useEffect, useState } from "react";
 import { useUpdateUser } from "../../hooks";
 import { GalleryIcon } from "../../../../shared/ui/icons/tab-icons";
-import {
-	launchCameraAsync,
-	launchImageLibraryAsync,
-} from "expo-image-picker";
+import { launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
 import { IUser } from "../../../auth/tools/context/context.types";
 import { Link, useRouter } from "expo-router";
 
 export function UserSettings() {
 	let { user } = useAuthContext();
-	const router = useRouter()
+	const router = useRouter();
 	const { handleSubmit, control } = useForm<IUpdateUserForm>();
 	const { control: controlPicture } = useForm<IUpdateUserFormPicture>();
 	const [allowedToEdit, setAllowedToEdit] = useState<boolean>(false);
@@ -31,11 +28,10 @@ export function UserSettings() {
 		useState<boolean>(false);
 	let [newUser, setNewUser] = useState<IUser | null>(null);
 	const [avatarImage, setAvatarImage] = useState<string | null>();
-
-	// useEffect(() => (user ? setNewUser(user) : undefined), []);
 	useEffect(() => (user ? setNewUser(user) : undefined), []);
 	// console.log(user)
 	// console.log(newUser)
+
 
 	function onSubmit() {
 		if (user) {
@@ -93,7 +89,13 @@ export function UserSettings() {
 
 	return (
 		<View style={styles.formContainer}>
-			<Link href="/settings/albums" onPress={(event) => {event.preventDefault(); router.replace("/settings/albums")}}>
+			<Link
+				href="/settings/albums"
+				onPress={(event) => {
+					event.preventDefault();
+					router.replace("/settings/albums");
+				}}
+			>
 				Albums
 			</Link>
 			<View

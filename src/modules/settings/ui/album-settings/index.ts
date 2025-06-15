@@ -1,1 +1,1 @@
-export { AlbumsScreen } from './album.settings'
+export { AlbumsSettings } from './album.settings'

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Response } from "../types";
 import { IUser } from "../../modules/auth/tools/context/context.types";
+import { GET } from "../tools/requests";
 
 export function useAllUsers(){
     const [users, setUser] = useState<IUser[]>();
@@ -8,13 +9,12 @@ export function useAllUsers(){
     useEffect(() => {
         async function getUsers(){
             try { 
-                const response = await fetch(`http://192.168.0.51:8000/api/users/all`);
-                const user: Response<IUser[]> = await response.json();
-                if (user.status == "success"){
-                    setUser(user.data);
+                const users = await GET<IUser[]>({endpoint: 'api/users/all'})
+                if (users.status == "success"){
+                    setUser(users.data);
                     return
                 }
-                setError(user.message);
+                setError(users.message);
             } catch(error){
                 console.error(error);
                 const err = error instanceof Error ? error.message : undefined

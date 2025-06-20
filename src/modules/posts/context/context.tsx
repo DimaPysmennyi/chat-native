@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { IPostContext, IPostContextProviderProps } from "./context.types";
 import { useAllPosts } from "../hooks";
 import { IPost } from "../types";
+import { GET } from "../../../shared/tools/requests";
 
 const initialValue: IPostContext = {
 	allPosts: null,
@@ -19,11 +20,15 @@ export function PostContextProvider(props: IPostContextProviderProps) {
 
 	async function getPosts() {
 		try {
-			const response = await fetch(
-				"http://192.168.0.51:8000/api/posts/all"
-			);
-			const posts = await response.json();
-			setPosts(posts.data);
+			const response = await GET<IPost[]>({
+				endpoint: "api/posts/all"
+			});
+			// const posts = await response.json();
+			if (response.status == "error"){
+				console.log(response.message);
+				return; 
+			}
+			setPosts(response.data);
 		} catch (error) {
 			console.error(error);
 		}

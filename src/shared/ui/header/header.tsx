@@ -13,8 +13,8 @@ import { IPost } from "../../../modules/posts/types";
 import { usePostsByUserId } from "../../../modules/posts/hooks/usePostsByUserId";
 
 interface IHeaderProps{
-	posts: IPost[];
-	setPosts: React.Dispatch<SetStateAction<IPost[]>>;
+	posts?: IPost[];
+	setPosts?: React.Dispatch<SetStateAction<IPost[]>>;
 }
 
 export function Header(props: IHeaderProps) {
@@ -29,7 +29,7 @@ export function Header(props: IHeaderProps) {
 				setIsVisible(false)
 				if (user){
 					const lastPost = usePostsByUserId(user?.id);
-					if (lastPost){
+					if (lastPost && posts && setPosts){
 						setPosts([...posts, lastPost[0]])
 					}
 				}
@@ -41,7 +41,7 @@ export function Header(props: IHeaderProps) {
 				<ImageButton onPress={() => setIsVisible(true)}>
 					<PlusIcon height={20} width={20} fill={"#543C52"} />
 				</ImageButton>
-				<ImageButton onPress={(event) => {event.preventDefault(); logout(); router.replace('/settings')}}>
+				<ImageButton onPress={(event) => {event.preventDefault(); router.replace('/settings')}}>
 					<SettingsIcon height={20} width={20} fill={"#543C52"} />
 				</ImageButton>
 				<ImageButton>

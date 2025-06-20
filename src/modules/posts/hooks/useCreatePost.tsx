@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { Response } from "../../../shared/types";
 import { useAuthContext } from "../../auth/tools/context";
 import { ICreatePost } from "../types/";
+import { POST } from "../../../shared/tools/requests";
 
 export async function useCreatePost(data: ICreatePost) {
 	// console.log(data);
 	const { title, topic, content, links, images, tags, userId } = data;
-	// console.log(user.id);
+	console.log(userId);
 	let imageString = "";
 	if (images) {
 		imageString = images.join(" ");
@@ -20,11 +21,10 @@ export async function useCreatePost(data: ICreatePost) {
 	// console.log(user?.id)
 
 	try {
-		const response = await fetch(
-			"http://192.168.0.51:8000/api/posts/create",
+		const result = await POST<string>(
 			{
-				method: "POST",
-				body: JSON.stringify({
+				endpoint: "api/posts/create",
+				body: {
 					title: title,
 					topic: topic,
 					content: content,
@@ -32,15 +32,9 @@ export async function useCreatePost(data: ICreatePost) {
 					images: imageString,
 					tags: tagString,
 					userId: userId,
-				}),
-				headers: {
-					"Content-Type": "application/json",
-				},
+				}
 			}
 		);
-
-		const result: Response<string> = await response.json();
-		console.log(result);
 		if (result.status == "error") {
 			console.error("Result error:", result.message);
 			return;

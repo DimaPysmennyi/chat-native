@@ -1,7 +1,7 @@
 import { IUser } from "../../auth/tools/context/context.types"
 
 export interface IFriendCardProps {
-    image?: string
+    image?: string | undefined
     firstname?: string
     lastname?: string
     username?: string

@@ -33,7 +33,7 @@ export default function AllFriends() {
 							return (
 								<FriendCard
                                     key={item.id}
-									image={item.image}
+									// image={item.image}
 									firstname={item.firstname}
 									lastname={item.lastname}
 									username={item.username}

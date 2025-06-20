@@ -6,6 +6,7 @@ import {
 } from "./context.types";
 import { Response } from "../../../../shared/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GET, POST } from "../../../../shared/tools/requests";
 
 const initialValue: IAuthContext = {
 	user: null,
@@ -15,11 +16,11 @@ const initialValue: IAuthContext = {
 		username: string,
 		email: string,
 		password: string,
-        code: string
+		code: string
 	) => {},
 	isAuthenticated: () => false,
 	logout: () => {},
-	getToken: () => {}
+	getToken: () => {},
 };
 
 const authContext = createContext<IAuthContext>(initialValue);
@@ -34,14 +35,11 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 
 	async function getData(token: string) {
 		try {
-			const response = await fetch(
-				"http://192.168.0.51:8000/api/users/me",
-				{
-					headers: { Authorization: `Bearer ${token}` },
-				}
-			);
-			const result: Response<IUser> = await response.json();
-			console.log(result)
+			const result = await GET<IUser>({
+				endpoint: "api/users/me",
+				token: token,
+			});
+			console.log(result);
 			if (result.status === "error") {
 				console.log(result.message);
 				return;
@@ -56,24 +54,21 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 
 	async function login(email: string, password: string) {
 		try {
-			const response = await fetch(
-				"http://192.168.0.51:8000/api/users/login",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ email: email, password: password }),
-				}
-			);
-			const result: Response<string> = await response.json();
+			const result = await POST<string>({
+				endpoint: "api/users/login",
+				// headers: { "Content-Type": "application/json" },
+				body: { email: email, password: password },
+			});
 			if (result.status === "error") {
 				console.log(result.message);
 				return;
 			}
-			getData(result.data);
+			console.log(result.data);
+			await getData(result.data);
 
 			await AsyncStorage.setItem("token", result.data);
-		} catch(error){
-			console.error(error)
+		} catch (error) {
+			console.error(error);
 		}
 	}
 
@@ -81,35 +76,26 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 		username: string,
 		email: string,
 		password: string,
-        code: string
+		code: string
 	) {
-		try {
-			const response = await fetch(
-				"http:/192.168.0.51:8000/api/users/register",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						username: username,
-						email: email,
-						password: password,
-                        code: code
-					}),
-				}
-			);
+		const result = await POST<string>({
+			endpoint: "api/users/register",
+			body: {
+				username: username,
+				email: email,
+				password: password,
+				code: code,
+			},
+		});
 
-			const result: Response<string> = await response.json();
-			console.log(result);
-			if (result.status === "error") {
-				setResultMessage(result.message);
-				return;
-			}
-			getData(result.data);
-			console.log("Токен сохранен?", await AsyncStorage.getItem("token"))
-			await AsyncStorage.setItem("token", result.data);
-		} catch (error) {
-			console.log(error);
+		console.log(result);
+		if (result.status === "error") {
+			setResultMessage(result.message);
+			return;
 		}
+		getData(result.data);
+		console.log("Токен сохранен?", await AsyncStorage.getItem("token"));
+		await AsyncStorage.setItem("token", result.data);
 	}
 
 	function isAuthenticated() {
@@ -126,12 +112,12 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 
 	async function getToken() {
 		const token = await AsyncStorage.getItem("token");
-		console.log(token)
+		console.log(token);
 
 		if (!token) {
 			return;
 		}
-		getData(token);
+		await getData(token);
 	}
 
 	useEffect(() => {
@@ -147,7 +133,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 				register: register,
 				isAuthenticated: isAuthenticated,
 				logout: logout,
-				getToken: getToken
+				getToken: getToken,
 			}}
 		>
 			{props.children}

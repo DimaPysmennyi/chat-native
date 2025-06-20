@@ -1,19 +1,17 @@
+import { POST } from "../../../shared/tools/requests";
 import { IUpdateUser } from "../types/settings.types";
 
 export async function useUpdateUser(data: IUpdateUser) {
 	try {
-		const response = await fetch(
-			`http://192.168.0.51:8000/api/users/update/${data.id}`,
+		const response = await POST<string>(
 			{
-				method: "POST",
-				body: JSON.stringify(data),
-				headers: { "Content-Type": "application/json" },
+				endpoint: `api/users/update/${data.id}`,
+				body: data,
 			}
 		);
-		const user = await response.json();
-		if (user.status == "error") {
-			console.log(user.message);
-			return {status: "error", message: user.message};
+		if (response.status == "error") {
+			console.log(response.message);
+			return {status: "error", message: response.message};
 		}
         console.log(123123123)
 		return {status: "success"};

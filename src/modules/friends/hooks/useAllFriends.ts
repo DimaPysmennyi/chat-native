@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IFriend } from "../types/friend.types";
 import { Response } from "../../../shared/types";
 import { IUser } from "../../auth/tools/context/context.types";
+import { GET } from "../../../shared/tools/requests";
 
 export function useAllFriends(id: number) {
 	const [friends, setFriends] = useState<IUser[]>();
@@ -9,10 +10,7 @@ export function useAllFriends(id: number) {
 	useEffect(() => {
 		async function getFriends() {
 			try {
-				const response = await fetch(
-					`http://192.168.0.51:8000/api/users/friends/${id}`
-				);
-				const friends: Response<IUser[]> = await response.json();
+				const friends = await GET<IUser[]>({endpoint: `api/users/friends/${id}`})
 				if (friends.status == "error") {
 					setError(friends.message);
 					return;

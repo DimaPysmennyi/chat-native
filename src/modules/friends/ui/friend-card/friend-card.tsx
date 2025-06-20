@@ -20,7 +20,7 @@ export function FriendCard(props: IFriendCardProps) {
 			/>
 			<View style={styles.userInfo}>
 				<Image
-					source={image ? { uri: image } : { uri: avatars.avatar }}
+					source={image !== undefined ? { uri: image } : { uri: avatars.avatar }}
 					style={styles.avatar}
 				/>
 				<View style={{ gap: 8, alignItems: "center" }}>

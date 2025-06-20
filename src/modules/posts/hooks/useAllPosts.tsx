@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import { IPost } from "../types/";
+import { GET } from "../../../shared/tools/requests";
 
 export function useAllPosts(): {posts: IPost[]} {
 	const [posts, setPosts] = useState<IPost[]>([]);
 	useEffect(() => {
 		async function getAllPosts() {
 			try {
-				const response = await fetch(
-					"http://192.168.0.51:8000/api/posts/all"
-				);
-				const posts = await response.json();
+				const response = await GET<IPost[]>({
+					endpoint: "api/posts/all"
+				});
+
                 console.log(posts);
-				setPosts(posts.data);
+				if (response.status == "error"){
+					console.log(response.message);
+					return;
+				}
+				setPosts(response.data);
 			} catch (error) {
 				console.error(error);
 			}

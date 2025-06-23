@@ -73,7 +73,6 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 	}
 
 	async function register(
-		username: string,
 		email: string,
 		password: string,
 		code: string
@@ -81,7 +80,6 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 		const result = await POST<string>({
 			endpoint: "api/users/register",
 			body: {
-				username: username,
 				email: email,
 				password: password,
 				code: code,

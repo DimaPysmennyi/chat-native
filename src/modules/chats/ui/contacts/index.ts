@@ -1,1 +1,1 @@
-export { Contacts } from './contacts'
+export { ContactsComponent } from './contacts'

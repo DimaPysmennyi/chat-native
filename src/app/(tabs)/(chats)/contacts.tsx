@@ -1,0 +1,14 @@
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ChatsHeader } from "../../../modules/chats/ui/chats-header";
+import { ContactsComponent } from "../../../modules/chats/ui/contacts";
+import { Header } from "../../../shared/ui/header";
+import { StatusBar } from "expo-status-bar";
+
+export default function Contacts() {
+	return <SafeAreaView style={{ gap: 8 }}>
+        <StatusBar style="auto"/>
+        <Header/>
+        <ChatsHeader currentState="contacts"/>
+        <ContactsComponent/>
+    </SafeAreaView>;
+}

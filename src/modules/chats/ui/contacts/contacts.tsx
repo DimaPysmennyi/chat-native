@@ -9,35 +9,43 @@ import { styles } from "./contacts.styles";
 import { Input } from "../../../../shared/ui/input";
 import { IUser } from "../../../auth/tools/context/context.types";
 
-function ContactCard(props: {item: IUser}){
-    const {item} = props;
-    return (
-        <View style={styles.contactCard}>
-            <Image width={46} height={46} source={{uri: item.image}}/>
-            <Text>{item.firstname} {item.lastname}</Text>
-        </View>
-    )
+function ContactCard(props: { item: IUser }) {
+	const { item } = props;
+	return (
+		<View style={styles.contactCard}>
+			<Image width={46} height={46} source={{ uri: item.image }} />
+			<Text>
+				{item.firstname} {item.lastname}
+			</Text>
+		</View>
+	);
 }
 
-export function Contacts(){
-    const {user} = useAuthContext();
-    let friends;
-    useEffect(() => {
-        if (user){
-            friends = useAllFriends(user.id)
-        }
-    }, [user])
+export function ContactsComponent() {
+	const { user } = useAuthContext();
+	let friends;
+	useEffect(() => {
+ 		if (user) {
+			friends = useAllFriends(user.id);
+		}
+	}, [user]);
 
-    return (
-        <ScrollView>
-            <View style={styles.titleView}>
-                <FriendsIcon width={20} height={20} fill={COLORS.blueOpacity}/>
-                <Text style={styles.titleText}>Контакти</Text>
-            </View>
-            <Input style={{width: "100%", height: 42, borderRadius: 10}} label="Пошук"/>
-            <FlatList data={friends} renderItem={({item}) => {
-                return <ContactCard item={item}/>
-            }}></FlatList>
-        </ScrollView>
-    )
+	return (
+		<ScrollView>
+			<View style={styles.titleView}>
+				<FriendsIcon width={20} height={20} fill={COLORS.blueOpacity} />
+				<Text style={styles.titleText}>Контакти</Text>
+			</View>
+			<Input
+				style={{ width: "100%", height: 42, borderRadius: 10 }}
+				label="Пошук"
+			/>
+			<FlatList
+				data={friends}
+				renderItem={({ item }) => {
+					return <ContactCard item={item} />;
+				}}
+			></FlatList>
+		</ScrollView>
+	);
 }

@@ -9,10 +9,10 @@ export function Providers({ children }: { children: ReactNode }) {
 
 	if (!fontsLoaded) return null;
 	return (
-		<SafeAreaProvider>
+		<AuthContextProvider>
 			<PostContextProvider>
-				<AuthContextProvider>{children}</AuthContextProvider>
+				<SafeAreaProvider>{children}</SafeAreaProvider>
 			</PostContextProvider>
-		</SafeAreaProvider>
+		</AuthContextProvider>
 	);
 }

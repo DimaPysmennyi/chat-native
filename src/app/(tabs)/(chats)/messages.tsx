@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../../shared/ui/header";
 import { ChatsHeader } from "../../../modules/chats/ui/chats-header";
 import { MessagesComponent } from "../../../modules/chats/ui/messages";
+import { IChat } from "../../../modules/chats/types/chat.types";
 
-export default function Chats() {
+export default function Messages() {
 	return (
 		<SafeAreaView>
 			<StatusBar style="auto" />
@@ -15,10 +15,7 @@ export default function Chats() {
 				chats={[
 					{
 						id: 1,
-						isPersonalChat: false,
-                        name: "Chat1",
-                        adminId: 1,
-                        
+						isPersonalChat: true,
 						members: [
 							{
 								id: 1,
@@ -27,13 +24,13 @@ export default function Chats() {
 								friends: [],
 								albums: [],
 							},
-							{
-								id: 2,
-								email: "communityservine@gmail.com",
-								posts: [],
-								friends: [],
-								albums: [],
-							},
+                            {
+                                id: 2, 
+                                email: "communityservine@gmail.com",
+                                posts: [],
+                                friends: [],
+                                albums: []
+                            }
 						],
 						messages: [],
 					},

@@ -6,6 +6,7 @@ import { DeleteFriendModal } from "../delete-friend-modal";
 import { useState } from "react";
 import { Button } from "../../../../shared/ui/button";
 import { avatars } from "../../../../../assets/avatars/avatars";
+import { BASE_IMAGE_URL } from "../../../../shared/tools/requests";
 
 export function FriendCard(props: IFriendCardProps) {
 	const { image, firstname, lastname, username, buttonLabel } = props;
@@ -20,7 +21,7 @@ export function FriendCard(props: IFriendCardProps) {
 			/>
 			<View style={styles.userInfo}>
 				<Image
-					source={image !== undefined ? { uri: image } : { uri: avatars.avatar }}
+					source={image ? { uri: `${BASE_IMAGE_URL}/${image}` } : avatars.avatar }
 					style={styles.avatar}
 				/>
 				<View style={{ gap: 8, alignItems: "center" }}>

@@ -96,4 +96,31 @@ export const styles = StyleSheet.create({
     signatureBlock:{
 
     },
+
+
+    linktextnow:{
+        borderBottomColor:"black",
+        borderBottomWidth:2,
+        fontSize:16,
+        color:COLORS.black
+    },
+    linktextdef:{
+        fontSize:16,
+        color:COLORS.black
+    },
+    linkblok:{
+        flexDirection:"row",
+        height:100,
+        paddingBlockStart:5,
+        flex:1,
+        width:254,
+        alignItems:"flex-start",
+        justifyContent:"center"
+        
+        
+    },
+    textblock:{ 
+        width:"auto",
+        gap:8
+    }
 })

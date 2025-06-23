@@ -6,13 +6,14 @@ import { Button } from "../../../shared/ui/button";
 import { COLORS } from "../../../shared/ui/colors";
 import { PostListItem } from "../../posts/ui/post-list-item";
 import { avatars } from "../../../../assets/avatars/avatars";
+import { BASE_IMAGE_URL } from "../../../shared/tools/requests";
 
 export function ProfileScreen(props: IProfileProps) {
 	const { user } = useUserById(props.id);
 	return (
 		<View style={{gap: 8, backgroundColor: COLORS.fog, flex: 1}}>
 			<View style={styles.userInfo}>
-				<Image source={ avatars.avatar} style={{width: 96, height: 96, borderRadius: 50}}></Image>
+				<Image source={ user?.image? {uri: `${BASE_IMAGE_URL}/${user.image}`} : avatars.avatar} style={{width: 96, height: 96, borderRadius: 50}}></Image>
 				<Text style={styles.userTitle}>
 					{user?.firstname} {user?.lastname}
 				</Text>

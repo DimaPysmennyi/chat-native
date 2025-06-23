@@ -1,6 +1,7 @@
 import { Response } from "../types";
 
-const BASE_URL = 'http://192.168.178.39:8000'
+const BASE_URL = 'http://192.168.178.39:8000';
+export const BASE_IMAGE_URL = `${BASE_URL}/media`
 
 interface IRequestParams{
     endpoint: string,
@@ -17,7 +18,7 @@ export async function GET<T>(params: IRequestParams): Promise<Response<T>>{
     }
     console.log(reqHeaders)
     try{ 
-        const result = await fetch(`${BASE_URL}/${endpoint}`, {
+        const result = await fetch(`${BASE_URL}/${endpoint}`, { 
             headers: reqHeaders
         });
         const resultData: Response<T> = await result.json();

@@ -11,13 +11,11 @@ export interface IDetailsForm {
 
 export interface InitialAlbumData {
 	name: string;
-	theme: string;
-	year: string;
+	topic: string;
 }
 
 export interface IAlbumModalProps {
 	isVisible: boolean;
 	title: string;
 	onClose: () => void;
-	onSubmit: (data: InitialAlbumData) => void;
 }

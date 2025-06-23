@@ -12,13 +12,14 @@ export function RegisterFormStepTwo() {
 	const { register } = useAuthContext();
 
 	const params = useLocalSearchParams<{
-		username: string;
 		email: string;
 		password: string;
 	}>();
 
+	console.log(params)
+
 	function onSubmit(data: { code: string }) {
-		register(params.username, params.email, params.password, data.code);
+		register(params.email, params.password, data.code);
 		router.replace("/login");
 	}
 

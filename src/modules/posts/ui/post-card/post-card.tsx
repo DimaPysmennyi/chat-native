@@ -1,4 +1,4 @@
-import { View, Text, Image, FlatList } from "react-native";
+import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import { styles } from "./post.styles";
 import { IPost, IPostProps } from "../../types/post.types";
 import { avatars } from "../../../../../assets/avatars/avatars";
@@ -7,6 +7,8 @@ import { useAuthContext } from "../../../auth/tools/context";
 import { useEffect, useState } from "react";
 import { PostSettingsModal } from "../post-settings-modal/post-settings-modal";
 import { useUserById } from "../../../../shared/hooks";
+import { BASE_IMAGE_URL } from "../../../../shared/tools/requests";
+import { useRouter } from "expo-router";
 
 // Надо файлик PostCard с отображением одного поста, есть PostList с отображением масива постов
 
@@ -32,6 +34,7 @@ export function PostCard(props: IPost) {
 	const { id, title, content, tags, images, likes, views, userId } = props;
 
 	const { user } = useAuthContext();
+
 	const { user: postOwner, error } = useUserById(userId);
 
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -53,27 +56,47 @@ export function PostCard(props: IPost) {
 		}
 	}
 
+	const router = useRouter();
+
 	return (
 		<View style={styles.postContainer}>
+				<TouchableOpacity
+				// style={{flex: 1, flexDirection: "row",}}
+					onPress={() => {
+						router.replace(`/profile/${postOwner?.id}`);
+					}}
+				>
 			<View style={styles.postHeader}>
-				<View style={styles.userInfo}>
-					<Image source={avatars.avatar} style={styles.avatar} />
-					<Text style={styles.username}>{postOwner?.username}</Text>
-				</View>
-				<PostSettingsModal
-					post={props}
-					isVisible={isModalVisible}
-					onClose={() => setIsModalVisible(false)}
-				/>
-				{user?.id === userId ? (
-					<DotsIcon
-						width={20}
-						height={20}
-						fill={"#81818D"}
-						onPress={() => setIsModalVisible(true)}
+					<View style={styles.userInfo}>
+						<Image
+							source={
+								postOwner?.image
+									? {
+											uri: `${BASE_IMAGE_URL}/${postOwner?.image}`,
+									  }
+									: avatars.avatar
+							}
+							style={styles.avatar}
+						/>
+						<Text style={styles.username}>
+							{postOwner?.username}
+						</Text>
+					</View>
+					<PostSettingsModal
+						post={props}
+						isVisible={isModalVisible}
+						onClose={() => setIsModalVisible(false)}
 					/>
-				) : undefined}
+					{user?.id === userId ? (
+						<DotsIcon
+							width={20}
+							height={20}
+							fill={"#81818D"}
+							onPress={() => setIsModalVisible(true)}
+						/>
+					) : undefined}
 			</View>
+				</TouchableOpacity>
 
 			<View style={styles.postBody}>
 				<Text style={styles.text}>{title}</Text>
@@ -106,7 +129,12 @@ export function PostCard(props: IPost) {
 					<Text style={styles.footerText}> {likes} Вподобань</Text>
 				</View>
 				<View style={{ flexDirection: "row", gap: 4 }}>
-					<EyeIcon width={20} height={20} fill={"#81818D"} stroke={"#81818D"}/>
+					<EyeIcon
+						width={20}
+						height={20}
+						fill={"#81818D"}
+						stroke={"#81818D"}
+					/>
 					<Text style={styles.footerText}>{views} Переглядів</Text>
 				</View>
 			</View>

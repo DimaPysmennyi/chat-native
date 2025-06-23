@@ -27,12 +27,12 @@ export function Header(props: IHeaderProps) {
 		<View style={styles.header}>
 			<CreatePostModal isVisible={isVisible} onClose={() => {
 				setIsVisible(false)
-				if (user){
-					const lastPost = usePostsByUserId(user?.id);
-					if (lastPost && posts && setPosts){
-						setPosts([...posts, lastPost[0]])
-					}
-				}
+				// if (user){
+				// 	const lastPost = usePostsByUserId(user?.id);
+				// 	if (lastPost && posts && setPosts){
+				// 		setPosts([...posts, lastPost[0]])
+				// 	}
+				// }
 			}}/>
 			<View>
 				<LogoIcon height={18} width={145} fill={"#543C52"} onPress={() => router.replace('/main')} />

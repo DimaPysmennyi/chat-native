@@ -5,7 +5,7 @@ export async function useUpdateAlbum(data: IUpdateAlbum) {
     try {
         const result = await POST<string>(
             {
-                endpoint: `/api/users/albums/update/${data.id}`,
+                endpoint: `api/users/albums/update/${data.id}`,
                 body: data,
             }
         );

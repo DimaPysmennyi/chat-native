@@ -59,7 +59,7 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 		const assets = await pickImage({
 			allowsMultipleSelection: true,
 			base64: true,
-			quality: 0
+			quality: 0,
 		});
 
 		if (assets) {
@@ -71,14 +71,14 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 	}
 
 	function onSubmit(data: ICreatePost) {
-		if (user){
+		if (user) {
 			const allData = {
 				...data,
 				tags: selectedTags,
 				images: images,
-				userId: user?.id
+				userId: user?.id,
 			};
-	
+
 			reset();
 			setImages([]);
 			setSelectedTags([]);
@@ -87,7 +87,7 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 			getPosts();
 			return;
 		}
-		console.log("no user")
+		console.log("no user");
 	}
 
 	function onPress(tag: string) {

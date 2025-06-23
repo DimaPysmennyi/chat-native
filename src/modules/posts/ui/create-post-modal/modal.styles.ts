@@ -3,12 +3,16 @@ import { COLORS } from "../../../../shared/ui/colors";
 
 export const styles = StyleSheet.create({
 	modalContainer: {
-		backgroundColor: "#FFFFFF",
-		borderRadius: 20,
+        // flex: 1,
+		// maxHeight: 433,
+		justifyContent: "center",
+		// alignItems: "center",
 		paddingTop: 24,
-		paddingHorizontal: 16,
-		paddingBottom: 44,
-		minHeight: 589,
+        paddingHorizontal: 16,
+		paddingBottom: 24,
+        borderRadius: 20,
+        backgroundColor: COLORS.white,
+        // margin: 0
 	},
 	modalTitle: {
 		fontSize: 24,
@@ -23,11 +27,13 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 		gap: 10,
 	},
-	crossIconView: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "flex-end",
-	},
+    crossIconView: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        height: 20,
+		zIndex: 999
+    },
 	publishButton: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -42,11 +48,6 @@ export const styles = StyleSheet.create({
 		color: "#fff",
 		marginRight: 6,
 		fontWeight: "600",
-	},
-	closeButton: {
-		position: "absolute",
-		top: 20,
-		right: 15,
 	},
 	inputs: {
 		gap: 16,

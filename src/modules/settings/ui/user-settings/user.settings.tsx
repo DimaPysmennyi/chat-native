@@ -14,9 +14,11 @@ import {
 import { useEffect, useState } from "react";
 import { useUpdateUser } from "../../hooks";
 import { GalleryIcon } from "../../../../shared/ui/icons/tab-icons";
-import { launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
+import { ImagePickerAsset, launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
 import { IUser } from "../../../auth/tools/context/context.types";
 import { Link, useRouter } from "expo-router";
+import { BASE_IMAGE_URL } from "../../../../shared/tools/requests";
+import { SettingsHeader } from "../settings-header/settings-header";
 
 export function UserSettings() {
 	let { user } = useAuthContext();
@@ -28,9 +30,7 @@ export function UserSettings() {
 		useState<boolean>(false);
 	let [newUser, setNewUser] = useState<IUser | null>(null);
 	const [avatarImage, setAvatarImage] = useState<string | null>();
-	useEffect(() => (user ? setNewUser(user) : undefined), []);
-	// console.log(user)
-	// console.log(newUser)
+	useEffect(() => (user ? setNewUser(user) : undefined), [user]);
 
 
 	function onSubmit() {
@@ -56,12 +56,11 @@ export function UserSettings() {
 	}
 
 	function submitProfileInfo() {
-		console.log(newUser, avatarImage);
 		if (newUser && avatarImage) {
-			console.log(222)
+			console.log(avatarImage);
 			useUpdateUser({
 				id: newUser.id,
-				image: avatarImage,
+				image: 'data:image/png;base64,' + avatarImage,
 				username: controlPicture._formValues.username,
 			});
 			setNewUser({
@@ -75,29 +74,24 @@ export function UserSettings() {
 	async function addImage() {
 		let image = await launchCameraAsync({
 			mediaTypes: "images",
+			base64: true
 		});
-		setAvatarImage(image.assets?.at(0)?.uri);
+		setAvatarImage(image.assets?.at(0)?.base64);
 	}
 
 	async function chooseImage() {
 		let image = await launchImageLibraryAsync({
 			mediaTypes: "images",
+			base64: true
 		});
 		console.log(image.assets?.at(0)?.base64)
-		setAvatarImage(image.assets?.at(0)?.uri);
+		setAvatarImage(image.assets?.at(0)?.base64);
 	}
 
 	return (
 		<View style={styles.formContainer}>
-			<Link
-				href="/settings/albums"
-				onPress={(event) => {
-					event.preventDefault();
-					router.replace("/settings/albums");
-				}}
-			>
-				Albums
-			</Link>
+			<SettingsHeader currentState="settings"/>
+
 			<View
 				style={
 					allowedToEditProfileCard
@@ -146,7 +140,7 @@ export function UserSettings() {
 					) : undefined}
 					{newUser?.image ? (
 						<Image
-							source={{ uri: newUser.image }}
+							source={{ uri: `${BASE_IMAGE_URL}/${newUser.image}` }}
 							style={styles.avatar}
 						/>
 					) : avatarImage ? (
@@ -379,32 +373,6 @@ export function UserSettings() {
 							);
 						}}
 					/>
-				</View>
-			</View>
-
-			<View style={styles.signatureBlock}>
-				<View style={styles.topTextBlock}>
-					<Text>Варіанти підпису</Text>
-					<ImageButton
-						style={allowedToEdit ? styles.editButton : undefined}
-						onPress={() => {
-							if (allowedToEdit === true) {
-								setAllowedToEdit(false);
-								onSubmit();
-								return;
-							}
-							setAllowedToEdit(true);
-						}}
-					>
-						<PencilIcon
-							width={20}
-							height={20}
-							fill={COLORS.purple}
-						/>
-						{allowedToEdit ? (
-							<Text style={styles.editButtonText}>Зберегти</Text>
-						) : undefined}
-					</ImageButton>
 				</View>
 			</View>
 		</View>

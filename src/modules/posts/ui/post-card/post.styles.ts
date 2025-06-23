@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
 	avatar: {
 		width: 46,
 		height: 46,
-		borderRadius: 10,
+		borderRadius: 23,
 		marginRight: 10,
 	},
 	username: {

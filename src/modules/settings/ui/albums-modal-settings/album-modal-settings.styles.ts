@@ -3,16 +3,14 @@ import { COLORS } from "../../../../shared/ui/colors";
 
 export const styles = StyleSheet.create({
 	modalContainer: {
-        // flex: 1,
-		// maxHeight: 433,
 		justifyContent: "center",
-		// alignItems: "center",
 		paddingTop: 24,
         paddingHorizontal: 16,
 		paddingBottom: 24,
         borderRadius: 20,
         backgroundColor: COLORS.white,
         // margin: 0
+        
 	},
 
     modalTitle: {
@@ -29,7 +27,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "flex-end",
-        height: 20
+        height: 20,
+        zIndex: 999
     },
 
     buttons: {

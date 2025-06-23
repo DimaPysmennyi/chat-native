@@ -51,22 +51,25 @@ export function FriendList(props: IFriendListProps) {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.friendList}>
-				
-				<FlatList
-					style={{ gap: 8 }}
-					data={array ? [array[0], array[1]] : undefined}
-					renderItem={({ item }) => {
-						return (
-							<FriendCard
-								image={item.image}
-								firstname={item.firstname}
-								lastname={item.lastname}
-								username={item.username}
-								buttonLabel={getLabel()[0]}
-							/>
-						);
-					}}
-				/>
+				{array ? (
+					array.length > 0 ? (
+						<FlatList
+							style={{ gap: 8 }}
+							data={array ? [array[0], array[1]] : undefined}
+							renderItem={({ item }) => {
+								return (
+									<FriendCard
+										image={item.image}
+										firstname={item.firstname}
+										lastname={item.lastname}
+										username={item.username}
+										buttonLabel={getLabel()[0]}
+									/>
+								);
+							}}
+						/>
+					) : undefined
+				) : undefined}
 			</View>
 		</View>
 	);

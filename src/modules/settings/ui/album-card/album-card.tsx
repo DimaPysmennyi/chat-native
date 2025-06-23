@@ -9,7 +9,7 @@ import { pickImage } from "../../../../shared/tools/pick-image";
 import { useUpdateAlbum } from "../../hooks";
 
 export function AlbumCard(props: IAlbum) {
-	const { id, name, theme, year, images } = props;
+	const { id, name, topic, year, images } = props;
 	const [albumImages, setAlbumImages] = useState<string[]>(
 		images ? images.split(" ") : []
 	);
@@ -80,7 +80,7 @@ export function AlbumCard(props: IAlbum) {
 						fontFamily: "GTWalsheimPro-Regular",
 					}}
 				>
-					{theme}
+					{topic}
 				</Text>
 				<Text
 					style={{

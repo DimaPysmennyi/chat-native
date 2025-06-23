@@ -13,7 +13,6 @@ const initialValue: IAuthContext = {
 	resultMessage: null,
 	login: (email: string, password: string) => {},
 	register: (
-		username: string,
 		email: string,
 		password: string,
 		code: string
@@ -39,7 +38,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 				endpoint: "api/users/me",
 				token: token,
 			});
-			console.log(result);
+			// console.log(result);
 			if (result.status === "error") {
 				console.log(result.message);
 				return;
@@ -63,7 +62,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 				console.log(result.message);
 				return;
 			}
-			console.log(result.data);
+			// console.log(result.data);
 			await getData(result.data);
 
 			await AsyncStorage.setItem("token", result.data);
@@ -92,7 +91,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 			return;
 		}
 		getData(result.data);
-		console.log("Токен сохранен?", await AsyncStorage.getItem("token"));
+		// console.log("Токен сохранен?", await AsyncStorage.getItem("token"));
 		await AsyncStorage.setItem("token", result.data);
 	}
 

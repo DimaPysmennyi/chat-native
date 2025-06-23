@@ -7,7 +7,7 @@ import { usePostContext } from "../../../modules/posts/context/context";
 import { useAuthContext } from "../../../modules/auth/tools/context";
 import { DetailsModal } from "../../../modules/settings/ui/details-modal/details-modal";
 import { useEffect, useState } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { IPost } from "../../../modules/posts/types";
 import { useRouter } from "expo-router";
 
@@ -22,15 +22,15 @@ export default function MainPage() {
 	
 	const router = useRouter();
 
-	console.log(posts);
-	useEffect(() => console.log(posts), [posts]);
+	// console.log(posts);
+	// useEffect(() => console.log(posts), [posts]);
 
 
 	return (
 		<SafeAreaView>
 			<StatusBar style="dark" />
 			<ScrollView
-				contentContainerStyle={{ gap: 8 }}
+				// style={{gap: 8}}
 				alwaysBounceVertical={false}
 				overScrollMode="never"
 			>
@@ -38,11 +38,13 @@ export default function MainPage() {
 				{/* {!user?.username ? setIsModalVisible(true) : undefined} */}
 				<DetailsModal isVisible={isModalVisible} onClose={() => {setIsModalVisible(false)}}/>
 				<Text onPress={() => router.replace("/profile/11")}>Profile</Text>
+				<View style={{gap: 8}}>
+
 				{posts
 					? posts.map((item) => (
-							<PostListItem
-								key={item.id}
-								id={item.id}
+						<PostListItem
+						key={item.id}
+						id={item.id}
 								title={item.title}
 								topic={item.topic}
 								content={item.content}
@@ -52,9 +54,10 @@ export default function MainPage() {
 								views={item.views}
 								links={item.links}
 								userId={item.userId}
-							/>
-					  ))
-					: undefined}
+								/>
+							))
+							: undefined}
+							</View>
 			</ScrollView>
 		</SafeAreaView>
 	);

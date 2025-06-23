@@ -18,5 +18,6 @@ export const styles = StyleSheet.create({
         fontFamily: "GTWalsheimPro-Medium",
         fontSize: 16,
         color: COLORS.blue
-    }
+    },
+
 })

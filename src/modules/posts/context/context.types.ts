@@ -3,7 +3,7 @@ import { IPost } from "../types"
 
 export interface IPostContext{
     allPosts: IPost[] | null;
-    getPosts: () => void;
+    getPosts: () => IPost[] | null;
 }
 
 export interface IPostContextProviderProps{

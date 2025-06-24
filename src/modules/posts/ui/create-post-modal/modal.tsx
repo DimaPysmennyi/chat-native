@@ -49,8 +49,7 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 	const [isTagAdding, setIsTagAdding] = useState<boolean>(false);
 	const [newTag, setNewTag] = useState<string>("");
 	const { user } = useAuthContext();
-	const { getPosts } = usePostContext();
-
+	const router = useRouter();
 	useEffect(() => {
 		setAllTags(defaultTags);
 	}, []);
@@ -83,8 +82,8 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 			setImages([]);
 			setSelectedTags([]);
 			useCreatePost(allData);
+			router.replace('/main');
 			onClose();
-			getPosts();
 			return;
 		}
 		console.log("no user");
@@ -153,6 +152,7 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 										minHeight: 42,
 										height: 0,
 										maxHeight: 140,
+										marginBottom: 15
 									}}
 									value={field.value}
 									error={fieldState.error?.message}

@@ -32,6 +32,7 @@ export interface IAlbum {
 
 export interface IMyAlbumsProps {
   onCreateAlbum: () => void;
+  albums: IAlbum[];
 }
 
 export interface IUpdateAlbum {

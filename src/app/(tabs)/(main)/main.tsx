@@ -10,21 +10,40 @@ import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { IPost } from "../../../modules/posts/types";
 import { useRouter } from "expo-router";
+import { GET } from "../../../shared/tools/requests";
+
+async function updatePosts(setPosts: React.Dispatch<React.SetStateAction<IPost[] | null>>) {
+	try {
+		const response = await GET<IPost[]>({
+			endpoint: "api/posts/all",
+		});
+		// const posts = await response.json();
+		if (response.status == "error") {
+			console.log(response.message);
+			return;
+		}
+		setPosts(response.data);
+		// setPosts(response.data);
+	} catch (error) {
+		console.error(error);
+	}
+}
 
 export default function MainPage() {
-	const { allPosts } = usePostContext();
-	let [posts, setPosts] = useState<IPost[]>([]);
+	let [posts, setPosts] = useState<IPost[] | null>([]);
 	const { user } = useAuthContext();
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-	useEffect(() => { user ? !user?.username ? setIsModalVisible(true) : undefined : undefined}, [user])
-	useEffect(() => allPosts ? setPosts(allPosts) : undefined, [allPosts])
-	
-	const router = useRouter();
+	useEffect(() => {
+		user
+			? !user?.username
+				? setIsModalVisible(true)
+				: undefined
+			: undefined;
+	}, [user]);
 
-	// console.log(posts);
-	// useEffect(() => console.log(posts), [posts]);
-
+	// useEffect(() => (allPosts ? setPosts(allPosts) : undefined), [allPosts]);
+	useEffect(() => {updatePosts(setPosts)}, []);
 
 	return (
 		<SafeAreaView>
@@ -34,30 +53,36 @@ export default function MainPage() {
 				alwaysBounceVertical={false}
 				overScrollMode="never"
 			>
-				<Header posts={posts} setPosts={setPosts}/>
+				<Header posts={posts ? posts : undefined} setPosts={setPosts} />
 				{/* {!user?.username ? setIsModalVisible(true) : undefined} */}
-				<DetailsModal isVisible={isModalVisible} onClose={() => {setIsModalVisible(false)}}/>
-				<Text onPress={() => router.replace("/profile/11")}>Profile</Text>
-				<View style={{gap: 8}}>
-
-				{posts
-					? posts.map((item) => (
-						<PostListItem
-						key={item.id}
-						id={item.id}
-								title={item.title}
-								topic={item.topic}
-								content={item.content}
-								images={item.images}
-								tags={item.tags}
-								likes={item.likes}
-								views={item.views}
-								links={item.links}
-								userId={item.userId}
+				<DetailsModal
+					isVisible={isModalVisible}
+					onClose={() => {
+						setIsModalVisible(false);
+					}}
+				/>
+				{/* <Text onPress={() => router.replace("/profile/11")}>
+					Profile
+				</Text> */}
+				<View style={{ gap: 8 }}>
+					{posts
+						? posts.map((item) => (
+								<PostListItem
+									key={item.id}
+									id={item.id}
+									title={item.title}
+									topic={item.topic}
+									content={item.content}
+									images={item.images}
+									tags={item.tags}
+									likes={item.likes}
+									views={item.views}
+									links={item.links}
+									userId={item.userId}
 								/>
-							))
-							: undefined}
-							</View>
+						  ))
+						: undefined}
+				</View>
 			</ScrollView>
 		</SafeAreaView>
 	);

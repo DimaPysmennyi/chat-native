@@ -8,12 +8,14 @@ import { useAllFriends } from "../../../modules/friends/hooks/useAllFriends";
 import { useAllUsers } from "../../../shared/hooks";
 import { FriendHeader } from "../../../modules/friends/ui/friend-header";
 import { Text } from "react-native";
+import { useAllRequests } from "../../../modules/friends/hooks/useAllRequests";
 
 export default function Friends(){
 	const { user } = useAuthContext();
 	const { users: allUsers } = useAllUsers();
 	if (user){
 		var friends = useAllFriends(user?.id).friends
+		var {requests} = useAllRequests(user?.id);
 	}
     return (
         <SafeAreaView>
@@ -27,7 +29,7 @@ export default function Friends(){
 
 			<FriendHeader page={"Головна"}/>
             
-			{friends ? <FriendList variant="requests" array={friends}/>: <Text>No requests</Text>}
+			{requests ? <FriendList variant="requests" array={friends}/>: <Text>No requests</Text>}
             {allUsers ? <FriendList variant="recommendations" array={allUsers}/> : <Text>No recommendations</Text>}
             {friends ? <FriendList variant="friends" array={friends}/>: <Text>No friends</Text>}
         </ScrollView>

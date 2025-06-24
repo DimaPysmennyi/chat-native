@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useAuthContext } from "../../../auth/tools/context";
 import { styles } from "./my-albums.styles";
 import { ImageButton } from "../../../../shared/ui/button";
@@ -20,10 +20,25 @@ export function MyAlbums(props: IMyAlbumsProps) {
 				</ImageButton>
 			</View>
 		) : (
-			<FlatList data={user?.albums} renderItem={({ item }) => <AlbumCard name={item.name} topic={item.topic} year="2025" id={item.id} images={item.images}/>}/>
+			<View>
+				<FlatList
+					data={user?.albums}
+					renderItem={({ item }) => (
+						<AlbumCard
+							name={item.name}
+							topic={item.topic}
+							year="2025"
+							id={item.id}
+							images={item.images}
+						/>
+					)}
+				/>
+				<TouchableOpacity onPress={() => onCreateAlbum()}>
+					<Text>+</Text>
+				</TouchableOpacity>
+			</View>
 		);
-	}
-	else {
-		return
+	} else {
+		return;
 	}
 }

@@ -3,6 +3,7 @@ import { styles } from "./my-photos.styles";
 import { ImageIcon } from "../../../../shared/ui/icons";
 import { COLORS } from "../../../../shared/ui/colors";
 import { useAuthContext } from "../../../auth/tools/context";
+import { BASE_IMAGE_URL } from "../../../../shared/tools/requests";
 
 export function MyPhotos(){
     const {user} = useAuthContext()
@@ -16,7 +17,7 @@ export function MyPhotos(){
                 </TouchableOpacity>
             </View>
             {user ? 
-            <Image source={{uri: user?.image}} style={{width: 200, height: 200, borderRadius: 10}}/>
+            <Image source={{uri: `${BASE_IMAGE_URL}/${user?.image}`}} style={{width: 200, height: 200, borderRadius: 10}}/>
             :
             <Image source={{uri: 'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg'}} style={{width: 200, height: 200, borderRadius: 10}}/>
             }

@@ -9,17 +9,16 @@ import { PostSettingsModal } from "../post-settings-modal/post-settings-modal";
 import { useUserById } from "../../../../shared/hooks";
 import { BASE_IMAGE_URL } from "../../../../shared/tools/requests";
 import { useRouter } from "expo-router";
+import { IImage } from "../../types/post.types";
 
 // Надо файлик PostCard с отображением одного поста, есть PostList с отображением масива постов
 
-const PostImage = (imageObject: { image: string }) => {
+const PostImage = (imageObject: { image: IImage }) => {
 	const { image } = imageObject;
 	console.log(image);
 	return (
 		<Image
-			source={{
-				uri: image,
-			}}
+			source={{uri: `${BASE_IMAGE_URL}/${image.filename}`}}
 			style={styles.imageHalf}
 		/>
 	);
@@ -41,13 +40,6 @@ export function PostCard(props: IPost) {
 
 	const splitedImageList = [];
 	const splitedTagsList = [];
-
-	if (images) {
-		const splitedImage = images.split(" ");
-		for (let image of splitedImage) {
-			splitedImageList.push(image);
-		}
-	}
 
 	if (tags) {
 		const splitedTags = tags.split(" ");
@@ -113,7 +105,7 @@ export function PostCard(props: IPost) {
 					<View style={styles.imageGrid}>
 						<View style={styles.row}>
 							<FlatList
-								data={splitedImageList}
+								data={images}
 								renderItem={({ item }) => (
 									<PostImage image={item} />
 								)}

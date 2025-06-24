@@ -3,10 +3,6 @@ import { POST } from "../../../shared/tools/requests";
 
 export async function useCreatePost(data: ICreatePost) {
 	const { title, topic, content, links, images, tags, userId } = data;
-	let imageString = "";
-	if (images) {
-		imageString = images.join(" ");
-	}
 
 	let tagString = "";
 	if (tags) {
@@ -24,8 +20,8 @@ export async function useCreatePost(data: ICreatePost) {
 					topic: topic,
 					content: content,
 					links: links,
-					images: imageString,
-					tags: tagString,
+					images: images,
+					tags: tags,
 					userId: userId,
 				}
 			}

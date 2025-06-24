@@ -10,11 +10,14 @@ import { Button } from "../../../../shared/ui/button";
 import { COLORS } from "../../../../shared/ui/colors";
 import { useCreateAlbum } from "../../hooks/useCreateAlbum";
 import { useAuthContext } from "../../../auth/tools/context";
+import { useRouteInfo, useRouter } from "expo-router/build/hooks";
 
 export function AlbumsModal(props: IAlbumModalProps) {
 	const { control, handleSubmit } = useForm<InitialAlbumData>();
 	const { isVisible, title, onClose } = props;
 	const { user } = useAuthContext();
+
+	const router = useRouter();
 
 	function formSubmit(data: InitialAlbumData) {
 		if (user) {
@@ -23,6 +26,7 @@ export function AlbumsModal(props: IAlbumModalProps) {
 				userId: user?.id,
 			};
 			useCreateAlbum(allData);
+			router.replace('/settings/albums');
 			onClose();
 			return;
 		}

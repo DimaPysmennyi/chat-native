@@ -6,7 +6,7 @@ import { GET } from "../../../shared/tools/requests";
 
 const initialValue: IPostContext = {
 	allPosts: null,
-	getPosts: () => {},
+	getPosts: () => {return null},
 };
 
 const postContext = createContext<IPostContext>(initialValue);
@@ -16,31 +16,30 @@ export function usePostContext() {
 
 export function PostContextProvider(props: IPostContextProviderProps) {
 	const [allPosts, setAllPosts] = useState<IPost[] | null>(null);
-	const [posts, setPosts] = useState<IPost[] | null>(null);
-
-	async function getPosts() {
-		try {
-			const response = await GET<IPost[]>({
-				endpoint: "api/posts/all"
-			});
-			// const posts = await response.json();
-			if (response.status == "error"){
-				console.log(response.message);
-				return; 
+	
+	function getPosts() {
+		const [posts, setPosts] = useState<IPost[] | null>(null);
+		useEffect(() => {
+			async function posts(){
+				try {
+					const response = await GET<IPost[]>({
+						endpoint: "api/posts/all"
+					});
+					// const posts = await response.json();
+					if (response.status == "error"){
+						console.log(response.message);
+						return; 
+					}
+					setPosts(response.data);
+					// setPosts(response.data);
+				} catch (error) {
+					console.error(error);
+				}
 			}
-			setPosts(response.data);
-		} catch (error) {
-			console.error(error);
-		}
-	}
-
-	useEffect(() => {
-		setAllPosts(posts);
-	}, [posts]);
-
-	useEffect(() => {
-		getPosts();
-	}, []);
+			posts();
+		}, [])
+		return posts
+	}	
 
 	return (
 		<postContext.Provider

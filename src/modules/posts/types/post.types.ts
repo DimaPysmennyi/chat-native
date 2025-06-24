@@ -24,6 +24,15 @@ export interface ICreatePost {
 	userId: number;
 }
 
+export interface IImage{
+    id: number;
+    filename: string;
+    file: string;
+    uploadedAt: Date;
+    postId: number;
+    albumId: number;
+}
+
 export interface IPost {
 	id: number;
 	title: string;
@@ -31,7 +40,7 @@ export interface IPost {
 	tags?: string;
 	content: string;
 	links?: string;
-	images?: string;
+	images?: IImage[];
 	userId: number;
 	likes: number;
 	views: number;

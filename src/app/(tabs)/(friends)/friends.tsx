@@ -7,6 +7,7 @@ import { useAuthContext } from "../../../modules/auth/tools/context";
 import { useAllFriends } from "../../../modules/friends/hooks/useAllFriends";
 import { useAllUsers } from "../../../shared/hooks";
 import { FriendHeader } from "../../../modules/friends/ui/friend-header";
+import { Text } from "react-native";
 
 export default function Friends(){
 	const { user } = useAuthContext();
@@ -26,9 +27,9 @@ export default function Friends(){
 
 			<FriendHeader page={"Головна"}/>
             
-			<FriendList variant="requests" array={friends}/>
-            <FriendList variant="recommendations" array={allUsers}/>
-            <FriendList variant="friends" array={friends}/>
+			{friends ? <FriendList variant="requests" array={friends}/>: <Text>No requests</Text>}
+            {allUsers ? <FriendList variant="recommendations" array={allUsers}/> : <Text>No recommendations</Text>}
+            {friends ? <FriendList variant="friends" array={friends}/>: <Text>No friends</Text>}
         </ScrollView>
 		</SafeAreaView>
     )

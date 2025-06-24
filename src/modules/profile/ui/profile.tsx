@@ -31,7 +31,7 @@ export function ProfileScreen(props: IProfileProps) {
 					</View>
 					<View style={styles.infoBlock}>
 						<Text style={styles.infoBlockTitle}>
-							{user?.friends.length}
+							{1}
 						</Text>
 						<Text style={styles.infoBlockSubtitle}>Друзі</Text>
 					</View>

@@ -5,13 +5,18 @@ export interface IFriendCardProps {
     firstname?: string
     lastname?: string
     username?: string
-    buttonLabel?: string
+    buttonLabel?: string,
+    onFirstButtonPress?: () => void,
+    onSecondButtonPress?: () => void,
 }
 
-export interface IFriend{
+export interface IFriendship{
     id: number,
-    friendUserId: number,
-    friendOfId: number
+    profile1Id: number,
+    profile2Id: number,
+    accepted: boolean,
+    profile1: IUser,
+    profile2: IUser
 }
 
 export interface IFriendListProps {

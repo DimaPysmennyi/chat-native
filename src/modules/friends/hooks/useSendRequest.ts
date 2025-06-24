@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useAuthContext } from "../../auth/tools/context";
 import { POST } from "../../../shared/tools/requests";
 
-export function useAcceptFriendship(id: number) {
+export function useSendRequest(id: number) {
 	const { user } = useAuthContext();
 	useEffect(() => {
-		async function acceptFriend() {
+		async function addFriend() {
 			try {
 				const response = await POST({
-					endpoint: `api/users/accept-friend/${user?.id}`,
-					body: { id: id },
+					endpoint: `api/friends/send-request/${user?.id}`,
+					body: { toId: id },
 				});
 				if (response.status == "error") {
 					console.log(response.message);
@@ -20,6 +20,6 @@ export function useAcceptFriendship(id: number) {
 				console.log(error);
 			}
 		}
-		acceptFriend();
+		addFriend();
 	}, [id]);
 }

@@ -6,9 +6,30 @@ import { StatusBar } from "expo-status-bar";
 import { FriendCard } from "../../../modules/friends/ui/friend-card";
 import { FriendHeader } from "../../../modules/friends/ui/friend-header";
 import { useAllUsers } from "../../../shared/hooks";
+import { useSendRequest } from "../../../modules/friends/hooks/useSendRequest";
+import { POST } from "../../../shared/tools/requests";
+import { useAuthContext } from "../../../modules/auth/tools/context";
+import { IUser } from "../../../modules/auth/tools/context/context.types";
 
-export default function AllFriends() {
+async function sendRequest(user: IUser, id: number) {
+	try {
+		const response = await POST({
+			endpoint: `api/friends/send-request/${user?.id}`,
+			body: { toId: id },
+		});
+		if (response.status == "error") {
+			console.log(response.message);
+			return;
+		}
+		console.log(response.data);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+export default function Recommendations() {
 	const { users: allUsers } = useAllUsers();
+	const { user } = useAuthContext();
 
 	return (
 		<SafeAreaView>
@@ -41,6 +62,11 @@ export default function AllFriends() {
 									lastname={item.lastname}
 									username={item.username}
 									buttonLabel={"Додати"}
+									onFirstButtonPress={() => {
+										if (user) {
+											sendRequest(user, item.id);
+										}
+									}}
 								/>
 							);
 						})

@@ -16,6 +16,7 @@ export function FriendList(props: IFriendListProps) {
 			case "recommendations":
 				buttonLabel = "Додати";
 				listLabel = "Рекомендації";
+				
 				return [buttonLabel, listLabel];
 			case "friends":
 				buttonLabel = "Повідомлення";
@@ -55,7 +56,7 @@ export function FriendList(props: IFriendListProps) {
 					array.length > 0 ? (
 						<FlatList
 							style={{ gap: 8 }}
-							data={array ? [array[0], array[1]] : undefined}
+							data={array ? array.length > 1 ? [array[0], array[1]] : [array[0]] : undefined}
 							renderItem={({ item }) => {
 								return (
 									<FriendCard

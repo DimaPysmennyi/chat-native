@@ -22,16 +22,16 @@ export default function Chats() {
 						members: [
 							{
 								id: 1,
+								name: "user1",
 								email: "gdimon4ik10@gmail.com",
 								posts: [],
-								friends: [],
 								albums: [],
 							},
 							{
 								id: 2,
+								name: "user2",
 								email: "communityservine@gmail.com",
 								posts: [],
-								friends: [],
 								albums: [],
 							},
 						],

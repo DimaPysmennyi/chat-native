@@ -48,7 +48,7 @@ export function Message(message: IMessage) {
 							fontFamily: "GTWalsheimPro-Regular",
 						}}
 					>
-						{message.sendAt}
+						{/* {message.sendAt} */}
 					</Text>
 				</View>
 			) : (

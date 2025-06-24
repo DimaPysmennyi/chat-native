@@ -9,7 +9,15 @@ import { avatars } from "../../../../../assets/avatars/avatars";
 import { BASE_IMAGE_URL } from "../../../../shared/tools/requests";
 
 export function FriendCard(props: IFriendCardProps) {
-	const { image, firstname, lastname, username, buttonLabel } = props;
+	const {
+		image,
+		firstname,
+		lastname,
+		username,
+		buttonLabel,
+		onFirstButtonPress,
+		onSecondButtonPress,
+	} = props;
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	return (
 		<View style={styles.card}>
@@ -21,7 +29,11 @@ export function FriendCard(props: IFriendCardProps) {
 			/>
 			<View style={styles.userInfo}>
 				<Image
-					source={image ? { uri: `${BASE_IMAGE_URL}/${image}` } : avatars.avatar }
+					source={
+						image
+							? { uri: `${BASE_IMAGE_URL}/${image}` }
+							: avatars.avatar
+					}
 					style={styles.avatar}
 				/>
 				<View style={{ gap: 8, alignItems: "center" }}>
@@ -36,13 +48,15 @@ export function FriendCard(props: IFriendCardProps) {
 					style={styles.firstButton}
 					label={buttonLabel}
 					fontSize={14}
+					onPress={onFirstButtonPress}
 				/>
 				<Button
 					style={styles.secondButton}
-					onPress={() => setIsModalVisible(true)}
+					// onPress={() => setIsModalVisible(true)}
 					label={"Видалити"}
 					fontSize={14}
 					textColor={COLORS.purple}
+					onPress={onSecondButtonPress}
 				/>
 			</View>
 		</View>

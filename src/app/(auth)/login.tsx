@@ -11,8 +11,9 @@ export default function Login() {
 				backgroundColor: "#E9E5EE",
 				flex: 1,
 			}}
-		> <NewGroup userId={0}/>
-			{/* <KeyboardAwareScrollView
+		> 
+		{/* <NewGroup userId={0}/> */}
+			<KeyboardAwareScrollView
 				keyboardShouldPersistTaps={"handled"}
 				enableOnAndroid
 				contentContainerStyle={{
@@ -27,7 +28,7 @@ export default function Login() {
 			>
 				<StatusBar style="auto" />
 				<LoginForm />
-			</KeyboardAwareScrollView> */}
+			</KeyboardAwareScrollView>
 		</SafeAreaView>
 	);
 }

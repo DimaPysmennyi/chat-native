@@ -7,6 +7,7 @@ import { DotsIcon, EyeIcon, PlusIcon } from "../../../../shared/ui/icons";
 import { useEffect, useState } from "react";
 import { pickImage } from "../../../../shared/tools/pick-image";
 import { useUpdateAlbum } from "../../hooks";
+import { BASE_IMAGE_URL } from "../../../../shared/tools/requests";
 
 export function AlbumCard(props: IAlbum) {
 	const { id, name, topic, year, images } = props;
@@ -110,10 +111,10 @@ export function AlbumCard(props: IAlbum) {
 				}
 			>
 				{albumImages.length > 0 &&
-					albumImages.map((base64, index) => (
+					albumImages.map((image, index) => (
 						<Image
-							key={`img-${index}-${base64.substring(0, 10)}`}
-							source={{ uri: base64 }}
+							key={`img-${index}-${image.substring(0, 10)}`}
+							source={{ uri: `${BASE_IMAGE_URL}/${image}` }}
 							style={styles.image}
 						/>
 					))}

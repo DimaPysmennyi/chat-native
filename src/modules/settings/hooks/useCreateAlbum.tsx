@@ -1,15 +1,13 @@
-import { useEffect } from "react";
 import { POST } from "../../../shared/tools/requests";
-import { useAuthContext } from "../../auth/tools/context";
 import { InitialAlbumData } from "../types/modal.types";
 
 export async function useCreateAlbum(data: InitialAlbumData) {
-	const { user } = useAuthContext();
+	const { name, topic, userId } = data;
+	console.log(12312321312);
 	try {
-        console.log(12312321312);
 		const result = await POST<string>({
 			endpoint: `api/users/create-album`,
-			body: { ...data, userId: user?.id },
+			body: { name: name, topic: topic, userId: userId }
 		});
 
 		if (result.status == "error") {

@@ -9,13 +9,23 @@ import { CrossIcon } from "../../../../shared/ui/icons";
 import { Button } from "../../../../shared/ui/button";
 import { COLORS } from "../../../../shared/ui/colors";
 import { useCreateAlbum } from "../../hooks/useCreateAlbum";
+import { useAuthContext } from "../../../auth/tools/context";
 
 export function AlbumsModal(props: IAlbumModalProps) {
 	const { control, handleSubmit } = useForm<InitialAlbumData>();
 	const { isVisible, title, onClose } = props;
+	const { user } = useAuthContext();
+
 	function formSubmit(data: InitialAlbumData) {
-		useCreateAlbum(data);
-		onClose();
+		if (user) {
+			const allData = {
+				...data,
+				userId: user?.id,
+			};
+			useCreateAlbum(allData);
+			onClose();
+			return;
+		}
 	}
 	return (
 		<Modal isVisible={isVisible}>
@@ -62,7 +72,7 @@ export function AlbumsModal(props: IAlbumModalProps) {
 							return (
 								<Input
 									placeholder="Напишіть назву теми"
-									label="Назва альбому"
+									label="Назва теми"
 									onChange={field.onChange}
 									onChangeText={field.onChange}
 									value={field.value}

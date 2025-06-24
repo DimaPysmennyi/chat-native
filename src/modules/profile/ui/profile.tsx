@@ -1,19 +1,27 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useUserById } from "../../../shared/hooks";
 import { IProfileProps } from "../types/profile.types";
 import { styles } from "./profile.styles";
-import { Button } from "../../../shared/ui/button";
+import { Button, ImageButton } from "../../../shared/ui/button";
 import { COLORS } from "../../../shared/ui/colors";
 import { PostListItem } from "../../posts/ui/post-list-item";
 import { avatars } from "../../../../assets/avatars/avatars";
 import { BASE_IMAGE_URL } from "../../../shared/tools/requests";
+import { DotsIcon, EyeIcon } from "../../../shared/ui/icons";
 
 export function ProfileScreen(props: IProfileProps) {
 	const { user } = useUserById(props.id);
 	return (
-		<View style={{gap: 8, backgroundColor: COLORS.fog, flex: 1}}>
+		<View style={{ gap: 8, backgroundColor: COLORS.fog, flex: 1 }}>
 			<View style={styles.userInfo}>
-				<Image source={ user?.image? {uri: `${BASE_IMAGE_URL}/${user.image}`} : avatars.avatar} style={{width: 96, height: 96, borderRadius: 50}}></Image>
+				<Image
+					source={
+						user?.image
+							? { uri: `${BASE_IMAGE_URL}/${user.image}` }
+							: avatars.avatar
+					}
+					style={{ width: 96, height: 96, borderRadius: 50 }}
+				></Image>
 				<Text style={styles.userTitle}>
 					{user?.firstname} {user?.lastname}
 				</Text>
@@ -26,7 +34,7 @@ export function ProfileScreen(props: IProfileProps) {
 						<Text style={styles.infoBlockSubtitle}>Дописи</Text>
 					</View>
 					<View style={styles.infoBlock}>
-						<Text style={styles.infoBlockTitle}>12.1K</Text>
+						<Text style={styles.infoBlockTitle}>0</Text>
 						<Text style={styles.infoBlockSubtitle}>Читачі</Text>
 					</View>
 					<View style={styles.infoBlock}>
@@ -60,6 +68,13 @@ export function ProfileScreen(props: IProfileProps) {
 							borderWidth: 1,
 						}}
 					></Button>
+				</View>
+				<View>
+					{user?.albums
+						? user?.albums.map((item) => (
+								<View></View>
+						  ))
+						: undefined}
 				</View>
 			</View>
 			{user?.posts

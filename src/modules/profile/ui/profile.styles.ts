@@ -54,4 +54,19 @@ export const styles = StyleSheet.create({
 		gap: 16,
         height: 40
 	},
+	albumCard: {
+		height: "auto",
+		borderRadius: 10,
+		borderWidth: 1,
+		padding: 16,
+		gap: 16,
+		backgroundColor: COLORS.white,
+		borderColor: COLORS.blueOpacity20,
+	},
+	nameBlock: {
+		alignItems: "center",
+		height: 40,
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
 });

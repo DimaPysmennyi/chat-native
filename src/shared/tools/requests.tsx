@@ -1,6 +1,6 @@
 import { Response } from "../types";
 
-const BASE_URL = 'http://192.168.178.39:8000';
+const BASE_URL = 'http://192.168.0.100:8000';
 export const BASE_IMAGE_URL = `${BASE_URL}/media`
 
 interface IRequestParams{

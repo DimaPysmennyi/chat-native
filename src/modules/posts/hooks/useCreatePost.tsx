@@ -1,13 +1,8 @@
-import { useEffect } from "react";
-import { Response } from "../../../shared/types";
-import { useAuthContext } from "../../auth/tools/context";
 import { ICreatePost } from "../types/";
 import { POST } from "../../../shared/tools/requests";
 
 export async function useCreatePost(data: ICreatePost) {
-	// console.log(data);
 	const { title, topic, content, links, images, tags, userId } = data;
-	console.log(userId);
 	let imageString = "";
 	if (images) {
 		imageString = images.join(" ");

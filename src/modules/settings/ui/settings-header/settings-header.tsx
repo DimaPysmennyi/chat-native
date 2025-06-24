@@ -69,7 +69,7 @@ export function SettingsHeader(props: ISettingsHeaderProps){
                             router.replace("/settings/albums");
                         }}
                     >
-                        Запити
+                        Альбоми
                     </Link>
                 </Text>
             </View>

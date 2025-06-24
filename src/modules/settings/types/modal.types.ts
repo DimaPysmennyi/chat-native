@@ -12,6 +12,7 @@ export interface IDetailsForm {
 export interface InitialAlbumData {
 	name: string;
 	topic: string;
+	userId: number
 }
 
 export interface IAlbumModalProps {

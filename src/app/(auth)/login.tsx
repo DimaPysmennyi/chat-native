@@ -2,6 +2,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LoginForm } from "../../modules/auth/ui/login-form";
 import { StatusBar } from "expo-status-bar";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { NewGroup } from "../../modules/chats/ui/chat-modal/newgroup";
 
 export default function Login() {
 	return (
@@ -10,8 +11,8 @@ export default function Login() {
 				backgroundColor: "#E9E5EE",
 				flex: 1,
 			}}
-		>
-			<KeyboardAwareScrollView
+		> <NewGroup userId={0}/>
+			{/* <KeyboardAwareScrollView
 				keyboardShouldPersistTaps={"handled"}
 				enableOnAndroid
 				contentContainerStyle={{
@@ -26,7 +27,7 @@ export default function Login() {
 			>
 				<StatusBar style="auto" />
 				<LoginForm />
-			</KeyboardAwareScrollView>
+			</KeyboardAwareScrollView> */}
 		</SafeAreaView>
 	);
 }

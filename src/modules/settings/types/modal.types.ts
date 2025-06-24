@@ -13,9 +13,9 @@ export interface InitialAlbumData {
 	name: string;
 	topic: string;
 }
-
 export interface IAlbumModalProps {
 	isVisible: boolean;
 	title: string;
 	onClose: () => void;
 }
+

@@ -25,7 +25,7 @@ export function AlbumCard(props: IAlbum) {
 			if (selectedImages && selectedImages.length > 0) {
 				const base64Images = selectedImages
 					.filter((img) => img.base64)
-					.map((img) => `data:image/jpeg;base64,${img.base64}`);
+					.map((img) => `data:image/png;base64,${img.base64}`);
 
 				const newImages = [...albumImages, ...base64Images];
 				setAlbumImages(newImages);

@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
 		borderColor: COLORS.blueOpacity20,
 		borderRadius: 10,
 		flexDirection: 'row',
-		backgroundColor:"white"
+		backgroundColor:"white",
+		marginTop: 8,
 	},
 	titleView: {
 		width: "100%",

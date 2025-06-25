@@ -7,7 +7,7 @@ import { ScrollView } from "react-native-virtualized-view";
 
 export default function Messages() {
 	return (
-		<SafeAreaView style={{flex: 1}}>
+		<SafeAreaView>
 			<ScrollView overScrollMode="never">
 			<StatusBar style="auto"/>
 			<Header />

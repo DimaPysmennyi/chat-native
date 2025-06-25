@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         flexDirection: "row",
         paddingHorizontal: 16,
+        backgroundColor: 'white'
     },
     button: {
         height: 54,
@@ -15,7 +16,8 @@ export const styles = StyleSheet.create({
         paddingBottom: 4,
         paddingTop: 8,
         gap: 6,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'white'
     },
     buttonBorder: {
         borderTopWidth: 2,

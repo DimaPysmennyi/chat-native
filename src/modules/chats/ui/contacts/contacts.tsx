@@ -26,12 +26,14 @@ export function ContactsComponent() {
 	const { user } = useAuthContext();
 	const [friends, setFriends] = useState<IUser[] | null>([])
 
-	// useEffect(()=>{
-	// 	if (user) {
-	// 		const {friends} = useAllFriends(user.id);
+
+	// if (user) {
+	// 	const {friends} = useAllFriends(user.id);
+	// 	if (friends) {
 	// 		setFriends(friends)
 	// 	}
-	// }, [])
+	// }
+
 	
 	return (
 		<View>

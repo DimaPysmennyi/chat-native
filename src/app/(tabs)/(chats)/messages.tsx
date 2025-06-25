@@ -3,39 +3,44 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../../shared/ui/header";
 import { ChatsHeader } from "../../../modules/chats/ui/chats-header";
 import { MessagesComponent } from "../../../modules/chats/ui/messages";
-import { IChat } from "../../../modules/chats/types/chat.types";
+import { ScrollView } from "react-native-virtualized-view";
 
 export default function Messages() {
 	return (
-		<SafeAreaView>
-			<StatusBar style="auto" />
+		<SafeAreaView style={{flex: 1}}>
+			<ScrollView overScrollMode="never">
+			<StatusBar style="auto"/>
 			<Header />
-			<ChatsHeader currentState="messages" />
+			<ChatsHeader currentState="messages"/>
 			<MessagesComponent
 				chats={[
 					{
 						id: 1,
-						isPersonalChat: true,
+						isPersonalChat: false,
+                        name: "Chat1",
+                        adminId: 1,
+
 						members: [
 							{
 								id: 1,
+								name: "user1",
 								email: "gdimon4ik10@gmail.com",
 								posts: [],
-								friends: [],
 								albums: [],
 							},
-                            {
-                                id: 2, 
-                                email: "communityservine@gmail.com",
-                                posts: [],
-                                friends: [],
-                                albums: []
-                            }
+							{
+								id: 2,
+								name: "user2",
+								email: "communityservine@gmail.com",
+								posts: [],
+								albums: [],
+							},
 						],
 						messages: [],
 					},
 				]}
 			/>
+			</ScrollView>
 		</SafeAreaView>
 	);
 }

@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 8,
         paddingBottom: 4,
         paddingTop: 8,
-        gap: 6
+        gap: 6,
+        alignItems: 'center'
     },
     buttonBorder: {
         borderTopWidth: 2,
@@ -23,6 +24,6 @@ export const styles = StyleSheet.create({
     buttonText: {
         fontSize: 14,
         color: COLORS.blue,
-        fontFamily: "GTWalsheimPro-Regular"
+        fontFamily: "GTWalsheimPro-Medium"
     }
 })

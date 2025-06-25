@@ -6,10 +6,12 @@ export const styles = StyleSheet.create({
 		width: "100%",
 		// height: 555,
 		padding: 16,
-		gap: 24,
+		gap: 8,
 		borderWidth: 1,
 		borderColor: COLORS.blueOpacity20,
 		borderRadius: 10,
+		flexDirection: 'row',
+		backgroundColor:"white"
 	},
 	titleView: {
 		width: "100%",
@@ -17,7 +19,7 @@ export const styles = StyleSheet.create({
 		gap: 8,
 	},
 	titleText: {
-		fontFamily: "GTWalsheimPro-Regular",
+		fontFamily: "GTWalsheimPro-Medium",
 		fontSize: 20,
 		color: COLORS.blueOpacity,
 	},

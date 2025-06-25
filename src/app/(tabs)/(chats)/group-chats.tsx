@@ -1,16 +1,17 @@
-import { StatusBar } from "expo-status-bar";
-import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../../shared/ui/header";
+import { StatusBar } from "expo-status-bar";
 import { ChatsHeader } from "../../../modules/chats/ui/chats-header";
 import { MessagesComponent } from "../../../modules/chats/ui/messages";
+import { ScrollView } from "react-native-virtualized-view";
 
-export default function Chats() {
+export default function GroupChats() {
 	return (
-		<SafeAreaView>
-			<StatusBar style="auto" />
+		<SafeAreaView style={{flex: 1}}>
+			<ScrollView overScrollMode="never">
+			<StatusBar style="auto"/>
 			<Header />
-			<ChatsHeader currentState="messages" />
+			<ChatsHeader currentState="group chats"/>
 			<MessagesComponent
 				chats={[
 					{
@@ -18,7 +19,7 @@ export default function Chats() {
 						isPersonalChat: false,
                         name: "Chat1",
                         adminId: 1,
-                        
+
 						members: [
 							{
 								id: 1,
@@ -39,6 +40,9 @@ export default function Chats() {
 					},
 				]}
 			/>
+			</ScrollView>
 		</SafeAreaView>
 	);
 }
+
+

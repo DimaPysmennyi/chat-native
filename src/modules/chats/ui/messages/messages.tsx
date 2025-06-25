@@ -4,6 +4,7 @@ import { ScrollView } from "react-native-virtualized-view";
 import { ChatsIcon } from "../../../../shared/ui/icons/tab-icons";
 import { COLORS } from "../../../../shared/ui/colors";
 import { styles } from "./messages.styles";
+import { ChatIcon } from "../../../../shared/ui/icons";
 
 function Chat(props: { item: IChat }) {
 	const { messages, name, members, isPersonalChat } = props.item;
@@ -32,7 +33,7 @@ function Chat(props: { item: IChat }) {
 							color: COLORS.blueOpacity,
 						}}
 					>
-						{messages[messages.length - 1].sendAt}
+						{/* {messages[messages.length - 1].sendAt} */}
 					</Text>
 				</View>
 				<Text
@@ -42,7 +43,7 @@ function Chat(props: { item: IChat }) {
 						color: COLORS.blue,
 					}}
 				>
-					{messages[messages.length - 1].content}
+					{/* {messages[messages.length - 1].content} */}
 				</Text>
 			</View>
 		</View>
@@ -58,7 +59,7 @@ export function MessagesComponent(props: IMessagesProps) {
 	return (
 		<ScrollView overScrollMode="never">
 			<View style={styles.messagesView}>
-				<ChatsIcon width={20} height={20} fill={COLORS.blueOpacity} />
+				<ChatIcon width={20} height={20} fill={COLORS.white} stroke={COLORS.blueOpacity}/>
 				<Text style={styles.titleText}>Повідомлення</Text>
 			</View>
 			<View style={{width: "100%", justifyContent: "center"}}>

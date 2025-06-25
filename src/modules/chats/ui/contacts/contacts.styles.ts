@@ -4,13 +4,13 @@ import { COLORS } from "../../../../shared/ui/colors";
 export const styles = StyleSheet.create({
     contactsView: {
         width: "100%",
-        // height: 555,
         padding: 16,
         gap: 24,
         borderWidth: 1,
         borderColor: COLORS.blueOpacity20,
         borderRadius: 10,
-
+        backgroundColor: 'white',
+        marginTop: 8
     },
     titleView: {
         width: "100%",
@@ -22,6 +22,11 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         color: COLORS.blueOpacity
     },
+
+
+
+
+
     contactCard: {
         flexDirection: "row",
         gap: 16,

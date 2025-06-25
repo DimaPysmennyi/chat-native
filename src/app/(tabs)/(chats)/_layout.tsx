@@ -1,14 +1,14 @@
 import { Stack } from "expo-router";
 import { Platform } from "react-native";
 
-export default function SettingsLayout(){
+export default function ChatsLayout(){
     return(
         <Stack screenOptions={{
             headerShown: false,
             statusBarBackgroundColor: "#FFFFFF",
             statusBarStyle: Platform.OS === "android" ? "dark" : undefined
         }}
-        initialRouteName="chats">
+        initialRouteName="contacts">
         </Stack>
     )
 }

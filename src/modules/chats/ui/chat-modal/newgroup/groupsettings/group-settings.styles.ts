@@ -79,7 +79,7 @@ buttons: {
 },
 button1:{
     width:80,
-    height:40,
+    height:42,
     backgroundColor:"white",
     borderWidth:1,
     borderRadius:1234,
@@ -89,15 +89,16 @@ button1:{
     fontFamily:"GTWalsheimPro-Medium"
 },
 button2:{
-    width:120,
-    height:40,
+    width:134,
+    height:42,
     backgroundColor:"#543C52",
     borderWidth:1,
     borderRadius:1234,
     borderColor:"#543C52",
     alignItems:"center",
     justifyContent:"center",
-    fontFamily:"GTWalsheimPro-Medium"
+    fontFamily:"GTWalsheimPro-Medium",
+    padding: 12
 },
 textbutton1:{
     color:"#543C52",

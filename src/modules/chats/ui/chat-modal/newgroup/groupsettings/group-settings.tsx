@@ -5,10 +5,11 @@ import { Input } from "../../../../../../shared/ui/input";
 
 import Modal from "react-native-modal";
 import { styles } from "./group-settings.styles";
-import { ImageButton } from "../../../../../../shared/ui/button";
+import { Button, ImageButton } from "../../../../../../shared/ui/button";
 import { GalleryIcon } from "../../../../../../shared/ui/icons/tab-icons";
 import { COLORS } from "../../../../../../shared/ui/colors";
 import { ScrollView } from "react-native-virtualized-view";
+import { avatars } from "../../../../../../../assets/avatars/avatars";
 
 type SettingsData = {
   
@@ -40,11 +41,11 @@ export function GroupSettings(props:IGroupModal){
             </View>
             <View style = {styles.searchbar}>
                 <View><Text>Назва</Text></View>
-                <Input placeholder="🔍Пошук" />
+                <Input placeholder="🔍  Пошук" />
             </View>
 
             <View style = {styles.imagesblock}>
-                <Image source={{ uri: avatar }} style={styles.avatar} />
+                <Image source={avatars.avatar} style={styles.avatar} />
 
                 <View style = {styles.buttons}>
                     <TouchableOpacity style={styles.photobutton1}>
@@ -78,13 +79,8 @@ export function GroupSettings(props:IGroupModal){
             <View style = {styles.crossblock}>
             <View style = {styles.buttons}>
 
-                <TouchableOpacity style={styles.button1}>
-                <Text style = {styles.textbutton1}>Назад</Text>
-                </TouchableOpacity> 
-
-                <TouchableOpacity style={styles.button2}>
-                <Text style = {styles.textbutton2}>Створити групу</Text>
-                </TouchableOpacity> 
+                <Button label="Назад" fontSize={14} textColor={COLORS.purple} style={styles.button1}/>
+                <Button label="Створити групу" fontSize={14}style={styles.button2}/>
 
             </View>
             </View>

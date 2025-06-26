@@ -6,7 +6,7 @@ import { ScrollView } from "react-native-virtualized-view";
 import Modal from "react-native-modal";
 import { FriendItem } from "./friendItem";
 import { useState } from "react";
-type Friends = {userId:number}
+
 export interface IGroupModal {
 	isVisible: boolean;
 	onClose: () => void;

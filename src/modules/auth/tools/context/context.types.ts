@@ -17,6 +17,7 @@ export interface IUser {
 
 export interface IAuthContext{
     user: IUser | null,
+    token: string | null,
     resultMessage: string | null,
     login: (email: string, password: string) => void
     register: (email: string, password: string, code: string) => void

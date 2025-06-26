@@ -54,21 +54,23 @@ export default function Recommendations() {
 				>
 					{allUsers ? (
 						allUsers.map((item) => {
-							return (
-								<FriendCard
-									key={item.id}
-									image={item.image}
-									firstname={item.firstname}
-									lastname={item.lastname}
-									username={item.username}
-									buttonLabel={"Додати"}
-									onFirstButtonPress={() => {
-										if (user) {
-											sendRequest(user, item.id);
-										}
-									}}
-								/>
-							);
+							if (user && item.id !== user.id){
+								return (
+									<FriendCard
+										key={item.id}
+										image={item.image}
+										firstname={item.firstname}
+										lastname={item.lastname}
+										username={item.username}
+										buttonLabel={"Додати"}
+										onFirstButtonPress={() => {
+											if (user) {
+												sendRequest(user, item.id);
+											}
+										}}
+									/>
+								);
+							}
 						})
 					) : (
 						<Text>Немає друзів</Text>

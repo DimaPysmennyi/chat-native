@@ -11,10 +11,11 @@ export default function Login() {
 				backgroundColor: "#E9E5EE",
 				flex: 1,
 			}}
-		> <GroupSettings isVisible={true} onClose={function (): void {
+		> 
+		{/* <GroupSettings isVisible={true} onClose={function (): void {
 				throw new Error("Function not implemented.");
-			} } id={0} name={""} avatar={""}></GroupSettings>
-			{/* <KeyboardAwareScrollView
+			} } id={0} name={""} avatar={""}></GroupSettings> */}
+			<KeyboardAwareScrollView
 				keyboardShouldPersistTaps={"handled"}
 				enableOnAndroid
 				contentContainerStyle={{
@@ -29,7 +30,7 @@ export default function Login() {
 			>
 				<StatusBar style="auto" />
 				<LoginForm />
-			</KeyboardAwareScrollView> */}
+			</KeyboardAwareScrollView>
 		</SafeAreaView>
 	);
 }

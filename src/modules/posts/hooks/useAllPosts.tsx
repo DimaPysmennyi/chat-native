@@ -11,7 +11,7 @@ export function useAllPosts(): {posts: IPost[]} {
 					endpoint: "api/posts/all"
 				});
 
-                console.log(posts);
+                // console.log(posts);
 				if (response.status == "error"){
 					console.log(response.message);
 					return;

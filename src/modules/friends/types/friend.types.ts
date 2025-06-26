@@ -21,7 +21,8 @@ export interface IFriendship{
 
 export interface IFriendListProps {
     variant: "requests" | "recommendations" | "friends",
-    array: IUser[] | undefined
+    arrayUser?: IUser[] | undefined
+    arrayFriends?: IFriendship[] | undefined
 }
 
 export interface IDeleteFriendModalProps{

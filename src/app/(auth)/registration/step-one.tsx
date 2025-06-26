@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 import { RegisterFormStepOne } from "../../../modules/auth/ui/register-form/register-form-step-one";
 import { COLORS } from "../../../shared/ui/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { NewGroup } from "../../../modules/chats/ui/chat-modal/newgroup";
+// import { NewGroup } from "../../../modules/chats/ui/chat-modal/newgroup";
 
 export default function RegisterStepOne() {
 	return (

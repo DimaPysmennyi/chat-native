@@ -11,8 +11,9 @@ import { FriendCard } from "../../../modules/friends/ui/friend-card";
 export default function AllFriends() {
 	const { user } = useAuthContext();
 	if (user) {
-		var {friends} = useAllFriends(user?.id);
+		var {friends} = useAllFriends();
 	}
+	console.log(friends);
 	return (
 		<SafeAreaView>
 			<StatusBar style="dark" />

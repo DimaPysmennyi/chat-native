@@ -11,12 +11,21 @@ import { Text } from "react-native";
 import { useAllRequests } from "../../../modules/friends/hooks/useAllRequests";
 
 export default function Friends(){
-	const { user } = useAuthContext();
-	const { users: allUsers } = useAllUsers();
-	if (user){
-		var friends = useAllFriends(user?.id).friends
-		var {requests} = useAllRequests(user?.id);
+	const { user: contextUser } = useAuthContext();
+	const { users } = useAllUsers();
+	if (contextUser){
+		var {friends} = useAllFriends();
+		var {requests} = useAllRequests();
 	}
+
+	const allUsers = users?.filter((user) => {
+		if (friends){
+			for (let friend of friends){
+				return friend.id !== user.id && contextUser ? user.id !== contextUser.id : undefined;
+			}
+		}
+	})
+
     return (
         <SafeAreaView>
 			<StatusBar style="dark" />
@@ -29,9 +38,9 @@ export default function Friends(){
 
 			<FriendHeader page={"Головна"}/>
             
-			{requests ? <FriendList variant="requests" array={friends}/>: <Text>No requests</Text>}
-            {allUsers ? <FriendList variant="recommendations" array={allUsers}/> : <Text>No recommendations</Text>}
-            {friends ? <FriendList variant="friends" array={friends}/>: <Text>No friends</Text>}
+			{requests ? <FriendList variant="requests" arrayFriends={requests}/>: <Text>No requests</Text>}
+            {allUsers ? <FriendList variant="recommendations" arrayUser={allUsers}/> : <Text>No recommendations</Text>}
+            {friends ? <FriendList variant="friends" arrayUser={friends}/>: <Text>No friends</Text>}
         </ScrollView>
 		</SafeAreaView>
     )

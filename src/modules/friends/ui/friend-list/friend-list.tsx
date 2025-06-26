@@ -2,8 +2,9 @@ import { FlatList, View, Text, TouchableOpacity } from "react-native";
 import { FriendCard } from "../friend-card";
 import { IFriendListProps } from "../../types/friend.types";
 import { styles } from "./friend-list.styles";
+
 export function FriendList(props: IFriendListProps) {
-	const { variant, array } = props;
+	const { variant, arrayUser, arrayFriends } = props;
 
 	function getLabel() {
 		let buttonLabel = "";
@@ -52,23 +53,42 @@ export function FriendList(props: IFriendListProps) {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.friendList}>
-				{array ? (
-					array.length > 0 ? (
+				{arrayUser ? (
+					arrayUser.length > 0 ? (
 						<FlatList
 							style={{ gap: 8 }}
-							data={array ? array.length > 1 ? [array[0], array[1]] : [array[0]] : undefined}
+							data={arrayUser ? arrayUser.length > 1 ? [arrayUser[0], arrayUser[1]] : [arrayUser[0]] : undefined}
 							renderItem={({ item }) => {
-								return (
-									<FriendCard
-										image={item.image}
-										firstname={item.firstname}
-										lastname={item.lastname}
-										username={item.username}
-										buttonLabel={getLabel()[0]}
-									/>
-								);
+									return (
+										<FriendCard
+											image={item.image}
+											firstname={item.firstname}
+											lastname={item.lastname}
+											username={item.username}
+											buttonLabel={getLabel()[0]}
+										/>
+									);
 							}}
 						/>
+					) : undefined
+				) : undefined}
+				{arrayFriends ? (
+					arrayFriends.length > 0 ? (
+						<FlatList
+							style={{ gap: 8 }}
+							data={arrayFriends ? arrayFriends.length > 1 ? [arrayFriends[0], arrayFriends[1]] : [arrayFriends[0]] : undefined}
+							renderItem={({ item }) => {
+									return (
+										<FriendCard
+											image={item.profile1.image}
+											firstname={item.profile1.firstname}
+											lastname={item.profile1.lastname}
+											username={item.profile1.username}
+											buttonLabel={getLabel()[0]}
+										/>
+									);
+							}}
+						/>						
 					) : undefined
 				) : undefined}
 			</View>

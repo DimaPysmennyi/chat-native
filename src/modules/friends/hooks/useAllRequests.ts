@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { GET } from "../../../shared/tools/requests";
 import { IFriendship } from "../types/friend.types";
+import { useAuthContext } from "../../auth/tools/context";
 
-export function useAllRequests(id: number){
+export function useAllRequests(){
     const [requests, setRequests] = useState<IFriendship[]>();
     const [error, setError] = useState<string>();
+    const {user} = useAuthContext()
     useEffect(() => {
         async function getRequests(){
             try{
-                const response = await GET<IFriendship[]>({endpoint: `api/friends/get-all-requests/${id}`});
+                const response = await GET<IFriendship[]>({endpoint: `api/friends/get-all-requests/${user?.id}`});
                 if (response.status == "error"){
                     setError(response.message);
                     return;
@@ -20,6 +22,6 @@ export function useAllRequests(id: number){
             }
         }
         getRequests();
-    }, [id])
+    }, [user])
     return {requests, error}
 }

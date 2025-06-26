@@ -10,6 +10,7 @@ import { GET, POST } from "../../../../shared/tools/requests";
 
 const initialValue: IAuthContext = {
 	user: null,
+	token: null,
 	resultMessage: null,
 	login: (email: string, password: string) => {},
 	register: (
@@ -30,6 +31,7 @@ export function useAuthContext() {
 
 export function AuthContextProvider(props: IAuthContextProviderProps) {
 	const [user, setUser] = useState<IUser | null>(null);
+	const [token, setToken] = useState<string | null>(null);
 	const [resultMessage, setResultMessage] = useState<string | null>(null);
 
 	async function getData(token: string) {
@@ -45,6 +47,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 			}
 			// console.log(result.data);
 			setUser(result.data);
+			setToken(token);
 			// console.log(user);
 		} catch (error) {
 			console.error(error);
@@ -125,6 +128,7 @@ export function AuthContextProvider(props: IAuthContextProviderProps) {
 		<authContext.Provider
 			value={{
 				user: user,
+				token: token,
 				resultMessage: resultMessage,
 				login: login,
 				register: register,

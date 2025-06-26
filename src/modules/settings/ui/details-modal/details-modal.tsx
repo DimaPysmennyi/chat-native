@@ -13,7 +13,7 @@ export function DetailsModal({ isVisible, onClose }: IDetailsModalProps) {
 	const { handleSubmit, control } = useForm<IDetailsForm>();
 	const {user} = useAuthContext();
 	function submitInfo(data: IDetailsForm){
-		console.log(user);
+		// console.log(user);
 		if (user){
 			useUpdateUser({id: user.id, ...data});
 			onClose()

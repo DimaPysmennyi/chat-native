@@ -31,7 +31,10 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 16,
         width: "100%",
-        height: 46
+        // justifyContent: "center",
+        alignItems: "center",
+        height: 46,
+        marginBottom: 16
     },
     contactText: {
         fontFamily: "GTWalsheimPro-Regular",

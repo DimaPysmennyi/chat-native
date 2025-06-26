@@ -11,8 +11,6 @@ import { useAuthContext } from "../../../modules/auth/tools/context";
 import { useEffect, useState } from "react";
 import { IUser } from "../../../modules/auth/tools/context/context.types";
 import { IFriendship } from "../../../modules/friends/types/friend.types";
-import { useAcceptRequest } from "../../../modules/friends/hooks/useAcceptRequest";
-import { useRejectRequest } from "../../../modules/friends/hooks/useRejectRequest";
 import { GET } from "../../../shared/tools/requests";
 
 async function acceptFriend(id: number) {
@@ -49,7 +47,7 @@ export default function Requests() {
 	const [users, setUsers] = useState<IUser[]>();
 
 	if (user) {
-		var { requests } = useAllRequests(user.id);
+		var { requests } = useAllRequests();
 	}
 
 	return (

@@ -11,8 +11,11 @@ import { Text, View } from "react-native";
 import { IPost } from "../../../modules/posts/types";
 import { useRouter } from "expo-router";
 import { GET } from "../../../shared/tools/requests";
+import { useSocketContext } from "../../../modules/chats/context/context.socket";
 
-async function updatePosts(setPosts: React.Dispatch<React.SetStateAction<IPost[] | null>>) {
+async function updatePosts(
+	setPosts: React.Dispatch<React.SetStateAction<IPost[] | null>>
+) {
 	try {
 		const response = await GET<IPost[]>({
 			endpoint: "api/posts/all",
@@ -33,6 +36,7 @@ export default function MainPage() {
 	let [posts, setPosts] = useState<IPost[] | null>([]);
 	const { user } = useAuthContext();
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+	const { joinChat, sendMessage } = useSocketContext();
 
 	useEffect(() => {
 		user
@@ -43,10 +47,12 @@ export default function MainPage() {
 	}, [user]);
 
 	// useEffect(() => (allPosts ? setPosts(allPosts) : undefined), [allPosts]);
-	useEffect(() => {updatePosts(setPosts)}, []);
+	useEffect(() => {
+		updatePosts(setPosts);
+	}, []);
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView edges={["bottom", "top"]} style={{flex: 1}}>
 			<StatusBar style="dark" />
 			<ScrollView
 				// style={{gap: 8}}
@@ -61,9 +67,22 @@ export default function MainPage() {
 						setIsModalVisible(false);
 					}}
 				/>
-				{/* <Text onPress={() => router.replace("/profile/11")}>
-					Profile
-				</Text> */}
+				<Text onPress={() => joinChat({ chatId: 1 })}>Join chat</Text>
+				<Text
+					onPress={() => {
+						user
+							? sendMessage({
+									message: {
+										content: "message",
+										authorId: user?.id,
+										chatGroupId: 1
+									},
+							  })
+							: undefined;
+					}}
+				>
+					Send
+				</Text>
 				<View style={{ gap: 8 }}>
 					{posts
 						? posts.map((item) => (

@@ -5,14 +5,23 @@ import { ChatsIcon } from "../../../../shared/ui/icons/tab-icons";
 import { COLORS } from "../../../../shared/ui/colors";
 import { styles } from "./messages.styles";
 import { ChatIcon } from "../../../../shared/ui/icons";
+import { useUserById } from "../../../../shared/hooks";
+import { useAuthContext } from "../../../auth/tools/context";
 
 function Chat(props: { item: IChat }) {
 	const { messages, name, members, isPersonalChat } = props.item;
+	const { user } = useAuthContext();
+	if (isPersonalChat){
+		const secondUser = members.filter((member) => {
+			return member.userId !== user?.id
+		})
+		var {user: anotherUser} = useUserById(secondUser[0].userId)
+	}
 	return (
 		<View style={styles.message}>
 			<Image
-				source={isPersonalChat ? { uri: members[1].image } : undefined}
-			></Image>
+				source={isPersonalChat ? { uri: anotherUser?.image } : undefined}
+			></Image>	
 			<View>
 				<View style={styles.messageTitle}>
 					<Text
@@ -23,7 +32,7 @@ function Chat(props: { item: IChat }) {
 						}}
 					>
 						{isPersonalChat
-							? `${members[1].firstname} ${members[1].lastname}`
+							? `${anotherUser?.firstname} ${anotherUser?.lastname}`
 							: name}
 					</Text>
 					<Text
@@ -43,7 +52,7 @@ function Chat(props: { item: IChat }) {
 						color: COLORS.blue,
 					}}
 				>
-					{/* {messages[messages.length - 1].content} */}
+					{messages[messages.length - 1].content}
 				</Text>
 			</View>
 		</View>

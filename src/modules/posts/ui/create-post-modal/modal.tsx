@@ -64,7 +64,7 @@ export function CreatePostModal({ isVisible, onClose }: IModalProps) {
 		if (assets) {
 			const base64Images = assets
 				.filter((asset) => asset.base64)
-				.map((asset) => `data:image/jpeg;base64,${asset.base64}`);
+				.map((asset) => `data:image/png;base64,${asset.base64}`);
 			setImages((prev) => [...prev, ...base64Images]);
 		}
 	}

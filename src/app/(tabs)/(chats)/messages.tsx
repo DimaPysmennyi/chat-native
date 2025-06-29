@@ -5,10 +5,12 @@ import { ChatsHeader } from "../../../modules/chats/ui/chats-header";
 import { MessagesComponent } from "../../../modules/chats/ui/messages";
 import { ScrollView } from "react-native-virtualized-view";
 import { useSocketContext } from "../../../modules/chats/context/context.socket";
+import { Redirect } from "expo-router";
 
 export default function Messages() {
 	const {getChats} = useSocketContext();
 	const {chats} = getChats();
+	console.log(chats);
 	return (
 		<SafeAreaView>
 			<ScrollView overScrollMode="never">
@@ -20,4 +22,5 @@ export default function Messages() {
 			</ScrollView>
 		</SafeAreaView>
 	);
+	// return Redirect({href: '/chat/1'})
 }

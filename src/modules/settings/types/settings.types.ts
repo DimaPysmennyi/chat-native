@@ -40,5 +40,5 @@ export interface IUpdateAlbum {
   name?: string;
   theme?: string;
   year?: string;
-  images?: string;
+  images?: string[];
 }

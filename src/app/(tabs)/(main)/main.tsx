@@ -59,7 +59,7 @@ export default function MainPage() {
 				alwaysBounceVertical={false}
 				overScrollMode="never"
 			>
-				<Header posts={posts ? posts : undefined} setPosts={setPosts} />
+				<Header add="post" />
 				{/* {!user?.username ? setIsModalVisible(true) : undefined} */}
 				<DetailsModal
 					isVisible={isModalVisible}
@@ -74,6 +74,7 @@ export default function MainPage() {
 							? sendMessage({
 									message: {
 										content: "message",
+										sentAt: new Date(),
 										authorId: user?.id,
 										chatGroupId: 1
 									},

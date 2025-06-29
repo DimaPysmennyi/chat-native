@@ -1,8 +1,16 @@
+interface AttachedImage{
+    id?: number,
+    filename: string,
+    file?: string,
+    uploadedAt?: Date,
+    messageId?: number
+}
+
 export interface IMessage{
-    id: number,
+    id?: number,
     content: string,
-    sendAt: string,
-    attachedImage?: string,
+    sentAt: Date,
+    attachedImage?: AttachedImage,
     authorId: number,
     chatGroupId: number
 }

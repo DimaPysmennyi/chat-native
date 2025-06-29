@@ -16,7 +16,7 @@ export interface ISocketContext {
     joinChat: (data: IJoinChatPayload) => void;
     leaveChat: (data: ILeaveChatPayload) => void;
     sendMessage: (data: SendMessagePayload) => void;
-    createChat: (membersIds: number[], data?: {name?: string, avatar?: string}) => Promise<void>;
+    createChat: (membersIds: number[], data?: {name?: string, avatar?: string | null}) => Promise<void>;
 	getChats: () => {chats: IChat[] | [] }
 }
 
@@ -58,7 +58,7 @@ export function SocketContextProvider({
         socket?.emit("sendMessage", {message: payload.message})
     }
 
-    async function createChat(membersIds: number[], data?: {name?: string, avatar?: string}){
+    async function createChat(membersIds: number[], data?: {name?: string, avatar?: string | null}){
         const chat = await POST({endpoint: "api/chats/create", body: {
             membersIds: membersIds,
             data: data
@@ -86,6 +86,10 @@ export function SocketContextProvider({
 			}
 		}, [userId])
 		return {chats}
+	}
+
+	function getChat(id: number){
+		
 	}
 
     useEffect(() => {

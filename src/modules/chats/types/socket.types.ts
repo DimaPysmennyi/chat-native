@@ -1,22 +1,6 @@
 import { Response } from "../../../shared/types";
 import { IChat } from "./chat.types";
-
-interface NewMessagePayload {
-	id: number;
-	content: string;
-	sentAt: Date;
-	attachedImage: string | null;
-	authorId: number;
-	chatGroupId: number;
-};
-
-export interface Message {
-    content: string;
-    sentAt?: Date | string;
-    attachedImage?: string | null;
-    authorId: number;
-    chatGroupId: number;
-}
+import { IMessage } from "./message.types";
 
 export interface IChatUpdatePayload {
     chatId: number
@@ -32,11 +16,11 @@ export interface ILeaveChatPayload {
 export type IJoinChatCallback = (response: Response<IChat>) => void;
 
 export type SendMessagePayload = {
-    message: Message
+    message: IMessage
 }
 
 export interface IServerEvents {
-	newMessage: (data: NewMessagePayload) => void;
+	newMessage: (data: IMessage) => void;
 	chatUpdate: (data: IChatUpdatePayload) => void;
 }
 

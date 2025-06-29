@@ -18,19 +18,16 @@ export function AlbumCard(props: IAlbum) {
 	async function handleAddImage() {
 		try {
 			const selectedImages = await pickImage({
-				allowsMultipleSelection: true,
+				allowsMultipleSelection: false,
 				base64: true,
 			});
 
 			if (selectedImages && selectedImages.length > 0) {
-				const base64Images = selectedImages
-					.filter((img) => img.base64)
-					.map((img) => `data:image/jpeg;base64,${img.base64}`);
 
-				const newImages = [...albumImages, ...base64Images];
+				const newImages = [...albumImages, `data:image/png;base64,${selectedImages[0].base64}`];
 				setAlbumImages(newImages);
 
-				await useUpdateAlbum({ images: newImages.join(" "), id });
+				await useUpdateAlbum({ images: newImages, id });
 			}
 		} catch (error) {
 			console.error("Error picking images:", error);

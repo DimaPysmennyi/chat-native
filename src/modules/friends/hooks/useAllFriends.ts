@@ -11,11 +11,15 @@ export function useAllFriends() {
 		async function getFriends() {
 			try {
 				const friends = await GET<IUser[]>({endpoint: `api/friends/all/${user?.id}`})
+				
 				if (friends.status == "error") {
 					setError(friends.message);
 					return;
 				}
-				setFriends(friends.data);
+
+				const friendsData = friends.data.filter((friend) => friend.id !== user?.id)
+				
+				setFriends(friendsData);
 			} catch (error) {
 				const err = error instanceof Error ? error.message : undefined;
 				setError(err);

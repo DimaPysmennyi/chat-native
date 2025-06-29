@@ -7,11 +7,14 @@ export const styles = StyleSheet.create({
 		// height: 555,
 		padding: 16,
 		gap: 8,
-		borderWidth: 1,
+		borderTopWidth: 1,
+		borderLeftWidth: 1,
+		borderRightWidth: 1,
 		borderColor: COLORS.blueOpacity20,
 		borderRadius: 10,
 		flexDirection: 'row',
-		backgroundColor:"white",
+		backgroundColor: "white",
+		alignItems: "center",
 		marginTop: 8,
 	},
 	titleView: {
@@ -25,10 +28,12 @@ export const styles = StyleSheet.create({
 		color: COLORS.blueOpacity,
 	},
     message: {
-        width: "100%",
+        // flex: 1,
         backgroundColor: "white",
         paddingVertical: 8,
         paddingHorizontal: 16,
+		flexDirection: "row",
+		alignItems: "center",
         gap: 16
     },
     chatImage: {
@@ -39,6 +44,7 @@ export const styles = StyleSheet.create({
     messageTitle: {
         width: "100%",
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+		// alignItems: "flex-end"
     }
 });

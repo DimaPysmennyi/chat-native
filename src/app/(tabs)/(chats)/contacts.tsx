@@ -10,7 +10,7 @@ export default function Contacts() {
         <SafeAreaView>
             <ScrollView overScrollMode="never">
                 <StatusBar style="auto"/>
-                <Header/>
+                <Header add="chat"/>
                 <ChatsHeader currentState="contacts"/>
                 <ContactsComponent/>
             </ScrollView>

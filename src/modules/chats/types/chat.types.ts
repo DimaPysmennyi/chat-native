@@ -7,6 +7,6 @@ export interface IChat{
     isPersonalChat: boolean,
     avatar?: string,
     adminId?: number,
-    members: {userId: number, chatId: number}[],
+    members: {user: IUser}[],
     messages: IMessage[]
 }

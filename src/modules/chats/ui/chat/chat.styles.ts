@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
         padding: 16,
         borderColor: COLORS.blueOpacity20,
         marginTop: 8,
+        // flex: 1
     },
     chatHeaderView: {
         height: 58,
@@ -25,7 +26,8 @@ export const styles = StyleSheet.create({
         gap: 10
     },
     messagesView: {
-        height: 500
+        height: 627,
+        gap: 10
     },
     sendMessageView: {
         flexDirection: 'row',

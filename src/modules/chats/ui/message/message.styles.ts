@@ -5,10 +5,11 @@ export const styles = StyleSheet.create({
 	userMessageView: {
 		width: "100%",
 		minHeight: 42,
-		justifyContent: "flex-end",
+		alignItems: "flex-end",
 	},
 	userMessage: {
 		minHeight: 42,
+		// width: 100,
 		backgroundColor: COLORS.blueOpacity20,
 		borderRadius: 6,
 		flexDirection: "row",
@@ -24,7 +25,7 @@ export const styles = StyleSheet.create({
 		minHeight: 62,
 		backgroundColor: COLORS.white,
 		flexDirection: "row",
-		alignItems: "flex-end",
+		// alignItems: "flex-end",
 		borderWidth: 1,
 		borderColor: COLORS.purpleOpacity,
 		borderRadius: 6,
